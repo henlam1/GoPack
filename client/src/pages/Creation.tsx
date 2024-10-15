@@ -5,7 +5,7 @@ export default function Creation({onFinish}) {
         <div>
             <Navbar/>
             Creation Page
-            <button class="bg-indigo-300" type="submit" onClick={onFinish}>CLICK ME</button>
+            <button className="bg-indigo-300" type="submit" onClick={onFinish}>CLICK ME</button>
         </div>
     )
 }
