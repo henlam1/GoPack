@@ -1,17 +1,21 @@
 import AllPackingLists from "../components/AllPackingLists";
 
-export default function Landing({onCreate}){
+type LandingProps = {
+    onCreate: () => void;
+}
+
+export default function Landing(props: LandingProps){
 
     return(
         <div className="text-center">
             <div className="card w-96 shadow-xl card-bordered mx-auto">
                 <div className="card-body items-center text-center">
-                    <div className="card-title">Landing Page</div>
+                    <div className="card-title">Packing Lists</div>
                     <AllPackingLists />
                     <button 
-                        className="btn btn-accent rounded-full w-80" 
+                        className="btn btn-accent w-80" 
                         type="submit" 
-                        onClick={onCreate}
+                        onClick={props.onCreate}
                     >
                         Add New
                     </button>
