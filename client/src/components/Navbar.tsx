@@ -1,5 +1,7 @@
 export default function Navbar() {
     return (
-        <div>GoPack!</div>
+        <div className="navbar bg-neutral text-neutral-content absolute inset-x-0 top-0">
+            <a className="btn btn-ghost text-xl">GoPack!</a>
+        </div>
     )
 }

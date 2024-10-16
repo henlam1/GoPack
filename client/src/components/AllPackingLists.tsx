@@ -27,12 +27,7 @@ export default function AllPackingLists(){
 function PackingListButton({packingList}) {
     return (
         <button key={packingList.id}
-        // className="rounded-lg bg-purple-200 
-        // hover:border-1 hover:border-purple-300 
-        // w-80 h-7
-        // cursor-pointer 
-        // mx-auto"
-        className="btn btn-primary rounded-full w-80 mx-auto"
+        className="btn btn-primary rounded-full w-80"
         >
             {packingList.name}
         </button>

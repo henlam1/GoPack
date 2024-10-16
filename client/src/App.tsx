@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Landing from "./pages/Landing";
 import Creation from "./pages/Creation";
 import './App.css'
+import Navbar from './components/Navbar';
 
 export default function App() {
   const [creating, setCreating] = useState(false);
@@ -16,6 +17,7 @@ export default function App() {
 
   return (
     <>
+      <Navbar/>
       {(creating)? 
       <Creation onFinish={handleLanding}/> : 
       <Landing onCreate={handleCreate}/>}
