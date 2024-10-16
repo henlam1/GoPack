@@ -1,11 +1,7 @@
-import React from "react"
 import Navbar from "./Navbar"
+import { Outlet } from 'react-router-dom';
 
-type LayoutProps = {
-    children: React.ReactNode;
-}
-
-export default function Layout(props: LayoutProps) {
+export default function Layout() {
     return(
         <div className="mt-12">
             <header>
@@ -13,7 +9,7 @@ export default function Layout(props: LayoutProps) {
                 <Navbar/>
             </header>
             <main>
-            {props.children}
+                <Outlet/>
             </main>
             <footer>
             {/* Footer content goes here */}
