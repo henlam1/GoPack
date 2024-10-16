@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
+import PackingList from '../components/PackingList';
 
-export default function PackingList() {
+export default function PackingListPage() {
     const allPackingLists = [
         {
             id: 0,
@@ -22,6 +23,7 @@ export default function PackingList() {
     return (
         <div className="prose mx-auto">
             <h1>{allPackingLists[id].name}</h1>
+            <PackingList/ >
         </div>
     );
 }
