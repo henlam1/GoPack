@@ -27,7 +27,7 @@ export default function AllPackingLists(){
 function PackingListButton({packingList}) {
     return (
         <button key={packingList.id}
-        className="btn btn-primary rounded-full w-80"
+        className="btn btn-primary w-80"
         >
             {packingList.name}
         </button>

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Landing from "./pages/Landing";
 import Creation from "./pages/Creation";
 import './App.css'
-import Navbar from './components/Navbar';
 import Layout from './components/Layout';
 
 export default function App() {
@@ -24,7 +23,6 @@ export default function App() {
 
   return (
     <>
-      <Navbar/>
       <Layout children={currentPage}></Layout>
     </>
   )
