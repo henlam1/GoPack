@@ -1,10 +1,8 @@
 import AllPackingLists from "../components/AllPackingLists";
+import { useNavigate } from 'react-router-dom';
 
-type LandingProps = {
-    onCreate: () => void;
-}
-
-export default function Landing(props: LandingProps){
+export default function Landing(){
+    const navigate = useNavigate();
 
     return(
         <div className="text-center">
@@ -15,7 +13,7 @@ export default function Landing(props: LandingProps){
                     <button 
                         className="btn btn-accent w-80" 
                         type="submit" 
-                        onClick={props.onCreate}
+                        onClick={() => navigate("/create")}
                     >
                         Add New
                     </button>

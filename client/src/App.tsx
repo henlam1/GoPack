@@ -4,26 +4,21 @@ import Landing from "./pages/Landing";
 import Creation from "./pages/Creation";
 import './App.css'
 import Layout from './components/Layout';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 export default function App() {
-  const [creating, setCreating] = useState(false);
-  let currentPage; 
-  if (creating){
-    currentPage = <Creation onFinish={handleLanding}/>;
-  } else{
-    currentPage = <Landing onCreate={handleCreate}/>;
-  }
-
-  function handleLanding(){
-    setCreating(false);
-  }
-  function handleCreate(){
-    setCreating(true);
-  }
 
   return (
-    <>
-      <Layout children={currentPage}></Layout>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Landing />} />
+          <Route path="/create" element={<Creation />} />
+          {/* <Route path="/list/:name" element={<Contact />} /> */}
+        </Route>
+      </Routes>
+    </Router>
+
   )
 }
