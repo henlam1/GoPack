@@ -1,10 +1,14 @@
 import Navbar from "../components/Navbar";
 
-export default function Creation({onFinish}) {
+type CreationProps = {
+    onFinish: () => void;
+}
+
+export default function Creation(props: CreationProps) {
     return(
         <div className="mt-12">
             Creation Page
-            <button className="bg-indigo-300" type="submit" onClick={onFinish}>CLICK ME</button>
+            <button className="btn" onClick={props.onFinish}>CLICK ME</button>
         </div>
     )
 }
