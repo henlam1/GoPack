@@ -1,10 +1,10 @@
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from 'react';
 import Landing from "./pages/Landing";
 import Creation from "./pages/Creation";
 import './App.css'
-import Layout from './components/Layout';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PackingList from './pages/PackingList';
+import Layout from "./components/Layout";
 
 
 export default function App() {
@@ -15,10 +15,9 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Landing />} />
           <Route path="/create" element={<Creation />} />
-          {/* <Route path="/list/:name" element={<Contact />} /> */}
+          <Route path="/packing-list/:id" element={<PackingList />} />
         </Route>
       </Routes>
     </Router>
-
   )
 }
