@@ -14,7 +14,7 @@ export default function Landing({onCreate}){
                 <p className="break-after-auto">Landing Page</p>
                 <AllPackingLists />
                 <button 
-                    className="bg-green-300" 
+                    className="btn btn-secondary rounded-full w-80 mx-auto" 
                     type="submit" 
                     onClick={onCreate}
                 >
