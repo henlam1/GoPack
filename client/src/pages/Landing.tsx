@@ -1,25 +1,21 @@
 import AllPackingLists from "../components/AllPackingLists";
-import Navbar from "../components/Navbar"
-// import { useState } from 'react';
 
 export default function Landing({onCreate}){
-    // const [packingListNames, setPackingListNames] = useState([]);
 
     return(
-        <div>
-            <Navbar/>
-            <div className="container
-            bg-gray-300
-            grid grid-cols-1 gap-1">
-                <p className="break-after-auto">Landing Page</p>
-                <AllPackingLists />
-                <button 
-                    className="btn btn-secondary rounded-full w-80 mx-auto" 
-                    type="submit" 
-                    onClick={onCreate}
-                >
-                    Add New
-                </button>
+        <div className="text-center mt-12">
+            <div className="card w-96 shadow-xl card-bordered mx-auto">
+                <div className="card-body items-center text-center">
+                    <div className="card-title">Landing Page</div>
+                    <AllPackingLists />
+                    <button 
+                        className="btn btn-accent rounded-full w-80" 
+                        type="submit" 
+                        onClick={onCreate}
+                    >
+                        Add New
+                    </button>
+                </div>
             </div>
         </div>
     )
