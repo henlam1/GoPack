@@ -6,7 +6,7 @@ type LayoutProps = {
 
 export default function Layout(props: LayoutProps) {
     return(
-        <div>
+        <div className="mt-12">
             <header>
             {/* Header content goes here */}
             </header>
