@@ -1,24 +1,49 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
 
 export default function Creation() {
     const navigate = useNavigate();
-    const categories = ["apples", "bananas", "dogs", "fish"];
-    const items = categories.map((item) => {
+    const [listName, setListName] = useState("");
+    const [duration, setDuration] = useState(1);
+    const [selected, setSelected] = useState<string[]>([]);
+    const categories = [
+        "Clothes", "Personal Items","Toiletries",
+        "Tourism", "Hiking", "Swimming",
+    ];
+
+    const items = categories.map((item, id) => {
         return(
-            <div className="card bg-base-100 w-50 h-50 p-2 shadow-xl">
-                <figure>
-                    <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Shoes" />
-                </figure>
-                <div className="card-body p-0">
-                    <p>{item}</p>
-                </div>
+            <div key={id} className="form-control">
+                <label className="label cursor-pointer">
+                    <span className="label-text">{item}</span>
+                    <input 
+                        id={item}
+                        type="checkbox" 
+                        className="checkbox checkbox-primary" 
+                        onChange={(e) => handleCheck(e)}
+                    />
+                </label>
             </div>
         )
     })
+
+    function handleCheck(e: React.ChangeEvent<HTMLInputElement>){
+        const category = e.target.id;
+        if (e.target.checked) {
+            const newSelection: string[] = [...selected, category]
+            setSelected(newSelection);
+        }
+        else {
+            const categoryIndex = selected.indexOf(category);
+            if (categoryIndex == -1) return;
+            const newSelection: string[] = [...selected];
+            newSelection.splice(categoryIndex);
+            setSelected(newSelection);
+        }
+    }
+
     return(
-        <div className="card shadow-xl card-bordered mx-auto">
+        <div className="card w-96 shadow-xl card-bordered mx-auto">
             <div className="card-body items-center text-center">
                 <div className="card-title">Creation Page</div>
                 <label className="form-control w-full max-w-xs">
@@ -29,6 +54,8 @@ export default function Creation() {
                         type="text" 
                         placeholder="Type here" 
                         className="input input-bordered w-full max-w-xs" 
+                        value={listName}
+                        onChange={(e) => setListName(e.target.value)}
                     />
                     <div className="label">
                         <span className="label-text">Trip Duration</span>
@@ -36,17 +63,17 @@ export default function Creation() {
                     <input 
                         type="number" 
                         placeholder="Type here" 
-                        min="0"
+                        min="1"
                         className="input input-bordered w-full max-w-xs" 
+                        value={duration}
+                        onChange={(e) => setDuration(e.target.valueAsNumber)}
                     />
                 </label>
-                <label className="w-full max-w-xs">
+                <label className="form-control w-full max-w-xs">
                     <div className="label">
                         <span className="label-text">Categories</span>
                     </div>
-                    <div className="grid grid-cols-3 gap-4">
-                        {items}
-                    </div>
+                    {items}
                 </label>
                 <div className="card-actions justify-end">
                     <button className="btn btn-primary" onClick={() => navigate("/")}>Ok</button>
