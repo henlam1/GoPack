@@ -1,21 +1,28 @@
+import { useEffect, useState } from "react"
+import { useNavigate } from 'react-router-dom';
 
-export default function AllPackingLists({onPackingListClick}){
-    const allPackingLists = [
-        {
-            id: 0,
-            name: "Coppenhagen in Winter"
-        },
-        {
-            id: 1,
-            name: "Paris In Summer"
-        },
-        {
-            id: 2,
-            name: "London In Fall"
-        },
-    ]
+export default function AllPackingLists(){
+    const [allPackingLists, setAllPackingLists] = useState([]);
+
+    // This method fetches the all packing lists from the database.
+    useEffect(() => {
+      async function getAllPackingLists() {
+        const response = await fetch(`http://localhost:5050/packingList/`);
+        if (!response.ok) {
+          const message = `An error occurred: ${response.statusText}`;
+          console.error(message);
+          return;
+        }
+        const packingLists = await response.json();
+        setAllPackingLists(packingLists);
+      }
+      getAllPackingLists();
+      return;
+    }, [allPackingLists.length]);
+
+    
     const listItems = allPackingLists.map( packingList => 
-        <PackingListButton packingList={packingList} onPackingListClick={() => onPackingListClick(packingList.id)}/>
+        <PackingListButton packingList={packingList}/>
     )
     return(
         <>
@@ -24,11 +31,12 @@ export default function AllPackingLists({onPackingListClick}){
     )
 }
 
-function PackingListButton({packingList, onPackingListClick}) {
+function PackingListButton({packingList}) {
+    const navigate = useNavigate();
     return (
         <button key={packingList.id}
         className="btn btn-primary w-80"
-        onClick={onPackingListClick}
+        onClick={() => navigate("/packing-list/" + packingList._id)}
         >
             {packingList.name}
         </button>
