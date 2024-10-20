@@ -18,12 +18,17 @@ router.get("/", async (req, res) => {
 
 // Query a single list
 router.get("/:id", async (req, res) => {
-    let collection = await db.collection("packingLists");
-    let query = { _id: new ObjectId(req.params.id) };
-    let result = await collection.findOne(query);
+    try {
+        let collection = await db.collection("packingLists");
+        let query = { _id: new ObjectId(req.params.id) };
+        let result = await collection.findOne(query);
 
-    if (!result) res.send("Not found").status(400);
-    else res.send(result).status(200);
+        if (!result) res.send("Not found").status(400);
+        else res.send(result).status(200);
+    } catch(err) {
+        console.error(err);
+        res.status(400).send("Not found")
+    }
 });
 
 // Create a new packing list
