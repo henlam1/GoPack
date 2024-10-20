@@ -72,7 +72,7 @@ router.delete("/:id", async (req, res) => {
         const query = { _id: new ObjectId(req.params.id) };
 
         let collection = await db.collection("packingLists");
-        let result = await collection.delteOne(query);
+        let result = await collection.deleteOne(query);
 
         res.send(result).status(200);
     } catch (err) {
