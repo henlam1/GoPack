@@ -38,7 +38,6 @@ router.post("/", async (req, res) => {
             name: req.body.name,
             duration: req.body.duration,
             categories: req.body.categories,
-            lists: req.body.lists,
         };
         let collection = await db.collection("packingLists");
         let result = await collection.insertOne(newDocument);
@@ -58,7 +57,6 @@ router.patch("/:id", async (req, res) => {
                 name: req.body.name,
                 duration: req.body.duration,
                 categories: req.body.categories,
-                lists: req.body.lists,
             },
         };
 
