@@ -9,17 +9,17 @@ import { ObjectId } from "mongodb";
 // Router to define our routes
 const router = express.Router();
 
-// Get a list of all packing lists
+// Get a list of all items
 router.get("/", async (req, res) => {
-    let collection = await db.collection("packingLists");
+    let collection = await db.collection("items");
     let results = await collection.find({}).toArray();
     res.send(results).status(200);
 });
 
-// Query a single packing list
+// Query a single item
 router.get("/:id", async (req, res) => {
     try {
-        let collection = await db.collection("packingLists");
+        let collection = await db.collection("items");
         let query = { _id: new ObjectId(req.params.id) };
         let result = await collection.findOne(query);
 
@@ -31,56 +31,54 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// Create a new packing list
+// Create a new item
 router.post("/", async (req, res) => {
     try {
         let newDocument = {
-            name: req.body.name,
-            duration: req.body.duration,
-            categories: req.body.categories,
+            item: req.body.item,
+            quantity: req.body.quantity,
         };
-        let collection = await db.collection("packingLists");
+        let collection = await db.collection("items");
         let result = await collection.insertOne(newDocument);
         res.send(result).status(204);
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error adding packing list")
+        res.status(500).send("Error adding item")
     }
 });
 
-// Update a packing list by id
+// Update a item by id
 router.patch("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id)}
         const updates = {
             $set: {
-                name: req.body.name,
-                duration: req.body.duration,
-                categories: req.body.categories,
+                item: req.body.item,
+                quantity: req.body.quantity,
             },
         };
 
-        let collection = await db.collection("packingLists");
+        let collection = await db.collection("items");
         let result = await collection.updateOne(query, updates);
         res.send(result).status(200);
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error updating packing list");
+        res.status(500).send("Error updating item");
     }
 });
 
-// Deleting a packing list
+// Deleting a item
 router.delete("/:id", async (req, res) => {
     try {
         const query = { _id: new ObjectId(req.params.id) };
 
-        let collection = await db.collection("packingLists");
+        let collection = await db.collection("items");
         let result = await collection.deleteOne(query);
 
         res.send(result).status(200);
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error deleting packing list")
+        res.status(500).send("Error deleting item")
     }
 });
 
