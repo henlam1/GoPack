@@ -29,21 +29,43 @@ export default function CategoryPackingList(props: CategoryPackingListProps) {
     const categoryList = props.categories.map( (category, index) => {
         const id = `item${index+1}`
         const choices = categoryChoices.map ( choice => 
-            <label className="cursor-pointer label">
-                <span className="label-text">{choice.name}</span>
-                <input type="checkbox" className="checkbox checkbox-primary" />
-            </label>
+            <tr>
+                <th>
+                    <label className="cursor-pointer label">
+                        <input type="checkbox" className="checkbox checkbox-primary" />
+                    </label>
+                </th>
+                <td>
+                    <span className="label-text">{choice.name}</span>
+                </td>
+                <th>
+                    { choice.quantity }
+                </th>
+            </tr>
+
         )
         return (
-            <div id={id} className="carousel-item h-full w-10/12 card shadow-xl card-bordered mx-auto">
-                <h2>{category}</h2>
-                { choices }
+            <div className="carousel-item">
+                <h2 className="font-bold text-3xl">{category}</h2>
+                <table id={id} className="table border-collapse">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Item</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                    { choices }
+                </table>
             </div>
         );
     });
 
     return (
-        <div className="col-span-4 carousel carousel-vertical w-full h-98">
+        <div className="col-span-4 carousel carousel-vertical">
             { categoryList }
         </div>
     );

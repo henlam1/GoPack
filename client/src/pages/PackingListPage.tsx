@@ -33,8 +33,8 @@ export default function PackingListPage() {
 
 
     return (
-        <div className="prose mx-auto">
-            <h1>{packingList.name}</h1>
+        <div>
+            <h1 className="font-bold text-6xl mb-10">{packingList.name}</h1>
             <PackingList categories={packingList.categories}/>
         </div>
     );

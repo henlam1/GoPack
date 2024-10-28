@@ -14,7 +14,7 @@ export default function PackingList(props: PackingListProps) {
     return (
         <div className="grid grid-cols-5">
             <ul className="menu bg-base-200 rounded-box sticky top-0">
-                <li className="menu-title">Categories</li>
+                <li className="menu-title uppercase">Categories</li>
                 {categoryList}
 
             </ul>
