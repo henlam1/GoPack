@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
-
-interface Form {
-    name: string,
-    duration: number,
-    categories: string[],
-}
+import { PackingListType } from "../interfaces/PackingList";
+import { postPackingList } from "../services/packingList";
 
 export default function Creation() {
     const navigate = useNavigate();
-    const [form, setForm] = useState<Form>({
+    const [form, setForm] = useState<PackingListType>({
         name: "",
         duration: 1,
         categories: [],
@@ -68,17 +64,7 @@ export default function Creation() {
         
         const packingList = {...form};
         try {
-            const response = await fetch("http://localhost:5050/packingList", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(packingList)
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+            await postPackingList(packingList)
         } catch (error) {
             console.error("A problem occured with packing list creation", error);
         } finally {
