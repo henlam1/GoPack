@@ -1,10 +1,8 @@
 import AllPackingLists from "../components/AllPackingLists";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 export default function Landing(){
     const navigate = useNavigate();
-    const [selectedList, setSelectedList] = useState(0);
 
     return(
         <div className="text-center">

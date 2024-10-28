@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router';
 import PackingList from '../components/PackingList';
+import { PackingListType } from "../interfaces/PackingList";
 
 export default function PackingListPage() {
     const {id} = useParams();
-    console.log(id);
-    const emptyPackignList = {
-        name: "placeholder"
+    const emptyPackingList = {
+      name: "placeholder",
+      duration: 1,
+      categories: ["placeholder1", "placeholder2"],
     }
-    const [packingList, setPackingList] = useState(emptyPackignList);
+    const [packingList, setPackingList] = useState<PackingListType>(emptyPackingList);
+    
+    console.log(id);
+    console.log(packingList)
 
     // This method fetches the all packing lists from the database.
     useEffect(() => {
@@ -24,13 +29,13 @@ export default function PackingListPage() {
       }
       getPackingList();
       return;
-    }, [packingList, id]);
+    }, [id]);
 
 
     return (
         <div className="prose mx-auto">
             <h1>{packingList.name}</h1>
-            <PackingList/ >
+            <PackingList categories={packingList.categories}/>
         </div>
     );
 }

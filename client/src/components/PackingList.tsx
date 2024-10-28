@@ -1,16 +1,19 @@
-export default function PackingList() {
+interface PackingListProps {
+    categories: string[],
+}
+
+export default function PackingList(props: PackingListProps) {
+    console.log(props.categories);
+
+    const categoryList = props.categories.map( (category, index) => {
+        const link = `#item${index+1}`
+        return <li><a href={link}>{category}</a></li>
+    })
     return (
         <div className="grid grid-cols-5">
             <ul className="menu bg-base-200 rounded-box sticky top-0">
                 <li className="menu-title">Categories</li>
-                <li><a href="#item1">1</a></li>
-                <li><a href="#item2">2</a></li>
-                <li><a href="#item3">3</a></li>
-                <li><a href="#item4">4</a></li>
-                <li><a href="#item5">5</a></li>
-                <li><a href="#item6">6</a></li>
-                <li><a href="#item7">7</a></li>
-                <li><a href="#item8">8</a></li>
+                {categoryList}
 
             </ul>
             <div className="col-span-4 carousel carousel-vertical w-full h-98">
