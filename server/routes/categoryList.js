@@ -13,7 +13,8 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     let collection = await db.collection("categoryLists");
     let results = await collection.find({}).toArray();
-    res.send(results).status(200);
+    console.log("Got all category lists");
+    res.status(200).send(results);
 });
 
 // Query a single category list
@@ -23,8 +24,13 @@ router.get("/:id", async (req, res) => {
         let query = { _id: new ObjectId(req.params.id) };
         let result = await collection.findOne(query);
 
-        if (!result) res.send("Not found").status(400);
-        else res.send(result).status(200);
+        if (!result) {
+            res.send("Not found").status(400);
+        }
+        else {
+            console.log("Got category list: ", req.params.id);
+            res.status(200).send(result);
+        }
     } catch(err) {
         console.error(err);
         res.status(400).send("Not found")
@@ -40,7 +46,9 @@ router.post("/", async (req, res) => {
         };
         let collection = await db.collection("categoryLists");
         let result = await collection.insertOne(newDocument);
-        res.send(result).status(204);
+        let newCategory = await collection.findOne({ _id: result.insertedId });
+        console.log("Category list successfuly created");
+        res.status(201).send(newCategory);
     } catch (err) {
         console.error(err);
         res.status(500).send("Error adding category list")
@@ -60,7 +68,8 @@ router.patch("/:id", async (req, res) => {
 
         let collection = await db.collection("categoryLists");
         let result = await collection.updateOne(query, updates);
-        res.send(result).status(200);
+        console.log("Updated category list: ", req.params.id);
+        res.status(200).send(result);
     } catch (err) {
         console.error(err);
         res.status(500).send("Error updating category list");
@@ -75,7 +84,8 @@ router.delete("/:id", async (req, res) => {
         let collection = await db.collection("categoryLists");
         let result = await collection.deleteOne(query);
 
-        res.send(result).status(200);
+        console.log("Deleted category list: ", req.params.id);
+        res.status(200).send(result);
     } catch (err) {
         console.error(err);
         res.status(500).send("Error deleting category list")

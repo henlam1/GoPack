@@ -13,7 +13,8 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     let collection = await db.collection("packingLists");
     let results = await collection.find({}).toArray();
-    res.send(results).status(200);
+    console.log("Got all packing lists");
+    res.status(200).send(results);
 });
 
 // Query a single packing list
@@ -23,8 +24,13 @@ router.get("/:id", async (req, res) => {
         let query = { _id: new ObjectId(req.params.id) };
         let result = await collection.findOne(query);
 
-        if (!result) res.send("Not found").status(400);
-        else res.send(result).status(200);
+        if (!result) {
+            res.send("Not found").status(400);
+        }
+        else {
+            console.log("Got packing list: ", req.params.id);
+            res.status(200).send(result);
+        }
     } catch(err) {
         console.error(err);
         res.status(400).send("Not found")
@@ -34,14 +40,39 @@ router.get("/:id", async (req, res) => {
 // Create a new packing list
 router.post("/", async (req, res) => {
     try {
+        const promises = req.body.categories.map(async (category) => {
+            console.log(category);
+            try {
+                const response = await fetch("http://localhost:5050/categoryList/", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        category: category,
+                        items: {},
+                    })
+                });
+                const data = await response.json();
+                console.log("Data: ", data);
+                return data;
+            } catch (error) {
+                console.error("Error:", error);
+                throw error;
+            }
+        })
+        const categoryObjects = await Promise.all(promises);
+        console.log(categoryObjects);
+
         let newDocument = {
             name: req.body.name,
             duration: req.body.duration,
-            categories: req.body.categories,
+            categories: categoryObjects,
         };
         let collection = await db.collection("packingLists");
         let result = await collection.insertOne(newDocument);
-        res.send(result).status(204);
+        console.log("Packing list successfully created");
+        res.status(201).send(result);
     } catch (err) {
         console.error(err);
         res.status(500).send("Error adding packing list")
@@ -62,7 +93,8 @@ router.patch("/:id", async (req, res) => {
 
         let collection = await db.collection("packingLists");
         let result = await collection.updateOne(query, updates);
-        res.send(result).status(200);
+        console.log("Updated packing list: ", req.params.id);
+        res.status(200).send(result);
     } catch (err) {
         console.error(err);
         res.status(500).send("Error updating packing list");
@@ -77,7 +109,8 @@ router.delete("/:id", async (req, res) => {
         let collection = await db.collection("packingLists");
         let result = await collection.deleteOne(query);
 
-        res.send(result).status(200);
+        console.log("Deleted packing list: ", req.params.id);
+        res.status(200).send(result);
     } catch (err) {
         console.error(err);
         res.status(500).send("Error deleting packing list")

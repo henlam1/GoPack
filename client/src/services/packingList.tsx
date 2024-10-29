@@ -32,22 +32,6 @@ export async function getPackingList(id: string){
     }
 }
 
-export async function patchPackingList(id: string, packingList: PackingListType){
-    try {
-        const response = await fetch(`${BASE_URL}/${id}`, {
-            method: "PATCH",
-            body: JSON.stringify(packingList)
-        });
-    
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response
-    } catch (error) {
-        console.error("A problem occured with updating packing list " + id, error);
-    }
-}
-
 export async function postPackingList(packingList: PackingListType){
     try {
         const response = await fetch(`${BASE_URL}/`, {
@@ -64,6 +48,22 @@ export async function postPackingList(packingList: PackingListType){
         return response
     } catch (error) {
         console.error("A problem occured with creating packing list", error);
+    }
+}
+
+export async function patchPackingList(id: string, packingList: PackingListType){
+    try {
+        const response = await fetch(`${BASE_URL}/${id}`, {
+            method: "PATCH",
+            body: JSON.stringify(packingList)
+        });
+    
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response
+    } catch (error) {
+        console.error("A problem occured with updating packing list " + id, error);
     }
 }
 
