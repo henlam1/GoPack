@@ -8,7 +8,7 @@ export default function PackingListPage() {
     const emptyPackingList = {
       name: "placeholder",
       duration: 1,
-      categories: ["placeholder1", "placeholder2"],
+      categories: [],
     }
     const [packingList, setPackingList] = useState<PackingListType>(emptyPackingList);
     

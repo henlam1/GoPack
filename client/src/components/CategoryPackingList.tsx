@@ -1,5 +1,7 @@
+import { CategoryListType } from "../interfaces/CategoryList";
+
 interface CategoryPackingListProps {
-    categories: string[],
+    categories: CategoryListType[],
 }
 
 /**
@@ -46,7 +48,7 @@ export default function CategoryPackingList(props: CategoryPackingListProps) {
         )
         return (
             <div className="carousel-item">
-                <h2 className="font-bold text-3xl">{category}</h2>
+                <h2 className="font-bold text-3xl">{category.name}</h2>
                 <table id={id} className="table border-collapse">
                     <thead>
                         <tr>

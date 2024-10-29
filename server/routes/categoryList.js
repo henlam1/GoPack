@@ -41,7 +41,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         let newDocument = {
-            category: req.body.category,
+            name: req.body.category,
             items: req.body.items,
         };
         let collection = await db.collection("categoryLists");

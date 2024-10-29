@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
-import { PackingListType } from "../interfaces/PackingList";
 import { postPackingList } from "../services/packingList";
+import { PackingListFormType } from "../interfaces/PackingListForm";
 
 export default function Creation() {
     const navigate = useNavigate();
-    const [form, setForm] = useState<PackingListType>({
+    const [form, setForm] = useState<PackingListFormType>({
         name: "",
         duration: 1,
         categories: [],

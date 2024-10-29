@@ -1,4 +1,5 @@
 import { PackingListType } from "../interfaces/PackingList";
+import { PackingListFormType } from "../interfaces/PackingListForm";
 
 const BASE_URL = "http://localhost:5050/packingList"
 
@@ -32,7 +33,7 @@ export async function getPackingList(id: string){
     }
 }
 
-export async function postPackingList(packingList: PackingListType){
+export async function postPackingList(packingList: PackingListFormType){
     try {
         const response = await fetch(`${BASE_URL}/`, {
             method: "POST",
