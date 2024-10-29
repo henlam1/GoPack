@@ -1,7 +1,8 @@
+import { CategoryListType } from "../interfaces/CategoryList";
 import CategoryPackingList from "./CategoryPackingList";
 
 interface PackingListProps {
-    categories: string[],
+    categories: CategoryListType[],
 }
 
 export default function PackingList(props: PackingListProps) {
@@ -9,7 +10,7 @@ export default function PackingList(props: PackingListProps) {
 
     const categoryList = props.categories.map( (category, index) => {
         const link = `#item${index+1}`
-        return <li><a href={link}>{category}</a></li>
+        return <li><a href={link}>{category.name}</a></li>
     })
     return (
         <div className="grid grid-cols-5">
