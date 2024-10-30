@@ -13,8 +13,8 @@ export default function PackingList(props: PackingListProps) {
         return <li><a href={link}>{category.name}</a></li>
     })
     return (
-        <div className="grid grid-cols-5">
-            <ul className="menu bg-base-200 rounded-box sticky top-0">
+        <div className="">
+            <ul className="menu bg-base-200 rounded-box sticky top-0 float-left w-3/12">
                 <li className="menu-title uppercase">Categories</li>
                 {categoryList}
 

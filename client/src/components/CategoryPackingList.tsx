@@ -47,9 +47,9 @@ export default function CategoryPackingList(props: CategoryPackingListProps) {
 
         )
         return (
-            <div className="carousel-item">
+            <div id={id} className="carousel-item flex flex-wrap ml-10">
                 <h2 className="font-bold text-3xl">{category.name}</h2>
-                <table id={id} className="table border-collapse">
+                <table className="table border-collapse">
                     <thead>
                         <tr>
                             <th></th>
@@ -67,7 +67,7 @@ export default function CategoryPackingList(props: CategoryPackingListProps) {
     });
 
     return (
-        <div className="col-span-4 carousel carousel-vertical">
+        <div className="carousel carousel-vertical w-9/12">
             { categoryList }
         </div>
     );
