@@ -43,15 +43,21 @@ function PopupForm({ categoryId, categoryName}: PopupFormProps, ref: React.Ref<P
                     <div className="bg-white p-6 rounded shadow-lg">
                         <h2 className="text-xl mb-4">{title}</h2>
                         <form onSubmit={handleSubmit}>
-                            <input
+                            <div className="label">
+                                <span className="label-text">Item Name</span>
+                            </div>
+                            <input 
                                 type="text"
-                                placeholder="Item name"
+                                placeholder="Enter here"
                                 minLength={1}
                                 className="border p-2 mb-4 w-full"
                             />
+                            <div className="label">
+                                <span className="label-text">Quantity</span>
+                            </div>
                             <input
                                 type="number"
-                                placeholder="Quantity"
+                                placeholder="Enter here"
                                 min={1}
                                 className="border p-2 mb-4 w-full"
                             />

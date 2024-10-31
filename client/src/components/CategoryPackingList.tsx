@@ -54,20 +54,20 @@ export default function CategoryPackingList({ categories }: CategoryPackingListP
 
     const categoryList = categories.map( (category, index) => {
         const id = `item${index+1}`;
-        const choices = items.map( (item, index2) => {
-            return (
-                <tr key={`${category} ${index2}`}>
-                    <td>
+        const choices = items.map( (item) => {
+            return(
+                <div className="flex flex-row">
+                    <div className="basis-1/6">
                         <input type="checkbox" className="checkbox checkbox-primary size-6"/>
-                    </td>
-                    <td>
-                        <span className="label-text">{item.name}</span>
-                    </td>
-                    <td>
-                        { item.quantity }
-                    </td>
-                </tr>
-            );
+                    </div>
+                    <div className="label-text basis-4/6" contentEditable="true">{item.name}</div>
+                    <div className="flex flex-row basis-1/6 justify-between">
+                       <button className="btn btn-xs btn-square">-</button>
+                       <div className="size-6 text-center"contentEditable="true">{ item.quantity }</div>
+                       <button className="btn btn-xs btn-square">+</button>
+                    </div>
+                </div>
+            )
         });
         console.log(category.name);
         const popUpForm = (
@@ -78,41 +78,23 @@ export default function CategoryPackingList({ categories }: CategoryPackingListP
             />
         );
         return (
-            <div id={id} key={id} className="carousel-item flex flex-wrap ml-10">
-                <h2 className="font-bold text-3xl">{category.name}</h2>
-                <table className="table border-collapse">
-                    <thead>
-                        <tr>
-                            <th>Packed</th>
-                            <th>Item</th>
-                            <th>Qty</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { choices }
-                        <tr key={"form"}>
-                            <td>
-                                <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                fill="none" 
-                                viewBox="0 0 24 24" 
-                                strokeWidth="1.5" 
-                                stroke="currentColor" 
-                                className="size-6 cursor-pointer"
-                                onClick={() => {handleShowForm(category._id)}}
-                                >
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                            {popUpForm}
-                            {/* <PopupForm
-                                categoryId={category._id}
-                                categoryName={category.name}
-                                ref={popupFormRef} 
-                            /> */}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id={id} key={id} className="carousel-item flex flex-col flex-wrap ml-10">
+                <div className="basis-full text-left">
+                    <h2 className="font-bold text-3xl">{category.name}</h2>
+                </div>
+                <div className="flex flex-row">
+                    <h3 className="font-bold text-xl basis-1/6">Packed</h3>
+                    <h3 className="font-bold text-xl basis-4/6">Item</h3>
+                    <h3 className="font-bold text-xl basis-1/6">Quantity</h3>
+                </div>
+                { choices }
+                <div className="flex flex-row basis-full justify-center">
+                    <button 
+                        className="btn btn-xs btn-square btn-accent"
+                        onClick={() => {handleShowForm(category._id)}}
+                    >+</button>
+                    {popUpForm}
+                </div>
             </div>
         );
     });
