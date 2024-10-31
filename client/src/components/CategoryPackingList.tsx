@@ -57,14 +57,23 @@ export default function CategoryPackingList({ categories }: CategoryPackingListP
         const choices = items.map( (item) => {
             return(
                 <div className="flex flex-row">
-                    <div className="basis-1/6">
+                    <div className="basis-2/12">
                         <input type="checkbox" className="checkbox checkbox-primary size-6"/>
                     </div>
-                    <div className="label-text basis-4/6" contentEditable="true">{item.name}</div>
-                    <div className="flex flex-row basis-1/6 justify-between">
+                    <div className="label-text basis-6/12" contentEditable="true">{item.name}</div>
+                    <div className="flex flex-row basis-2/12 justify-between">
                        <button className="btn btn-xs btn-square">-</button>
                        <div className="size-6 text-center"contentEditable="true">{ item.quantity }</div>
                        <button className="btn btn-xs btn-square">+</button>
+                    </div>
+                    <div className="basis-2/12">
+                        <div className="dropdown dropdown-left">
+                            <div tabIndex={0} role="button" className="btn btn-xs btn-square">...</div>
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                <li><a>Item 1</a></li>
+                                <li><a>Item 2</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             )
@@ -83,24 +92,27 @@ export default function CategoryPackingList({ categories }: CategoryPackingListP
                     <h2 className="font-bold text-3xl">{category.name}</h2>
                 </div>
                 <div className="flex flex-row">
-                    <h3 className="font-bold text-xl basis-1/6">Packed</h3>
-                    <h3 className="font-bold text-xl basis-4/6">Item</h3>
-                    <h3 className="font-bold text-xl basis-1/6">Quantity</h3>
+                    <div className="font-bold text-l basis-2/12">Packed</div>
+                    <div className="font-bold text-l basis-6/12">Item</div>
+                    <div className="font-bold text-l basis-2/12">Quantity</div>
+                    <div className="font-bold text-l basis-2/12">Edits</div>
                 </div>
                 { choices }
-                <div className="flex flex-row basis-full justify-center">
-                    <button 
-                        className="btn btn-xs btn-square btn-accent"
-                        onClick={() => {handleShowForm(category._id)}}
-                    >+</button>
-                    {popUpForm}
+                <div className="flex flex-row">
+                    <div className="basis-2/12 justify-left">
+                        <button 
+                            className="btn btn-sm btn-accent"
+                            onClick={() => {handleShowForm(category._id)}}
+                        >Add Item</button>
+                        {popUpForm}
+                    </div>
                 </div>
             </div>
         );
     });
 
     return (
-        <div className="carousel carousel-vertical w-9/12">
+        <div className="carousel carousel-vertical w-7/12">
             { categoryList }
         </div>
     );
