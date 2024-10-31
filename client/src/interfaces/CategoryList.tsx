@@ -1,5 +1,5 @@
 export interface CategoryListType {
-    _id?: string,
+    _id: string,
     name: string
     items: Record<string, number>;
 }
