@@ -9,10 +9,34 @@ import { ObjectId } from "mongodb";
 // Router to define our routes
 const router = express.Router();
 
+/**
+ * Category list should have
+ * category (same as category type's name)
+ * items - list of the object ids of the items from the items collection
+ */
+
 // Get a list of all category lists
 router.get("/", async (req, res) => {
     let collection = await db.collection("categoryLists");
     let results = await collection.find({}).toArray();
+    console.log("Got all category lists");
+    res.status(200).send(results);
+});
+
+// Get a list of all category lists and nested details
+router.get("/details", async (req, res) => {
+    const pipeline = [
+        {
+            $lookup: {
+                from: "items",
+                localField: "items",
+                foreignField: "_id",
+                as: "items"
+            }
+        }
+    ];
+
+    const results = await db.collection("categoryLists").aggregate(pipeline).toArray();
     console.log("Got all category lists");
     res.status(200).send(results);
 });
@@ -37,6 +61,26 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+// Get full details of category list
+router.get("/details/:id", async (req, res) => {
+
+    const pipeline = [
+        {
+            $match: { _id: new ObjectId(req.params.id) }
+        },
+        {
+            $lookup: {
+                from: "items",
+                localField: "items",
+                foreignField: "_id",
+                as: "items"
+            }
+    }]
+    const results = await db.collection("categoryList").aggregate(pipeline).toArray();
+    console.log("Got all category lists");
+    res.status(200).send(results);
+});
+
 // Create a new category list
 router.post("/", async (req, res) => {
     try {
@@ -56,15 +100,36 @@ router.post("/", async (req, res) => {
 });
 
 // Update a category list by id
+/**
+ * given the nature of the properties, you can only add to the items list
+ * pass itemId into the body. 
+ * To use this api i'd imagine when a user adds an item to a categorylist in their UI,
+ * then the code will create the item, get the item id,
+ *  and pass it to this api to add that item to the categorylist
+
+ * example
+ * curl --header "Content-Type: application/json" \
+--request PATCH \
+--data '{"itemId": "67246c275a761a242a04b012"}' \
+http://localhost:5050/categoryList/67202949440b819859af4ce7
+ */
+
+//TODO: SOMETHING HERE IS BROKEN GODDAQMN
 router.patch("/:id", async (req, res) => {
     try {
-        const query = { _id: new ObjectId(req.params.id)}
+        console.log("in here?")
+        
+        let item = await db.collection("items").findOne({ _id: new ObjectId(req.body.itemId) });
+        if(!item) {
+            res.status(404).send("no such item");
+            return;
+        }
+
         const updates = {
-            $set: {
-                category: req.body.category,
-                items: req.body.items,
-            },
+            $push: {"items": item._id}
         };
+
+        const query = { _id: new ObjectId(req.params.id)}
 
         let collection = await db.collection("categoryLists");
         let result = await collection.updateOne(query, updates);
