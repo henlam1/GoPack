@@ -24,14 +24,33 @@ router.get("/", async (req, res) => {
 
 /**
  * Get a list of all category types and aggregate with the other object mahaha
+ * this magic $lookup function will help you map a different collection's object details into the query response.
  */
-router.get("/all", async (req, res) => {
+router.get("/details/", async (req, res) => {
     const pipeline = [{
         $lookup: {
             from: "itemListDefaults",
             localField: "defaultItems",
             foreignField: "_id",
             as: "defaultItems"
+        }
+    }]
+    const results = await db.collection("categoryType").aggregate(pipeline).toArray();
+    console.log("Got all category types");
+    res.status(200).send(results);
+});
+
+router.get("/details/:id", async (req, res) => {
+    const pipeline = [
+        {
+            $match: { _id: new ObjectId(req.params.id) }
+        },
+        {
+            $lookup: {
+                from: "itemListDefaults",
+                localField: "defaultItems",
+                foreignField: "_id",
+                as: "defaultItems"
         }
     }]
     const results = await db.collection("categoryType").aggregate(pipeline).toArray();
@@ -151,7 +170,7 @@ router.post("/", async (req, res) => {
 
         let newDocument = {
             name: req.body.name,
-            defaultItems: req.body.defaultItems ? req.body.defaultItems : [],
+            defaultItems: [],
         };
         let collection = await db.collection("categoryType");
         let result = await collection.insertOne(newDocument);
@@ -164,6 +183,12 @@ router.post("/", async (req, res) => {
 });
 
 // Add a default item to a category type
+/**
+ * curl --header "Content-Type: application/json" \
+--request PATCH \
+--data '{"name":"Electronics", "defaultItemName": "Laptop"}' \
+http://localhost:5050/CategoryType/addDefaultItem
+ */
 router.patch("/addDefaultItem", async (req, res) => {
     /**
      * req.body needs to have name and defaultItemName
