@@ -1,5 +1,5 @@
 import { CategoryListType } from "../interfaces/CategoryList";
-import PopupForm, { PopupFormHandles } from "./PopupForm";
+import ItemPopupForm, { ItemPopupFormHandles } from "./ItemPopupForm";
 import { useDynamicRefs } from "../customHooks/useDynamicRefs";
 
 interface CategoryPackingListProps {
@@ -10,53 +10,23 @@ interface CategoryPackingListProps {
  * hmm we're definitely going to need to save the category choices and the 
 "packed" or not packed sort of data per list
  */
-const items = [
-    {
-        "name": "Remember me 1",
-        "quantity": 3
-    },
-    {
-        "name": "Remember me 2",
-        "quantity": 14
-    },
-    {
-        "name": "Remember me 3",
-        "quantity": 12
-    },
-    {
-        "name": "Remember me 4",
-        "quantity": 7
-    },
-]
 
 export default function CategoryPackingList({ categories }: CategoryPackingListProps) {
-    // const popupFormRef = useRef<PopupFormHandles>(null);
-    // const handleShowForm = () => {
-    //     popupFormRef.current?.showForm();
-    // }
-
-    // const [lists, setLists] = useState([]); // List contains objects of format {id: number}
-    const getRef = useDynamicRefs<PopupFormHandles>();
+    const getRef = useDynamicRefs<ItemPopupFormHandles>();
 
     const handleShowForm = (id: string) => {
         getRef(id).current?.showForm();
     };
 
-    // const addList = () => {
-    //     const newList = {id: lists.length + 1};
-    //     setLists([...lists, newList]);
-    // };
-
-    // const removeList = (id: number) => {
-    //     const newLists = lists.filter((list) => list.id !== id);
-    //     setLists(newLists);
-    // };
+    // let itemMap = new Map();
+    const items = [{name: "apple", quantity: 0, packed: false}];
 
     const categoryList = categories.map( (category, index) => {
+        // Fetch items first
         const id = `item${index+1}`;
         const choices = items.map( (item) => {
             return(
-                <div className="flex flex-row">
+                <div className="flex flex-row items-center">
                     <div className="basis-2/12">
                         <input type="checkbox" className="checkbox checkbox-primary size-6"/>
                     </div>
@@ -70,8 +40,8 @@ export default function CategoryPackingList({ categories }: CategoryPackingListP
                         <div className="dropdown dropdown-left">
                             <div tabIndex={0} role="button" className="btn btn-xs btn-square">...</div>
                             <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                                <li><a>Item 1</a></li>
-                                <li><a>Item 2</a></li>
+                                <li><button className="btn btn-ghost">Edit Item</button></li>
+                                <li><button className="btn btn-secondary">Delete Item</button></li>
                             </ul>
                         </div>
                     </div>
@@ -79,8 +49,8 @@ export default function CategoryPackingList({ categories }: CategoryPackingListP
             )
         });
         console.log(category.name);
-        const popUpForm = (
-            <PopupForm
+        const itemPopUpForm = (
+            <ItemPopupForm
             categoryId={category._id}
             categoryName={category.name}
             ref={getRef(category._id)} 
@@ -104,7 +74,7 @@ export default function CategoryPackingList({ categories }: CategoryPackingListP
                             className="btn btn-sm btn-accent"
                             onClick={() => {handleShowForm(category._id)}}
                         >Add Item</button>
-                        {popUpForm}
+                        {itemPopUpForm}
                     </div>
                 </div>
             </div>

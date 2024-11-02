@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from 'react-router';
 import PackingList from '../components/PackingList';
 import { PackingListType } from "../interfaces/PackingList";
+import { getPackingList } from "../services/packingList";
 
 export default function PackingListPage() {
     const {id} = useParams();
@@ -15,19 +16,16 @@ export default function PackingListPage() {
     console.log(id);
     console.log(packingList)
 
-    // This method fetches the all packing lists from the database.
+    // This method fetches the packing list of this id from the database.
     useEffect(() => {
-      async function getPackingList() {
-        const response = await fetch(`http://localhost:5050/packingList/` + id);
-        if (!response.ok) {
-          const message = `An error occurred: ${response.statusText}`;
-          console.error(message);
-          return;
+      async function getList() {
+        if (id){
+          const response = await getPackingList(id);
+          const packingList = await response?.json()
+          setPackingList(packingList);
         }
-        const packingList = await response.json();
-        setPackingList(packingList);
       }
-      getPackingList();
+      getList();
       return;
     }, [id]);
 

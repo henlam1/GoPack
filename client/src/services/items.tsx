@@ -1,8 +1,8 @@
-import { CategoryListType } from "../interfaces/CategoryList";
+import { ItemType } from "../interfaces/Items";
 
-const BASE_URL = "http://localhost:5050/categoryList"
+const BASE_URL = "http://localhost:5050/items"
 
-export async function getCategoryLists(){
+export async function getItems(){
     try {
         const response = await fetch(`${BASE_URL}/`, {
             method: "GET",
@@ -13,11 +13,11 @@ export async function getCategoryLists(){
         }
         return response
     } catch (error) {
-        console.error("A problem occured with retrieving category lists", error);
+        console.error("A problem occured with retrieving Items", error);
     }
 }
 
-export async function getCategoryList(id: string){
+export async function getItem(id: string){
     try {
         const response = await fetch(`${BASE_URL}/${id}`, {
             method: "GET",
@@ -28,18 +28,18 @@ export async function getCategoryList(id: string){
         }
         return response
     } catch (error) {
-        console.error("A problem occured with retrieving category list " + id, error);
+        console.error("A problem occured with retrieving Item " + id, error);
     }
 }
 
-export async function postCategoryList(categoryList: CategoryListType){
+export async function postItem(items: ItemType){
     try {
         const response = await fetch(`${BASE_URL}/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(categoryList)
+            body: JSON.stringify(items)
         });
     
         if (!response.ok) {
@@ -47,15 +47,15 @@ export async function postCategoryList(categoryList: CategoryListType){
         }
         return response
     } catch (error) {
-        console.error("A problem occured with creating category list", error);
+        console.error("A problem occured with creating Item", error);
     }
 }
 
-export async function patchCategoryList(id: string, categoryList: CategoryListType){
+export async function patchItem(id: string, items: ItemType){
     try {
         const response = await fetch(`${BASE_URL}/${id}`, {
             method: "PATCH",
-            body: JSON.stringify(categoryList)
+            body: JSON.stringify(items)
         });
     
         if (!response.ok) {
@@ -63,11 +63,11 @@ export async function patchCategoryList(id: string, categoryList: CategoryListTy
         }
         return response
     } catch (error) {
-        console.error("A problem occured with updating category list " + id, error);
+        console.error("A problem occured with updating Item " + id, error);
     }
 }
 
-export async function deleteCategoryList(id: string){
+export async function deleteItem(id: string){
     try {
         const response = await fetch(`${BASE_URL}/${id}`, {
             method: "DELETE",
@@ -78,7 +78,7 @@ export async function deleteCategoryList(id: string){
         }
         return response
     } catch (error) {
-        console.error("A problem occured with deleting category list " + id, error);
+        console.error("A problem occured with deleting Item " + id, error);
     }
 }
 
