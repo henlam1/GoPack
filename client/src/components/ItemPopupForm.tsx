@@ -1,16 +1,23 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
+import { ItemFormType } from "../interfaces/ItemForm";
+import { postItem } from "../services/items";
 
-export interface PopupFormHandles {
+export interface ItemPopupFormHandles {
     showForm: () => void;
     hideForm: () => void;
     isVisible: boolean;
 }
 
-interface PopupFormProps {
+interface ItemPopupFormProps {
     categoryId: string,
     categoryName: string,
 }
-function PopupForm({ categoryId, categoryName}: PopupFormProps, ref: React.Ref<PopupFormHandles>) {
+function ItemPopupForm({ categoryId, categoryName}: ItemPopupFormProps, ref: React.Ref<ItemPopupFormHandles>) {
+    const [form, setForm] = useState<ItemFormType>({
+        name: "",
+        units: 1,
+        packed: false,
+    })
     const [isVisible, setIsVisible] = useState(false);
 
     const showForm = () => {
@@ -31,10 +38,26 @@ function PopupForm({ categoryId, categoryName}: PopupFormProps, ref: React.Ref<P
 
     const title = `Add Item for ${categoryName}`;
 
+    // Handler for updating form
+    function updateForm(value: { name?: string; units?: number; packed?: boolean; }) {
+        return setForm((prev) => {
+            return {...prev, ...value};
+        })
+    }
+
     async function handleSubmit(e: React.FormEvent){
         e.preventDefault(); // Prevent page from refreshing when submitting
-        console.log("Creating new item for category: ", categoryId);
-        hideForm();
+        console.log("Form submitted, creating new item for category: ", categoryId);
+        // TODO: Connect API call to create an item
+        const item = {...form};
+        try {
+            await postItem(item);
+        } catch (error) {
+            console.error("A problem occured with item creation", error);
+        } finally {
+            setForm({name: "", units: 1, packed: false});
+            hideForm();
+        }
     }
     return(
         <>
@@ -51,6 +74,8 @@ function PopupForm({ categoryId, categoryName}: PopupFormProps, ref: React.Ref<P
                                 placeholder="Enter here"
                                 minLength={1}
                                 className="border p-2 mb-4 w-full"
+                                value={form.name}
+                                onChange={(e) => updateForm({name: e.target.value})}
                             />
                             <div className="label">
                                 <span className="label-text">Quantity</span>
@@ -60,9 +85,11 @@ function PopupForm({ categoryId, categoryName}: PopupFormProps, ref: React.Ref<P
                                 placeholder="Enter here"
                                 min={1}
                                 className="border p-2 mb-4 w-full"
+                                value={form.units}
+                                onChange={(e) => updateForm({units: Number(e.target.value)})}
                             />
                             <div className="card-actions justify-between">
-                                <button className="btn btn-primary" type="submit">Add Item</button>
+                                <button className="btn btn-primary" type="submit">Ok</button>
                                 <button className="btn btn-secondary" onClick={hideForm}>Cancel</button>
                             </div>
                         </form>
@@ -73,7 +100,7 @@ function PopupForm({ categoryId, categoryName}: PopupFormProps, ref: React.Ref<P
     );
 }
 
-// We are exporting PopupForm wrapped in forwardRef because
-// we want to use the PopupForm component as well as the 
+// We are exporting ItemPopupForm wrapped in forwardRef because
+// we want to use the ItemPopupForm component as well as the 
 // internal state/functions we're referencing
-export default forwardRef(PopupForm);
+export default forwardRef(ItemPopupForm);
