@@ -39,9 +39,9 @@ export default function CategoryPackingList({ categories }: CategoryPackingListP
                     <div className="basis-2/12">
                         <div className="dropdown dropdown-left">
                             <div tabIndex={0} role="button" className="btn btn-xs btn-square">...</div>
-                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                            <ul tabIndex={0} className="dropdown-content menu menu-sm bg-base-300 z-[1] w-52 p-0 [&_li>*]:rounded-none">
                                 <li><button className="btn btn-ghost">Edit Item</button></li>
-                                <li><button className="btn btn-secondary">Delete Item</button></li>
+                                <li><button className="btn btn-ghost">Delete Item</button></li>
                             </ul>
                         </div>
                     </div>
