@@ -114,11 +114,8 @@ router.post("/", async (req, res) => {
 http://localhost:5050/categoryList/67202949440b819859af4ce7
  */
 
-//TODO: SOMETHING HERE IS BROKEN GODDAQMN
 router.patch("/:id", async (req, res) => {
-    try {
-        console.log("in here?")
-        
+    try {        
         let item = await db.collection("items").findOne({ _id: new ObjectId(req.body.itemId) });
         if(!item) {
             res.status(404).send("no such item");
