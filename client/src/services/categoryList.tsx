@@ -51,11 +51,14 @@ export async function postCategoryList(categoryList: CategoryListType){
     }
 }
 
-export async function patchCategoryList(id: string, categoryList: CategoryListType){
+export async function addToCategoryList(categoryListId: string, itemId: string){
     try {
-        const response = await fetch(`${BASE_URL}/${id}`, {
+        const response = await fetch(`${BASE_URL}/${categoryListId}`, {
             method: "PATCH",
-            body: JSON.stringify(categoryList)
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ itemId }),
         });
     
         if (!response.ok) {
@@ -63,7 +66,7 @@ export async function patchCategoryList(id: string, categoryList: CategoryListTy
         }
         return response
     } catch (error) {
-        console.error("A problem occured with updating category list " + id, error);
+        console.error(`A problem occured with adding item ${categoryListId} to category list ${itemId}`, error);
     }
 }
 
