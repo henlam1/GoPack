@@ -9,18 +9,11 @@ export default function AllPackingLists(){
     // This method fetches the all packing lists from the database.
     useEffect(() => {
       async function getAllPackingLists() {
-        // const response = await fetch(`http://localhost:5050/packingList/`);
-        // if (!response.ok) {
-        //   const message = `An error occurred: ${response.statusText}`;
-        //   console.error(message);
-        //   return;
-        // }
         const response = await getPackingLists();
         const packingLists = await response?.json();
         setAllPackingLists(packingLists);
       }
       getAllPackingLists();
-    //   console.log(allPackingLists)
       return;
     }, [allPackingLists.length]);
 

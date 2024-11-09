@@ -1,11 +1,14 @@
-import { CategoryListType } from "../interfaces/CategoryList";
+import { useEffect, useState } from "react";
 import CategoryPackingList from "./CategoryPackingList";
+import { getCategoryList } from "../services/categoryList";
+import { CategoryListType } from "../interfaces/CategoryList";
 
 interface PackingListProps {
-    categories: CategoryListType[],
+    categories: string[],
 }
 
 export default function PackingList(props: PackingListProps) {
+    const [allCategories, setAllCategories] = useState<CategoryListType[]>([]);
     console.log(props);
     // interface catMap {
     //     id: number
@@ -27,9 +30,27 @@ export default function PackingList(props: PackingListProps) {
     //     setCatLists(newLists);
     // };
 
-    const categoryList = props.categories.map( (category, index) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const responses = await Promise.all(props.categories.map((itemId: string) => getCategoryList(itemId)));
+                const data: CategoryListType[] = await Promise.all(responses.map(response => response?.json()));
+                setAllCategories(data);
+            }
+            catch (error){
+                console.error("Error fetching all category lists:", error);
+            }
+        };
+        fetchData();
+    }, [props])
+
+    const categoryList = allCategories.map( (category, index) => {
         const link = `#item${index+1}`
         return <li key={index}><a href={link}>{category.name}</a></li>
+    })
+
+    const categoryPackingLists = allCategories.map( (category) => {
+        return <CategoryPackingList category={category}></CategoryPackingList>
     })
     return (
         <div className="">
@@ -39,7 +60,9 @@ export default function PackingList(props: PackingListProps) {
                 <li key={"addCategory"}><button className = "btn btn-accent">Add category</button></li>
 
             </ul>
-            {CategoryPackingList(props)}
+            <div className="carousel carousel-vertical w-7/12">
+                { categoryPackingLists }
+            </div>
         </div>
     );
 }
