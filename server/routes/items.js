@@ -27,6 +27,26 @@ router.get("/", async (req, res) => {
     res.status(200).send(results);
 });
 
+// Query a single item
+router.get("/:id", async (req, res) => {
+    try {
+        let collection = await db.collection("items");
+        let query = { _id: new ObjectId(req.params.id) };
+        let result = await collection.findOne(query);
+
+        if (!result) {
+            res.send("Not found").status(400);
+        }
+        else {
+            console.log("Got item: ", req.params.id);
+            res.status(200).send(result);
+        }
+    } catch(err) {
+        console.error(err);
+        res.status(400).send("Not found")
+    }
+});
+
 // Create new item
 // very simple. 
 // keep the logic of deciding the units based on the defaults outside of this call. 

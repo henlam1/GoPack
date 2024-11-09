@@ -50,8 +50,9 @@ export default function PackingList(props: PackingListProps) {
     })
 
     const categoryPackingLists = allCategories.map( (category) => {
-        return <CategoryPackingList category={category}></CategoryPackingList>
+        return <CategoryPackingList categoryId={category._id}></CategoryPackingList>
     })
+    
     return (
         <div className="">
             <ul className="menu bg-base-200 rounded-box sticky top-0 float-left w-3/12">

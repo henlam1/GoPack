@@ -115,7 +115,8 @@ http://localhost:5050/categoryList/67202949440b819859af4ce7
  */
 
 router.patch("/:id", async (req, res) => {
-    try {        
+    try {
+        console.log(req.body, req.params);
         let item = await db.collection("items").findOne({ _id: new ObjectId(req.body.itemId) });
         if(!item) {
             res.status(404).send("no such item");

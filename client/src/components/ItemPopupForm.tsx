@@ -1,6 +1,7 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { ItemFormType } from "../interfaces/ItemForm";
 import { postItem } from "../services/items";
+import { addToCategoryList } from "../services/categoryList";
 
 export interface ItemPopupFormHandles {
     showForm: () => void;
@@ -11,8 +12,10 @@ export interface ItemPopupFormHandles {
 interface ItemPopupFormProps {
     categoryId: string,
     categoryName: string,
+    onItemCreated: (categoryId: string) => Promise<void>;
 }
-function ItemPopupForm({ categoryId, categoryName}: ItemPopupFormProps, ref: React.Ref<ItemPopupFormHandles>) {
+
+function ItemPopupForm({ categoryId, categoryName, onItemCreated}: ItemPopupFormProps, ref: React.Ref<ItemPopupFormHandles>) {
     const [form, setForm] = useState<ItemFormType>({
         name: "",
         units: 1,
@@ -51,7 +54,10 @@ function ItemPopupForm({ categoryId, categoryName}: ItemPopupFormProps, ref: Rea
         // TODO: Connect API call to create an item
         const item = {...form};
         try {
-            await postItem(item);
+            const response = await postItem(item);
+            const newItem = await response?.json();
+            await addToCategoryList(categoryId, newItem.insertedId);
+            await onItemCreated(categoryId);
         } catch (error) {
             console.error("A problem occured with item creation", error);
         } finally {
