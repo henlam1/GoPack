@@ -90,7 +90,7 @@ function ItemPopupForm({ categoryId, categoryName}: ItemPopupFormProps, ref: Rea
                             />
                             <div className="card-actions justify-between">
                                 <button className="btn btn-primary" type="submit">Ok</button>
-                                <button className="btn btn-secondary" onClick={hideForm}>Cancel</button>
+                                <button className="btn btn-secondary" type="button" onClick={hideForm}>Cancel</button>
                             </div>
                         </form>
                     </div>
