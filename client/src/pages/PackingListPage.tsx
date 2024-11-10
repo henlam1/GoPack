@@ -33,7 +33,11 @@ export default function PackingListPage() {
     return (
         <div>
             <h1 className="font-bold text-6xl mb-10">{packingList.name}</h1>
-            <PackingList categories={packingList.categories}/>
+            <PackingList 
+              packingListId={id||""}
+              packingListName={packingList.name}
+              categoryIds={packingList.categories}
+            />
         </div>
     );
 }

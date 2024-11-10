@@ -1,4 +1,4 @@
-import { CategoryListType } from "../interfaces/CategoryList";
+import { CategoryListFormType } from "../interfaces/CategoryForm";
 
 const BASE_URL = "http://localhost:5050/categoryList"
 
@@ -32,7 +32,7 @@ export async function getCategoryList(id: string){
     }
 }
 
-export async function postCategoryList(categoryList: CategoryListType){
+export async function postCategoryList(categoryList: CategoryListFormType){
     try {
         const response = await fetch(`${BASE_URL}/`, {
             method: "POST",

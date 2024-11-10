@@ -76,6 +76,28 @@ router.get("/details/:id", async (req, res) => {
     res.status(200).send(results);
 });
 
+// Get categories from packing list
+router.get("/:id/get-categories", async (req, res) => {
+    try {
+        let collection = await db.collection("packingLists");
+        let query = { _id: new ObjectId(req.params.id) };
+        const packingList = await collection.findOne(query);
+        if (!packingList) {
+            console.log("Packing list empty")
+            return res.status(404).send('Packing list not found');
+        }
+        const categories = packingList.categories;
+        if (categories === undefined) {
+            console.log("categories undefined")
+            return res.status(404).send('Categories not found');
+        }
+        res.status(200).send(categories);
+    } catch (err){
+        console.error(err);
+        res.status(400).send("Not found")
+    }
+});
+
 // Create a new packing list
 router.post("/", async (req, res) => {
     try {
@@ -88,7 +110,7 @@ router.post("/", async (req, res) => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        category: category,
+                        name: category,
                         items: [],
                     })
                 });
@@ -118,25 +140,24 @@ router.post("/", async (req, res) => {
     }
 });
 
-// Update a packing list by id
-router.patch("/:id", async (req, res) => {
-    try {
-        const query = { _id: new ObjectId(req.params.id)}
-        const updates = {
-            $set: {
-                name: req.body.name,
-                duration: req.body.duration,
-                categories: req.body.categories,
-            },
-        };
+// Update a packing list by adding category
+router.patch("/:packingListId/add-category", async (req, res) => {
+    const { packingListId } = req.params;
+    const { categoryListId } = req.body;
+    console.log("line 169", req.params, req.body);
 
+    try {
         let collection = await db.collection("packingLists");
-        let result = await collection.updateOne(query, updates);
-        console.log("Updated packing list: ", req.params.id);
+        let result = await collection.updateOne(
+            { _id: new ObjectId(packingListId) },
+            { $push: { categories: categoryListId } }
+        );
+        console.log("Updated packing list: ", req.params.packingListId);
+        console.log(result);
         res.status(200).send(result);
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error updating packing list");
+        res.status(500).send("Error adding category to packing list");
     }
 });
 
