@@ -1,66 +1,100 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CategoryPackingList from "./CategoryPackingList";
 import { getCategoryList } from "../services/categoryList";
 import { CategoryListType } from "../interfaces/CategoryList";
+import CategoryPopupForm, { CategoryPopupFormHandles } from "./CategoryPopupForm";
+import { useDynamicRefs } from "../customHooks/useDynamicRefs";
+import { getPackingListCategories } from "../services/packingList";
 
 interface PackingListProps {
-    categories: string[],
+    packingListId: string,
+    packingListName: string,
+    categoryIds: string[],
 }
 
 export default function PackingList(props: PackingListProps) {
-    const [allCategories, setAllCategories] = useState<CategoryListType[]>([]);
-    console.log(props);
-    // interface catMap {
-    //     id: number
-    // }
-    // const [catLists, setCatLists] = useState<catMap[]>([]); // List contains objects of format {id: number}
-    // const getRef = useDynamicRefs<PopupFormHandles>();
+    const [categoryIds, setCategoryIds] = useState<string[]>(props.categoryIds);
+    const [categoryData, setCategoryData] = useState<CategoryListType[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [idsFetched, setIdsFetched] = useState(false);
 
-    // const handleShowForm = (id: string) => {
-    //     getRef(id).current?.showForm();
-    // };
+    const getCategoryIds = useCallback(async () => {
+        try {
+            setIdsFetched(false);
+            const response = await getPackingListCategories(props.packingListId);
+            const data: string[] = await response?.json();
+            setCategoryIds(data);
+            setIdsFetched(true);
+        }
+        catch (error){
+            console.error("Error fetching category packing list:", error);
+        }
+    }, [props.packingListId]);
 
-    // const addCatList = () => {
-    //     const newList = {id: catLists.length + 1};
-    //     setCatLists([...catLists, newList]);
-    // };
-
-    // const removeCatList = (id: number) => {
-    //     const newLists = catLists.filter((catList) => catList.id !== id);
-    //     setCatLists(newLists);
-    // };
+    const getCategoryData = useCallback(async () => {
+        try {
+            const responses = await Promise.all(categoryIds.map((itemId: string) => getCategoryList(itemId)));
+            const data: CategoryListType[] = await Promise.all(responses.map(response => response?.json()));
+            setCategoryData(data);
+        }
+        catch (error){
+            console.error("Error fetching all category lists:", error);
+        }
+    }, [categoryIds]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const responses = await Promise.all(props.categories.map((itemId: string) => getCategoryList(itemId)));
-                const data: CategoryListType[] = await Promise.all(responses.map(response => response?.json()));
-                setAllCategories(data);
-            }
-            catch (error){
-                console.error("Error fetching all category lists:", error);
-            }
-        };
-        fetchData();
-    }, [props])
+        getCategoryIds();
+    }, [getCategoryIds])
 
-    const categoryList = allCategories.map( (category, index) => {
+    useEffect(() => {
+        if (idsFetched){
+            getCategoryData();
+            setLoading(false);
+        }
+    }, [getCategoryData, idsFetched])
+
+    const getRef = useDynamicRefs<CategoryPopupFormHandles>();
+    const handleShowForm = (id: string) => {
+        getRef(id).current?.showForm();
+    };
+
+    // Return a spinner if data is still loading
+    if (loading) {
+        return <span className="loading loading-spinner loading-lg"></span>;
+    }
+
+    const categoryList = categoryData.map( (category, index) => {
         const link = `#item${index+1}`
         return <li key={index}><a href={link}>{category.name}</a></li>
     })
 
-    const categoryPackingLists = allCategories.map( (category) => {
-        return <CategoryPackingList categoryId={category._id}></CategoryPackingList>
+    const categoryPackingLists = categoryIds.map( (id, index) => {
+        return <CategoryPackingList key={index} categoryId={id}></CategoryPackingList>
     })
-    
+
+    const categoryPopupForm = (
+        <CategoryPopupForm
+        packingListId={props.packingListId}
+        packingListName={props.packingListName}
+        onCategoryCreated={getCategoryIds}
+        ref={getRef(props.packingListId)}
+        />
+    );
+
     return (
         <div className="">
             <ul className="menu bg-base-200 rounded-box sticky top-0 float-left w-3/12">
                 <li key="title" className="menu-title uppercase">Categories</li>
-                {categoryList}
-                <li key={"addCategory"}><button className = "btn btn-accent">Add category</button></li>
-
+                { categoryList }
+                <li key={"addCategory"}>
+                    <button 
+                        className = "btn btn-accent"
+                        onClick={() => {handleShowForm(props.packingListId)}}
+                    >Add category
+                    </button>
+                </li>
             </ul>
+            { categoryPopupForm }
             <div className="carousel carousel-vertical w-7/12">
                 { categoryPackingLists }
             </div>

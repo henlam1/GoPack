@@ -68,10 +68,10 @@ export default function CategoryPackingList({categoryId}: CategoryPackingListPro
                         <div className="basis-2/12">
                             <input type="checkbox" className="checkbox checkbox-primary size-6"/>
                         </div>
-                        <div className="label-text basis-6/12" contentEditable="true">{item.name}</div>
+                        <div className="label-text basis-6/12">{item.name}</div>
                         <div className="flex flex-row basis-2/12 justify-between">
                             <button className="btn btn-xs btn-square">-</button>
-                            <div className="size-6 text-center"contentEditable="true">{ item.units }</div>
+                            <div className="size-6 text-center">{ item.units }</div>
                             <button className="btn btn-xs btn-square">+</button>
                         </div>
                         <div className="basis-2/12">
