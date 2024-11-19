@@ -1,10 +1,9 @@
-import { CategoryListType } from "../interfaces/CategoryList";
-import ItemPopupForm, { ItemPopupFormHandles } from "./ItemPopupForm";
-import { useDynamicRefs } from "../customHooks/useDynamicRefs";
+import { CategoryListType } from "../../interfaces/CategoryList";
+import ItemPopupForm from "../items/ItemPopupForm";
 import { useCallback, useEffect, useState } from "react";
-import { getItem } from "../services/items";
-import { ItemType } from "../interfaces/Items";
-import { getCategoryList } from "../services/categoryList";
+import { getItem } from "../../services/items";
+import { ItemType } from "../../interfaces/Items";
+import { getCategoryList } from "../../services/categoryList";
 
 /**
  * hmm we're definitely going to need to save the category choices and the 
@@ -24,6 +23,7 @@ const defaultCategoryList: CategoryListType = {
 export default function CategoryPackingList({categoryId}: CategoryPackingListProps) {
     const [categoryList, setCategoryList] = useState<CategoryListType>(defaultCategoryList);
     const [items, setItems] = useState<ItemType[]>([]);
+    const [openForm ,setOpenForm] = useState(false);
 
     const getCategory = useCallback(async () => {
         try {
@@ -88,17 +88,18 @@ export default function CategoryPackingList({categoryId}: CategoryPackingListPro
             </>
         );
     }
-
-    const getRef = useDynamicRefs<ItemPopupFormHandles>();
-    const handleShowForm = (id: string) => {
-        getRef(id).current?.showForm();
+    const handleShowForm = () => {
+        setOpenForm(true);
     };
+    const handleCloseForm = () => {
+        setOpenForm(false);
+    }
     const itemPopUpForm = (
         <ItemPopupForm
         categoryId={categoryList._id}
         categoryName={categoryList.name}
         onItemCreated={getCategory}
-        ref={getRef(categoryList._id)} 
+        onClose={handleCloseForm}
         />
     );
     return (
@@ -117,9 +118,11 @@ export default function CategoryPackingList({categoryId}: CategoryPackingListPro
                 <div className="basis-2/12 justify-left">
                     <button 
                         className="btn btn-sm btn-accent"
-                        onClick={() => {handleShowForm(categoryList._id)}}
+                        onClick={() => {handleShowForm()}}
                     >Add Item</button>
-                    {itemPopUpForm}
+                    {openForm && (
+                        itemPopUpForm
+                    )}
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router';
-import PackingList from '../components/PackingList';
+import PackingList from '../features/packingList/PackingList';
 import { PackingListType } from "../interfaces/PackingList";
 import { getPackingList } from "../services/packingList";
 

@@ -1,7 +1,7 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
-import { ItemFormType } from "../interfaces/ItemForm";
-import { postItem } from "../services/items";
-import { addToCategoryList } from "../services/categoryList";
+import { ItemFormType } from "../../interfaces/ItemForm";
+import { postItem } from "../../services/items";
+import { addToCategoryList } from "../../services/categoryList";
 
 export interface ItemPopupFormHandles {
     showForm: () => void;

@@ -4,7 +4,7 @@ import Creation from "./pages/Creation";
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PackingListPage from './pages/PackingListPage';
-import Layout from "./components/Layout";
+import Layout from "./layout/Layout";
 
 
 export default function App() {

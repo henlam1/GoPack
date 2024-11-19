@@ -1,4 +1,4 @@
-import AllPackingLists from "../components/AllPackingLists";
+import AllPackingLists from "../features/packingList/AllPackingLists";
 import { useNavigate } from 'react-router-dom';
 
 export default function Landing(){
