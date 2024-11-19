@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import CategoryPackingList from "./CategoryPackingList";
-import { getCategoryList } from "../services/categoryList";
-import { CategoryListType } from "../interfaces/CategoryList";
-import CategoryPopupForm, { CategoryPopupFormHandles } from "./CategoryPopupForm";
-import { useDynamicRefs } from "../customHooks/useDynamicRefs";
-import { getPackingListCategories } from "../services/packingList";
+import CategoryPackingList from "../categories/CategoryPackingList";
+import { getCategoryList } from "../../services/categoryList";
+import { CategoryListType } from "../../interfaces/CategoryList";
+import CategoryPopupForm, { CategoryPopupFormHandles } from "../categories/CategoryPopupForm";
+import { useDynamicRefs } from "../../hooks/useDynamicRefs";
+import { getPackingListCategories } from "../../services/packingList";
 
 interface PackingListProps {
     packingListId: string,

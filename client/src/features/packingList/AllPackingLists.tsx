@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
-import { getPackingLists } from "../services/packingList";
-import { PackingListType } from "../interfaces/PackingList";
+import { getPackingLists } from "../../services/packingList";
+import { PackingListType } from "../../interfaces/PackingList";
 
 export default function AllPackingLists(){
     const [allPackingLists, setAllPackingLists] = useState<PackingListType[]>([]);

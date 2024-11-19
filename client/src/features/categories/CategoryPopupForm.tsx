@@ -1,6 +1,6 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
-import { postCategoryList } from "../services/categoryList";
-import { addToPackingList } from "../services/packingList";
+import { postCategoryList } from "../../services/categoryList";
+import { addToPackingList } from "../../services/packingList";
 
 
 export interface CategoryPopupFormHandles {
