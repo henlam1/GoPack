@@ -2,8 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import CategoryPackingList from "../categories/CategoryPackingList";
 import { getCategoryList } from "../../services/categoryList";
 import { CategoryListType } from "../../interfaces/CategoryList";
-import CategoryPopupForm, { CategoryPopupFormHandles } from "../categories/CategoryPopupForm";
-import { useDynamicRefs } from "../../hooks/useDynamicRefs";
+import CategoryPopupForm from "../categories/CategoryPopupForm";
 import { getPackingListCategories } from "../../services/packingList";
 
 interface PackingListProps {
@@ -17,6 +16,7 @@ export default function PackingList(props: PackingListProps) {
     const [categoryData, setCategoryData] = useState<CategoryListType[]>([]);
     const [loading, setLoading] = useState(true);
     const [idsFetched, setIdsFetched] = useState(false);
+    const [openForm ,setOpenForm] = useState(false);
 
     const getCategoryIds = useCallback(async () => {
         try {
@@ -52,11 +52,14 @@ export default function PackingList(props: PackingListProps) {
             setLoading(false);
         }
     }, [getCategoryData, idsFetched])
+    
 
-    const getRef = useDynamicRefs<CategoryPopupFormHandles>();
-    const handleShowForm = (id: string) => {
-        getRef(id).current?.showForm();
+    const handleShowForm = () => {
+        setOpenForm(true);
     };
+    const handleCloseForm = () => {
+        setOpenForm(false);
+    }
 
     // Return a spinner if data is still loading
     if (loading) {
@@ -77,7 +80,7 @@ export default function PackingList(props: PackingListProps) {
         packingListId={props.packingListId}
         packingListName={props.packingListName}
         onCategoryCreated={getCategoryIds}
-        ref={getRef(props.packingListId)}
+        onClose={handleCloseForm}
         />
     );
 
@@ -89,12 +92,14 @@ export default function PackingList(props: PackingListProps) {
                 <li key={"addCategory"}>
                     <button 
                         className = "btn btn-accent"
-                        onClick={() => {handleShowForm(props.packingListId)}}
+                        onClick={() => {handleShowForm()}}
                     >Add category
                     </button>
                 </li>
             </ul>
-            { categoryPopupForm }
+            {openForm && (
+                categoryPopupForm
+            )}
             <div className="carousel carousel-vertical w-7/12">
                 { categoryPackingLists }
             </div>
