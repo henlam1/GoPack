@@ -23,6 +23,4 @@ const connectDB = async () => {
   }
 }
 
-let db = client.db("GoPackApp");
-
-export default db;
+export default connectDB;
