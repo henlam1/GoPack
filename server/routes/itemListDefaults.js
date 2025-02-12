@@ -1,7 +1,7 @@
 import express from "express";
 
 // Connect to the database
-import db from "../db/connection.js";
+import db from "../config/db.js";
 
 // Converts string id to ObjectId for the _id
 import { ObjectId } from "mongodb";
