@@ -8,4 +8,5 @@ const packingListSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("PackingList", packingListSchema);
+const PackingList = mongoose.model("PackingList", packingListSchema);
+export default PackingList;

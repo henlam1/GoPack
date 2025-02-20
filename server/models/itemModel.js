@@ -7,4 +7,5 @@ const itemSchema = new mongoose.Schema({
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
 });
 
-module.exports = mongoose.model("Item", itemSchema);
+const Item = mongoose.model("Item", itemSchema);
+export default Item;
