@@ -7,4 +7,5 @@ const UserSchema = new mongoose.Schema({
   packingLists: [{ type: mongoose.Schema.Types.ObjectId, ref: "PackingList" }],
 });
 
-module.exports = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+export default User;
