@@ -1,6 +1,8 @@
 import validationMiddleware from "../middleware/validationMiddleware";
 
-//
+// Routes Type: Route[]
+// Route Type: { method, path, schema, controller }
+// Apply validation middlewares to specified routes
 const applyValidation = (router, routes) => {
   routes.forEach(({ method, path, schema, controller }) => {
     if (schema) {
