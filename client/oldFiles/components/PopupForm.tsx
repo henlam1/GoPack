@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Dictionary } from "../interfaces/Dictionary";
-import defaultValue from "../utils/defaultValue";
 
 
 interface FormArrObj {
@@ -21,7 +20,7 @@ interface PopupFormProps {
 }
 
 const prepareForm = (formArr: Array<FormArrObj>): Dictionary => {
-    return formArr.reduce((r, v) => ({ ...r, [v.name]: defaultValue(v.type)}), {});
+    return formArr.reduce((r, v) => ({ ...r, [v.name]: ""}), {});
 }
 
 function PopupForm({title, formArr, onSubmit, submitBtn, onClose}: PopupFormProps) {
