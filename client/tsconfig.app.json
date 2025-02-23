@@ -21,7 +21,15 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Types */
-    "types": ["node"],
+    "types": ["node"]
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "oldFiles/components",
+    "oldFiles/features",
+    "oldFiles/interfaces",
+    "oldFiles/pages",
+    "oldFiles/services",
+    "oldFiles/layout"
+  ]
 }
