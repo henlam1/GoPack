@@ -1,9 +1,11 @@
 import Navbar from "../atomic/Navbar";
 import { Outlet } from 'react-router-dom';
 
+// TODO: Create public and private layoud
+// TODO: Follow Figma design system
 export default function Layout() {
     return(
-        <div className="mt-12">
+        <div>
             <header>
             {/* Header content goes here */}
                 <Navbar/>
