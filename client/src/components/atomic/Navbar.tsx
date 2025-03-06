@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import publicRoutes from "../../routes/publicRoutes";
+import privateRoutes from "../../routes/privateRoutes";
 
 export default function Navbar(){
   return (
@@ -9,13 +11,16 @@ export default function Navbar(){
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link to={'/login'}>Login</Link>
+            <Link to={publicRoutes.login}>Login</Link>
           </li>
           <li>
-            <Link to={'/register'}>Register</Link>
+            <Link to={publicRoutes.register}>Register</Link>
           </li>
           <li>
-            <Link to={'/home'}>Private Home</Link>
+            <Link to={privateRoutes.home}>Private Home</Link>
+          </li>
+          <li>
+            <Link to={privateRoutes.createPackingLists}>Create Packing List</Link>
           </li>
         </ul>
       </div>

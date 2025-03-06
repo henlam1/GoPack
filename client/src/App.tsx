@@ -1,25 +1,36 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./components/navigation/Layout";
+import PublicLayout from "./components/navigation/PublicLayout";
+import privateRoutes from "./routes/privateRoutes";
+import publicRoutes from "./routes/publicRoutes";
+import PrivateWrapper from "./components/navigation/PrivateWrapper";
 import PublicHomePage from "./pages/public/HomePage";
 import LoginPage from "./pages/public/LoginPage";
 import RegisterPage from "./pages/public/RegisterPage";
-import PrivateHomePage from "./pages/private/HomePage"
+import PrivateHomePage from "./pages/private/HomePage";
+import PackingListPage from "./pages/private/PackingListPage";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        {/* TODO: Separate layout of public and private routes */}
-        {/* TODO: Rename public/private home pages to proper names */}
-        <Route element={<Layout />}>
+        <Route path="/">
           {/* PUBLIC ROUTES */}
-          <Route path="/" element={<PublicHomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route element={<PublicLayout />}>
+            <Route index element={<PublicHomePage />} />
+            <Route path={publicRoutes.login} element={<LoginPage />} />
+            <Route path={publicRoutes.register} element={<RegisterPage />} />
+          </Route>
 
           {/* PRIVATE ROUTES */}
-          <Route path="/home" element={<PrivateHomePage />} />
-
+          <Route element={<PrivateWrapper />}>
+            <Route path={privateRoutes.home} element={<PrivateHomePage />} />
+            <Route
+              path={privateRoutes.createPackingLists}
+              element={<PackingListPage />}
+            />
+          </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </Router>

@@ -1,3 +1,49 @@
+import { Link } from "react-router-dom";
+import privateRoutes from "../routes/privateRoutes";
+
+// TODO: ADD ICONS FOR EACH SIDE BAR ITEM
+
+interface Item {
+  name: string;
+  path: string;
+}
+
+const ItemList = [
+  {
+    name: "Add Packing List",
+    path: privateRoutes.createPackingLists,
+  },
+  {
+    name: "Home",
+    path: privateRoutes.home,
+  },
+  {
+    name: "Upcoming",
+    path: privateRoutes.upcomingPackingLists,
+  },
+  {
+    name: "Trash",
+    path: privateRoutes.trashedPackingLists,
+  },
+];
+
+function SideBarItems({ items }: { items: Item[] }) {
+  return (
+    <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+      {items.map(({ name, path }) => {
+        return <SideBarItem key={name} name={name} path={path} />;
+      })}
+    </ul>
+  );
+}
+function SideBarItem({ name, path }: { name: string; path: string }) {
+  return (
+    <li>
+      <Link to={path}>{name}</Link>
+    </li>
+  );
+}
+
 export default function SideBar() {
   // TODO: Create sidebar items based off Figma
   return (
@@ -18,15 +64,8 @@ export default function SideBar() {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          {/* Sidebar content here */}
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
-        </ul>
+        {/* Sidebar content here */}
+        <SideBarItems items={ItemList} />
       </div>
     </div>
   );
