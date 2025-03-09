@@ -1,4 +1,4 @@
-import Item from "../models/itemModel";
+import Item from "../models/itemModel.js";
 
 class ItemService {
   async getItems() {

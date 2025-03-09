@@ -1,5 +1,5 @@
-import tryCatch from "../utils/tryCatch";
-import UserService from "../services/userService";
+import tryCatch from "../utils/tryCatch.js";
+import UserService from "../services/userService.js";
 
 export const getUsers = tryCatch(async (req, res, next) => {
   const users = await UserService.getUsers();

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import packingListRoutes from "./packingListRoutes";
-import categoryRoutes from "./categoryRoutes";
-import itemRoutes from "./itemRoutes";
-import userRoutes from "./userRoutes";
+import packingListRoutes from "./packingListRoutes.js";
+import categoryRoutes from "./categoryRoutes.js";
+import itemRoutes from "./itemRoutes.js";
+import userRoutes from "./userRoutes.js";
 
 const router = Router();
 
