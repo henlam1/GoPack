@@ -1,4 +1,4 @@
-import Category from "../models/categoryModel";
+import Category from "../models/categoryModel.js";
 
 class CategoryService {
   async getCategories() {

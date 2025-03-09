@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   getPackingLists,
   addPackingList,
-} from "../controllers/packingListController";
+} from "../controllers/packingListController.js";
 
 const router = Router();
 

@@ -1,4 +1,4 @@
-import PackingList from "../models/packingListModel";
+import PackingList from "../models/packingListModel.js";
 
 class PackingListService {
   async getPackingLists() {
