@@ -10,17 +10,15 @@ class CategoryService {
     return await newCategory.save();
   }
   
-  async updateCategory(data) {
-    const { filter, update } = data;
-    const updatedCategory = await Category.findOneAndUpdate(filter, update, {
+  async updateCategory(categoryId, data) {
+    const updatedCategory = await Category.findByIdAndUpdate(categoryId, data, {
       new: true,
     });
     return updatedCategory;
   }
   
-  async deleteCategory(data) {
-    const { filter } = data;
-    const deletedCategory = await Category.findOneAndDelete(filter);
+  async deleteCategory(categoryId) {
+    const deletedCategory = await Category.findByIdAndDelete(categoryId);
     return deletedCategory;
   }
 }

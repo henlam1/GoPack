@@ -10,17 +10,15 @@ class ItemService {
     return await newItem.save();
   }
 
-  async updateItem(data) {
-    const { filter, update } = data;
-    const updatedItem = await Item.findOneAndUpdate(filter, update, {
+  async updateItem(itemId, data) {
+    const updatedItem = await Item.findByIdAndUpdate(itemId, data, {
       new: true,
     });
     return updatedItem;
   }
 
-  async deleteItem(data) {
-    const { filter } = data;
-    const deletedItem = await Item.findOneAndDelete(filter);
+  async deleteItem(itemId) {
+    const deletedItem = await Item.findByIdAndDelete(itemId);
     return deletedItem;
   }
 }

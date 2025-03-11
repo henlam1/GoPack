@@ -13,3 +13,21 @@ export const addUser = tryCatch(async (req, res, next) => {
     user: newUser,
   });
 });
+
+export const updateUser = tryCatch(async (req, res, next) => {
+  const { userId } = req.params;
+  const updatedUser = await UserService.updateUser(userId, req.body);
+  res.status(200).json({
+    message: "User updated",
+    User: updatedUser,
+  });
+});
+
+export const deleteUser = tryCatch(async (req, res, next) => {
+  const { userId } = req.params;
+  const deletedUser = await UserService.deleteUser(userId);
+  res.status(200).json({
+    message: "User deleted",
+    item: deletedUser,
+  });
+});

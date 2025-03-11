@@ -13,3 +13,21 @@ export const addItem = tryCatch(async (req, res, next) => {
     item: newItem,
   });
 });
+
+export const updateItem = tryCatch(async (req, res, next) => {
+  const { itemId } = req.params;
+  const updatedItem = await ItemService.updateItem(itemId, req.body);
+  res.status(200).json({
+    message: "Item updated",
+    item: updatedItem,
+  });
+});
+
+export const deleteItem = tryCatch(async (req, res, next) => {
+  const { itemId } = req.params;
+  const deletedItem = await ItemService.deleteItem(itemId);
+  res.status(200).json({
+    message: "Item deleted",
+    item: deletedItem,
+  });
+});
