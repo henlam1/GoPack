@@ -4,8 +4,6 @@ class AppError extends Error {
     this.statusCode = statusCode;
     this.status = `${statusCode}`.startsWith("4") ? "fail" : "error";
     this.isOperational = true; // operational errors are expected
-
-    Error.captureStackTrace(this, this.constructor);
   }
 }
 
@@ -26,3 +24,5 @@ class AuthError extends AppError {
     super(message, 401);
   }
 }
+
+export { NotFoundError, ValidationError, AuthError };

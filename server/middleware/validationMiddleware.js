@@ -1,8 +1,10 @@
-// Validation middleware where schema is a Joi object
+import { ValidationError } from "./errors/errorClasses.js";
+
+// Joi schema validation middleware
 const validationMiddleware = (schema) => (req, res, next) => {
   const { error } = schema.validate(req.body);
   if (error) {
-    return res.status(400).json({ message: error.details[0].message });
+    throw new ValidationError(error.details[0].message);
   }
   next();
 };

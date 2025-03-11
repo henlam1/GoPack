@@ -1,10 +1,13 @@
 import mongoose from "mongoose";
 
 const itemSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  quantity: { type: Number, default: 1 },
-  packed: { type: Boolean, default: false },
-  category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+  name: { type: String },
+  quantity: { type: Number },
+  packed: { type: Boolean },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+  },
 });
 
 const Item = mongoose.model("Item", itemSchema);
