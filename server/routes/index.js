@@ -6,7 +6,7 @@ import userRoutes from "./userRoutes.js";
 
 const router = Router();
 
-router.use("/packingLists", packingListRoutes);
+router.use("/packing_lists", packingListRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/items", itemRoutes);
 router.use("/users", userRoutes);
