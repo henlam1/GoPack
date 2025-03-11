@@ -10,17 +10,15 @@ class PackingListService {
     return await newList.save();
   }
   
-  async updatePackingList(data) {
-    const { filter, update } = data;
-    const updatedPackingList = await PackingList.findOneAndUpdate(filter, update, {
+  async updatePackingList(packingListId, data) {
+    const updatedPackingList = await PackingList.findByIdAndUpdate(packingListId, data, {
       new: true,
     });
     return updatedPackingList;
   }
   
-  async deletePackingList(data) {
-    const { filter } = data;
-    const deletedPackingList = await PackingList.findOneAndDelete(filter);
+  async deletePackingList(packingListId) {
+    const deletedPackingList = await PackingList.findByIdAndDelete(packingListId);
     return deletedPackingList;
   }
 }

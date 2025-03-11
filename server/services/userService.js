@@ -10,17 +10,15 @@ class UserService {
     return await user.save();
   }
 
-  async updateUser(data){
-    const { filter, update } = data;
-    const updatedUser = await User.findOneAndUpdate(filter, update, {
+  async updateUser(userId, data){
+    const updatedUser = await User.findByIdAndUpdate(userId, data, {
       new: true,
     });
     return updatedUser;
   }
   
-  async deleteUser(data) {
-    const { filter } = data;
-    const deletedUser = await User.findOneAndDelete(filter);
+  async deleteUser(userId) {
+    const deletedUser = await User.findByIdAndDelete(userId);
     return deletedUser;
   }
 }
