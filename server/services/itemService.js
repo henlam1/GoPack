@@ -5,6 +5,10 @@ class ItemService {
     return await Item.find();
   }
 
+  async getItemById(itemId) {
+    return await Item.findById(itemId);
+  }
+
   async addItem(data) {
     const newItem = new Item(data);
     return await newItem.save();

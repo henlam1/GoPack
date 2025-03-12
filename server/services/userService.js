@@ -5,18 +5,22 @@ class UserService {
     return await User.find();
   }
 
+  async getUserById(userId) {
+    return await User.findById(userId);
+  }
+
   async addUser(data) {
     const user = new User(data);
     return await user.save();
   }
 
-  async updateUser(userId, data){
+  async updateUser(userId, data) {
     const updatedUser = await User.findByIdAndUpdate(userId, data, {
       new: true,
     });
     return updatedUser;
   }
-  
+
   async deleteUser(userId) {
     const deletedUser = await User.findByIdAndDelete(userId);
     return deletedUser;
