@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getItems,
+  getItemById,
   addItem,
   updateItem,
   deleteItem,
@@ -10,8 +11,12 @@ import itemSchema from "../validationSchemas/itemSchema.js";
 
 const router = Router();
 
-router.get("/", getItems);
-router.post("/", validationMiddleware(itemSchema), addItem);
-router.route("/:itemId").patch(updateItem).delete(deleteItem);
+router.route("/")
+  .get(getItems)
+  .post(validationMiddleware(itemSchema), addItem);
+router.route("/:itemId")
+  .get(getItemById)
+  .patch(updateItem)
+  .delete(deleteItem);
 
 export default router;
