@@ -4,6 +4,7 @@ export const apiRoutes = {
   packingLists: {
     base: `${apiBaseUrl}/api/packing_lists`,
     getById: (id: string) => `${apiBaseUrl}/api/packing_lists/${id}`,
+    create: `${apiBaseUrl}/api/packing_lists`,
   },
   categories: {
     base: `${apiBaseUrl}/api/categories`,
