@@ -1,15 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import IItem from "../models/ItemModel";
 import { getItems } from "../services/api/items";
+import IItem from "../models/ItemModel";
 
+// CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
+// PackingListContainer => Fetch packing lists => Render PackingListItem(props)
+// This is used in the homepage to display cards of each packing list
 export default function PackingListContainer() {
-  // TODO: Decide what containers we need
-  // e.g. containers for showing packing lists,
-  // accordian for categories
-  // container for grouping items
-
-  // TODO: DRY Principle
-  // Current rendering is egregious and nested
   const {
     data: items,
     isError,
