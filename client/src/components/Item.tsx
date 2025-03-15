@@ -1,7 +1,12 @@
-export default function Item(){
-  return(
+import IItem from "../models/ItemModel";
+
+export default function Item({ packed, name, quantity }: IItem) {
+  console.log("Item: ", packed, name, quantity);
+  return (
     <>
-    I'm an item
+      {packed}
+      {name}
+      {quantity}
     </>
-  )
+  );
 }
