@@ -5,7 +5,7 @@ export async function getItems() {
   try {
     const response = await fetch(apiRoutes.items.getAll);
     if (!response.ok) {
-      throw new Error("Failed to create item");
+      throw new Error("Failed to get items");
     }
     const data = await response.json();
     console.log("Data fetched: ", data);
@@ -19,7 +19,7 @@ export async function getItem(id: string) {
   try {
     const response = await fetch(apiRoutes.items.getById(id));
     if (!response.ok) {
-      throw new Error("Failed to create item");
+      throw new Error("Failed to get item");
     }
     const data = await response.json();
     console.log("Data fetched: ", data);
