@@ -4,5 +4,5 @@ import IUser from "./UserModel";
 export default interface IPackingList {
   name: string;
   categories: ICategory[];
-  user: IUser;
+  user: IUser | string;
 }

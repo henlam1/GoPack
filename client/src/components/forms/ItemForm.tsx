@@ -1,19 +1,19 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { genHexString } from "../../utils/stringHelpers";
+import { createItem } from "../../services/api/items";
 
-// THIS IS AN EXAMPLE FORM TO LEARN THE FOLLOWING LIBRARIES
-// REACT-HOOK-FORM, HOOKFORM-RESOLVERS, ZOD
-
-const schema = z.object({
+const itemSchema = z.object({
   name: z.string().min(1).max(30),
   quantity: z.coerce.number().min(1).max(99),
   packed: z.boolean(),
+  category: z.string().default(genHexString(24))
 });
 
-type FormFields = z.infer<typeof schema>;
+type FormFields = z.infer<typeof itemSchema>;
 
-export default function Form() {
+export default function ItemForm() {
   const {
     register,
     handleSubmit,
@@ -23,13 +23,14 @@ export default function Form() {
       quantity: 1,
       packed: false,
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(itemSchema),
   });
 
   async function onSubmit(data: FormFields) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log(data);
+      const response = await createItem(data);
+      console.log(response);
     } catch (error) {
       console.error("Error submitting ", error);
     }
