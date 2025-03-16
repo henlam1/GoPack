@@ -4,5 +4,5 @@ export default interface IItem {
   name: string,
   quantity: number,
   packed: boolean,
-  category: ICategory,
+  category: ICategory | string,
 }

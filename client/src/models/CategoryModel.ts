@@ -4,5 +4,5 @@ import IPackingList from "./PackingListModel";
 export default interface ICategory {
   name: string;
   items: IItem[];
-  packingList: IPackingList;
+  packingList: IPackingList | string;
 }

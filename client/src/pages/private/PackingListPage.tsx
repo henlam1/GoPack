@@ -1,4 +1,4 @@
-import Form from "../../components/forms/Form";
+import ItemForm from "../../components/forms/ItemForm";
 import PackingListContainer from "../../containers/PackingListContainer";
 
 export default function PackingListPage() {
@@ -7,7 +7,7 @@ export default function PackingListPage() {
     <div>
       PACKING LIST PAGE
       <PackingListContainer />
-      <Form></Form>
+      <ItemForm />
     </div>
   );
 }
