@@ -1,32 +1,23 @@
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { genHexString } from "../../utils/stringHelpers";
+import {
+  itemSchema,
+  ItemFormFields,
+  itemDefaults,
+} from "../../models/zod/itemSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { createItem } from "../../services/api/items";
-
-const itemSchema = z.object({
-  name: z.string().min(1).max(30),
-  quantity: z.coerce.number().min(1).max(99),
-  packed: z.boolean(),
-  category: z.string().default(genHexString(24))
-});
-
-type FormFields = z.infer<typeof itemSchema>;
 
 export default function ItemForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormFields>({
-    defaultValues: {
-      quantity: 1,
-      packed: false,
-    },
+  } = useForm<ItemFormFields>({
+    defaultValues: itemDefaults,
     resolver: zodResolver(itemSchema),
   });
 
-  async function onSubmit(data: FormFields) {
+  async function onSubmit(data: ItemFormFields) {
     try {
       console.log(data);
       const response = await createItem(data);
