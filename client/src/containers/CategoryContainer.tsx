@@ -19,14 +19,13 @@ export default function CategoryContainer() {
     queryFn: getItems,
   });
   console.log("CategoryContainer: ", exampleCategories);
+  if (isPending) return <div>Loading...</div>;
+  if (isError) return <div>Error...</div>;
   return (
     <>
-      {isPending && <div>Loading...</div>}
-      {isError && <div>Error...</div>}
-      {!isPending &&
-        exampleCategories.map((category) => {
-          return <Category title={category} items={items} />;
-        })}
+      {exampleCategories.map((category) => {
+        return <Category title={category} items={items} />;
+      })}
     </>
   );
 }
