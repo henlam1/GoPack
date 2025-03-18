@@ -33,7 +33,7 @@ export async function getCategory(id: string) {
   }
 }
 
-export async function createCategory(category: ICategory) {
+export async function createCategory(category: Omit<ICategory, "_id">) {
   try {
     const response = await fetch(apiRoutes.categories.create, {
       method: "POST",

@@ -36,7 +36,7 @@ export async function getPackingList(id: string) {
   }
 }
 
-export async function createPackingList(packingList: IPackingList) {
+export async function createPackingList(packingList: Omit<IPackingList, "_id">) {
   try {
     const response = await fetch(apiRoutes.packingLists.create, {
       method: "POST",

@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getItems } from "../services/api/items";
 import Category from "../components/Category";
+import ICategory from "../models/CategoryModel";
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
 // CategoryContainer => Fetch Categories => Render Category(props)
@@ -8,23 +7,19 @@ import Category from "../components/Category";
 
 // TODO: FIGURE OUT DATA FLOW AND FETCH
 // TODO: CREATE CALLBACK FUNCTIONS TO PASS DOWN
-export default function CategoryContainer() {
-  const exampleCategories = ["category1", "category2", "category3"];
-  const {
-    data: items,
-    isPending,
-    isError,
-  } = useQuery({
-    queryKey: ["items"],
-    queryFn: getItems,
-  });
-  console.log("CategoryContainer: ", exampleCategories);
-  if (isPending) return <div>Loading...</div>;
-  if (isError) return <div>Error...</div>;
+
+interface CategoryCoatinerProps {
+  categories: ICategory[];
+}
+
+export default function CategoryContainer({
+  categories,
+}: CategoryCoatinerProps) {
+
   return (
     <>
-      {exampleCategories.map((category) => {
-        return <Category title={category} items={items} />;
+      {categories.map((category) => {
+        return <Category {...category} />;
       })}
     </>
   );

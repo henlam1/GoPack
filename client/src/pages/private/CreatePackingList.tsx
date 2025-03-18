@@ -4,9 +4,11 @@
 import PackingListForm from "../../components/forms/PackingListForm";
 
 export default function PackingListPage() {
-  <div>
-    CREATE PACKING LIST
-    <h1>Packing List Form</h1>
-    <PackingListForm />
-  </div>;
+  return (
+    <div>
+      CREATE PACKING LIST
+      <h1>Packing List Form</h1>
+      <PackingListForm />
+    </div>
+  );
 }

@@ -33,7 +33,7 @@ export async function getItem(id: string) {
   }
 }
 
-export async function createItem(item: IItem) {
+export async function createItem(item: Omit<IItem, "_id">) {
   try {
     const response = await fetch(apiRoutes.items.create, {
       method: "POST",
