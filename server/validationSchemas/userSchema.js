@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const userSchema = Joi.object({
+export const userSchema = Joi.object({
   username: Joi.string().min(3).max(30).trim().required().messages({
     "string.base": "Username should be a string",
     "string.empty": "Username is required",
@@ -30,5 +30,3 @@ const userSchema = Joi.object({
       "any.required": "Packing lists are required",
     }),
 });
-
-export default userSchema;

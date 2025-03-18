@@ -7,7 +7,7 @@ import {
   deleteItem,
 } from "../controllers/itemController.js";
 import validationMiddleware from "../middleware/validationMiddleware.js";
-import itemSchema from "../validationSchemas/itemSchema.js";
+import { itemSchema } from "../validationSchemas/itemSchema.js";
 
 const router = Router();
 

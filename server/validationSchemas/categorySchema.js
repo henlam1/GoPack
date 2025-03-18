@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const categorySchema = Joi.object({
+export const categorySchema = Joi.object({
   name: Joi.string().max(30).trim().required().messages({
     "string.base": "Category name should be a string",
     "string.empty": "Category name is required",
@@ -17,5 +17,3 @@ const categorySchema = Joi.object({
     "any.required": "Packing list reference is required",
   }),
 });
-
-export default categorySchema;

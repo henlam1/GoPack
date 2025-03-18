@@ -6,6 +6,12 @@ export const getCategories = tryCatch(async (req, res, next) => {
   res.status(200).json({ categories: categories });
 });
 
+export const getCategoryById = tryCatch(async (req, res, next) => {
+  const { categoryId } = req.params;
+  const categories = await CategoryService.getCategoryById(categoryId);
+  res.status(200).json({ categories: categories });
+});
+
 export const addCategory = tryCatch(async (req, res, next) => {
   const newCategory = await CategoryService.addCategory(req.body);
   res.status(201).json({

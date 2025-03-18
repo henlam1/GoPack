@@ -5,11 +5,16 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/userController.js";
+import validationMiddleware from "../middleware/validationMiddleware.js";
+import { userSchema } from "../validationSchemas/userSchema.js";
 
 const router = Router();
 
-router.get("/", getUsers);
-router.post("/", addUser);
-router.route("/:userId").patch(updateUser).delete(deleteUser);
+router.route("/")
+  .get(getUsers)
+  .post(validationMiddleware(userSchema), addUser)
+router.route("/:userId")
+  .patch(updateUser)
+  .delete(deleteUser);
 
 export default router;
