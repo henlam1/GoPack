@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const packingListSchema = new mongoose.Schema({
-  name: { type: String, max: 30 },
+  name: { type: String },
   categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });

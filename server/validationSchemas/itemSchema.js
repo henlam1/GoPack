@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const itemSchema = Joi.object({
+export const itemSchema = Joi.object({
   name: Joi.string().max(30).trim().required().messages({
     "string.base": "Item name should be a string",
     "string.empty": "Item name is required",
@@ -26,4 +26,3 @@ const itemSchema = Joi.object({
   }),
 });
 
-export default itemSchema;
