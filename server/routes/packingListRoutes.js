@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   getPackingLists,
   addPackingList,
+  getPackingListById,
   updatePackingList,
   deletePackingList,
 } from "../controllers/packingListController.js";
@@ -14,6 +15,7 @@ router.route("/")
   .get(getPackingLists)
   .post(validationMiddleware(packingListSchema), addPackingList)
 router.route("/:packingListId")
+  .get(getPackingListById)
   .patch(updatePackingList)
   .delete(deletePackingList);
   

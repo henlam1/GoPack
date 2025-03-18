@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createPackingList } from "../../services/api/packingLists";
 import {
   packingListSchema,
   PackingListFormFields,
   packingListDefaults,
 } from "../../models/zod/packingListSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createPackingList } from "../../services/api/packingLists";
 
 export default function PackingListForm() {
   const {

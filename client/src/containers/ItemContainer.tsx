@@ -8,9 +8,7 @@ import Item from "../components/Item";
 interface ItemContainerProps {
   items: IItem[];
 }
-
 export default function ItemContainer({ items }: ItemContainerProps) {
-  console.log("ItemContainer: ", items);
   return (
     <div className="flex flex-col">
       {items.map((item: IItem) => {

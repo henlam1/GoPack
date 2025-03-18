@@ -1,19 +1,16 @@
 import ItemContainer from "../containers/ItemContainer";
+import ICategory from "../models/CategoryModel";
 import IItem from "../models/ItemModel";
 import ItemForm from "./forms/ItemForm";
 
-interface CategoryProps {
-  title: string;
-  items: IItem[];
-}
-
-export default function Category({ title, items }: CategoryProps) {
+export default function Category({ name, items, packingList }: ICategory) {
+  console.log("Category: ", name, items, packingList);
   return (
     <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
       <input type="checkbox" />
-      <div className="collapse-title font-semibold">{title}</div>
+      <div className="collapse-title font-semibold">{name}</div>
       <div className="collapse-content text-sm">
-        <ItemContainer items={items} />
+        <ItemContainer items={items as IItem[]} />
         <h1>Item Form</h1>
         <ItemForm />
       </div>
