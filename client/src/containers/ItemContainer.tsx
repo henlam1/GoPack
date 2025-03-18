@@ -12,10 +12,10 @@ interface ItemContainerProps {
 export default function ItemContainer({ items }: ItemContainerProps) {
   console.log("ItemContainer: ", items);
   return (
-    <>
+    <div className="flex flex-col">
       {items.map((item: IItem) => {
         return <Item {...item} />;
       })}
-    </>
+    </div>
   );
 }

@@ -7,7 +7,7 @@ import {
   packingListDefaults,
 } from "../../models/zod/packingListSchema";
 
-export default function ItemForm() {
+export default function PackingListForm() {
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ export default function ItemForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("name")} type="text" placeholder="Item name" />
+      <input {...register("name")} type="text" placeholder="Packing list name" />
       {errors.name && <div className="text-red-500">{errors.name.message}</div>}
       <button>{isSubmitting ? "Loading..." : "Submit"}</button>
     </form>

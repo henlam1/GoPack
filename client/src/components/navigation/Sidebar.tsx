@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import privateRoutes from "../routes/privateRoutes";
+import privateRoutes from "../../routes/privateRoutes";
 
 // TODO: ADD ICONS FOR EACH SIDE BAR ITEM
 
@@ -11,7 +11,7 @@ interface Item {
 const ItemList = [
   {
     name: "Add Packing List",
-    path: privateRoutes.createPackingLists,
+    path: privateRoutes.packingLists.create,
   },
   {
     name: "Home",
@@ -19,11 +19,11 @@ const ItemList = [
   },
   {
     name: "Upcoming",
-    path: privateRoutes.upcomingPackingLists,
+    path: privateRoutes.packingLists.upcoming,
   },
   {
     name: "Trash",
-    path: privateRoutes.trashedPackingLists,
+    path: privateRoutes.packingLists.trash,
   },
 ];
 

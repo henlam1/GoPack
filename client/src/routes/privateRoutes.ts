@@ -1,9 +1,11 @@
 const privateRoutes = {
-  home: "home",
-  createPackingLists: "packing-lists/new",
-  packingListDetails: "packing-lists/:id",
-  upcomingPackingLists: "packing-lists/upcoming",
-  trashedPackingLists: "packing-lists/trash",
+  home: "/home",
+  packingLists: {
+    create: "packing-lists/new",
+    details: (id: string) => `/packing-lists/${id}`,
+    upcoming: "packing-lists/upcoming",
+    trash: "packing-lists/trash"
+  },
 };
 
 export default privateRoutes;
