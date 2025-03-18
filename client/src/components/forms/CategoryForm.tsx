@@ -7,7 +7,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createCategory } from "../../services/api/categories";
 
-export default function ItemForm() {
+export default function CategoryForm() {
   const {
     register,
     handleSubmit,

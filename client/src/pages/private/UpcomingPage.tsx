@@ -1,0 +1,9 @@
+// THIS PAGE DISPLAYS UPCOMING PACKING LISTS
+// REQUIRES AN ALGORITHM TO PROCESS PACKING LIST DATE INFO
+export default function UpcomingPage() {
+  return(
+    <div>
+      UPCOMING PACKING LISTS
+    </div>
+  )
+}

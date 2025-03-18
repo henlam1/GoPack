@@ -40,6 +40,9 @@ export async function createPackingList(packingList: IPackingList) {
   try {
     const response = await fetch(apiRoutes.packingLists.create, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(packingList),
     });
 

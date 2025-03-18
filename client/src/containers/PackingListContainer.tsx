@@ -1,4 +1,4 @@
-import CategoryContainer from "./CategoryContainer";
+import PackingListCard from "../components/PackingListCard";
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
 // PackingListContainer => Fetch packing lists => Render PackingListItem(props)
@@ -7,7 +7,7 @@ export default function PackingListContainer() {
   return (
     <ul>
       Some packing lists
-      <CategoryContainer />
+      <PackingListCard />
     </ul>
   );
 }

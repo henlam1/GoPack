@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import SideBar from "../Sidebar";
+import SideBar from "./Sidebar";
 
 export default function PrivateLayout() {
   return (
