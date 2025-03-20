@@ -27,7 +27,7 @@ export default function PackingListDetailsPage() {
     <div>
       VIEW/UPDATE PACKING LIST PAGE ID: {id}
       <CategoryContainer categories={packingList.categories} />
-      <CategoryForm />
+      <CategoryForm packingListId={id}/>
     </div>
   );
 }
