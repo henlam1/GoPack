@@ -1,0 +1,9 @@
+Client
+1. CRUD API integration for our data (packing lists, categories, items)
+2. JWT authentication
+3. User features (login/register)
+
+Server
+1. Link resources on creation (append new category to its respective packing list)
+2. Error handling (e.g. resource doesn't exist, authorization errors)
+3. JWT authentication for requests (verify API request token matches resource owner)
