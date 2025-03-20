@@ -7,7 +7,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createCategory } from "../../services/api/categories";
 
-export default function CategoryForm() {
+export default function CategoryForm({packingListId}: {packingListId: string}) {
   const {
     register,
     handleSubmit,
@@ -19,8 +19,9 @@ export default function CategoryForm() {
 
   async function onSubmit(data: CategoryFormFields) {
     try {
-      console.log(data);
-      const response = await createCategory(data);
+      const linkedData = {...data, packingList: packingListId}
+      console.log(linkedData);
+      const response = await createCategory(linkedData);
       console.log(response);
     } catch (error) {
       console.error("Error submitting ", error);

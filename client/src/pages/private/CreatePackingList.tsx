@@ -8,7 +8,7 @@ export default function PackingListPage() {
     <div>
       CREATE PACKING LIST
       <h1>Packing List Form</h1>
-      <PackingListForm />
+      <PackingListForm userId={"TODO: FETCH USER ID"}/>
     </div>
   );
 }

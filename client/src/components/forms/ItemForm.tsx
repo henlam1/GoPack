@@ -7,7 +7,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createItem } from "../../services/api/items";
 
-export default function ItemForm() {
+export default function ItemForm({categoryId}: {categoryId: string}) {
   const {
     register,
     handleSubmit,
@@ -19,7 +19,8 @@ export default function ItemForm() {
 
   async function onSubmit(data: ItemFormFields) {
     try {
-      console.log(data);
+      const linkedData = {...data, category: categoryId}
+      console.log(linkedData);
       const response = await createItem(data);
       console.log(response);
     } catch (error) {

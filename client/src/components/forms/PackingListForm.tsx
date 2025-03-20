@@ -7,7 +7,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createPackingList } from "../../services/api/packingLists";
 
-export default function PackingListForm() {
+export default function PackingListForm({userId}: {userId: string}) {
   const {
     register,
     handleSubmit,
@@ -19,7 +19,8 @@ export default function PackingListForm() {
 
   async function onSubmit(data: PackingListFormFields) {
     try {
-      console.log(data);
+      const linkedData = {...data, user: userId}
+      console.log(linkedData);
       const response = await createPackingList(data);
       console.log(response);
     } catch (error) {
