@@ -1,4 +1,5 @@
 import Item from "../models/itemModel.js";
+import CategoryService from "./categoryService.js";
 
 class ItemService {
   async getItems() {
@@ -11,6 +12,10 @@ class ItemService {
 
   async addItem(data) {
     const newItem = new Item(data);
+    const category = await CategoryService.addItem(
+      data.category,
+      newItem._id
+    );
     return await newItem.save();
   }
 

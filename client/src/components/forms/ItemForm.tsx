@@ -21,7 +21,7 @@ export default function ItemForm({categoryId}: {categoryId: string}) {
     try {
       const linkedData = {...data, category: categoryId}
       console.log(linkedData);
-      const response = await createItem(data);
+      const response = await createItem(linkedData);
       console.log(response);
     } catch (error) {
       console.error("Error submitting ", error);
