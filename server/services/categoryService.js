@@ -1,4 +1,5 @@
 import Category from "../models/categoryModel.js";
+import PackingListService from "./packingListService.js";
 
 class CategoryService {
   async getCategories() {
@@ -8,9 +9,13 @@ class CategoryService {
   async getCategoryById(categoryId) {
     return await Category.findById(categoryId).populate("items").exec();
   }
-  
+
   async addCategory(data) {
     const newCategory = new Category(data);
+    const packingList = await PackingListService.addCategory(
+      data.packingList,
+      newCategory._id
+    );
     return await newCategory.save();
   }
 
@@ -24,6 +29,20 @@ class CategoryService {
   async deleteCategory(categoryId) {
     const deletedCategory = await Category.findByIdAndDelete(categoryId);
     return deletedCategory;
+  }
+
+  async addItem(categoryId, itemId) {
+    const result = await Category.findByIdAndUpdate(categoryId, {
+      $push: { items: itemId },
+    });
+    return result;
+  }
+
+  async removeItem(categoryId, itemId) {
+    const result = await Category.findByIdAndUpdate(categoryId, {
+      $pull: { items: itemId },
+    });
+    return result;
   }
 }
 

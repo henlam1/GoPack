@@ -36,6 +36,20 @@ class PackingListService {
     );
     return deletedPackingList;
   }
+
+  async addCategory(packingListId, categoryId) {
+    const result = await PackingList.findByIdAndUpdate(packingListId, {
+      $push: { categories: categoryId },
+    });
+    return result;
+  }
+
+  async removeCategory(packingListId, categoryId) {
+    const result = await PackingList.findByIdAndUpdate(packingListId, {
+      $pull: { categories: categoryId },
+    });
+    return result;
+  }
 }
 
 export default new PackingListService();
