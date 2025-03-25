@@ -7,7 +7,7 @@ class CategoryService {
   }
 
   async getCategoryById(categoryId) {
-    return await Category.findById(categoryId).populate("items").exec();
+    return await Category.findById(categoryId);
   }
 
   async addCategory(data) {

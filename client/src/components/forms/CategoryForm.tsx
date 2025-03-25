@@ -6,8 +6,13 @@ import {
 } from "../../models/zod/categorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createCategory } from "../../services/api/categories";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function CategoryForm({packingListId}: {packingListId: string}) {
+export default function CategoryForm({
+  packingListId,
+}: {
+  packingListId: string;
+}) {
   const {
     register,
     handleSubmit,
@@ -17,15 +22,17 @@ export default function CategoryForm({packingListId}: {packingListId: string}) {
     resolver: zodResolver(categorySchema),
   });
 
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: createCategory,
+    onSuccess: () => {
+      return queryClient.invalidateQueries({ queryKey: ["packingList", packingListId] });
+    },
+  });
+
   async function onSubmit(data: CategoryFormFields) {
-    try {
-      const linkedData = {...data, packingList: packingListId}
-      console.log(linkedData);
-      const response = await createCategory(linkedData);
-      console.log(response);
-    } catch (error) {
-      console.error("Error submitting ", error);
-    }
+    const linkedData = { ...data, packingList: packingListId };
+    mutate(linkedData);
   }
 
   return (

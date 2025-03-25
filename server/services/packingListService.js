@@ -6,12 +6,7 @@ class PackingListService {
   }
 
   async getPackingListById(packingListId) {
-    return await PackingList.findById(packingListId).populate({
-      path: "categories",
-      populate: {
-        path: "items",
-      },
-    });
+    return await PackingList.findById(packingListId);
   }
 
   async addPackingList(data) {
