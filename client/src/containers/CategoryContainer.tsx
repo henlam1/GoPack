@@ -1,24 +1,42 @@
+import { useQueries } from "@tanstack/react-query";
 import Category from "../components/Category";
-import ICategory from "../models/CategoryModel";
+import { getCategory } from "../services/api/categories";
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
 // CategoryContainer => Fetch Categories => Render Category(props)
 // This is used in the packing list page to display categories in the accordion
 
-// TODO: FIGURE OUT DATA FLOW AND FETCH
-// TODO: CREATE CALLBACK FUNCTIONS TO PASS DOWN
+// TODO: Modify cached data on API calls.
+// Currently, we're invalidating queries and refetching on API calls
 
 interface CategoryCoatinerProps {
-  categories: ICategory[];
+  categoryIds: string[];
 }
 
 export default function CategoryContainer({
-  categories,
+  categoryIds,
 }: CategoryCoatinerProps) {
+  const categoryQueries = categoryIds.map((categoryId) => ({
+    queryKey: ["category", categoryId],
+    queryFn: () => getCategory(categoryId),
+  }));
+  const results = useQueries({
+    queries: categoryQueries,
+    combine: (results) => {
+      return {
+        data: results.map((result) => result.data),
+        pending: results.some((result) => result.isPending),
+      };
+    },
+  });
+  if (results.pending) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      {categories.map((category) => {
+      {results.data.map((category) => {
+        console.log(category);
         return <Category {...category} />;
       })}
     </>

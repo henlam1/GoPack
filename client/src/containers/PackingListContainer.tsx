@@ -7,15 +7,13 @@ import IPackingList from "../models/PackingListModel";
 // PackingListContainer => Fetch packing lists => Render PackingListItem(props)
 // This is used in the homepage to display cards of each packing list
 
-// This container might be an exception
-// Populated categories/items will be lost here because we're redirecting to a details page
 export default function PackingListContainer() {
   const {
     data: packingLists,
     isPending,
     isError,
   } = useQuery({
-    queryKey: ["packingList"],
+    queryKey: ["packingLists"],
     queryFn: getPackingLists, // Ideally getUserPackingLists or something
   });
   if (isPending) return <div>Loading...</div>;

@@ -22,12 +22,12 @@ export default function PackingListDetailsPage() {
   });
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
-  
+
   return (
     <div>
       VIEW/UPDATE PACKING LIST PAGE ID: {id}
-      <CategoryContainer categories={packingList.categories} />
-      <CategoryForm packingListId={id}/>
+      <CategoryContainer categoryIds={packingList.categories} />
+      <CategoryForm packingListId={id} />
     </div>
   );
 }

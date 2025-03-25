@@ -6,8 +6,9 @@ import {
 } from "../../models/zod/itemSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createItem } from "../../services/api/items";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function ItemForm({categoryId}: {categoryId: string}) {
+export default function ItemForm({ categoryId }: { categoryId: string }) {
   const {
     register,
     handleSubmit,
@@ -17,15 +18,17 @@ export default function ItemForm({categoryId}: {categoryId: string}) {
     resolver: zodResolver(itemSchema),
   });
 
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: createItem,
+    onSuccess: () => {
+      return queryClient.invalidateQueries({ queryKey: ["category", categoryId] });
+    },
+  });
+
   async function onSubmit(data: ItemFormFields) {
-    try {
-      const linkedData = {...data, category: categoryId}
-      console.log(linkedData);
-      const response = await createItem(linkedData);
-      console.log(response);
-    } catch (error) {
-      console.error("Error submitting ", error);
-    }
+    const linkedData = { ...data, category: categoryId };
+    mutate(linkedData);
   }
 
   return (
