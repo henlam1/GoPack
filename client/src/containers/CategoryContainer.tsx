@@ -20,6 +20,7 @@ export default function CategoryContainer({
     queryKey: ["category", categoryId],
     queryFn: () => getCategory(categoryId),
   }));
+
   const results = useQueries({
     queries: categoryQueries,
     combine: (results) => {
@@ -29,6 +30,7 @@ export default function CategoryContainer({
       };
     },
   });
+  
   if (results.pending) {
     return <div>Loading...</div>;
   }
