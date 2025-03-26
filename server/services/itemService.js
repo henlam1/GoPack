@@ -28,6 +28,10 @@ class ItemService {
 
   async deleteItem(itemId) {
     const deletedItem = await Item.findByIdAndDelete(itemId);
+    const category = await CategoryService.removeItem(
+      deletedItem?.category,
+      itemId
+    );
     return deletedItem;
   }
 }

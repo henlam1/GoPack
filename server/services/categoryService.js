@@ -28,6 +28,10 @@ class CategoryService {
 
   async deleteCategory(categoryId) {
     const deletedCategory = await Category.findByIdAndDelete(categoryId);
+    const packingList = await PackingListService.removeCategory(
+      deletedCategory?.packingList,
+      categoryId
+    );
     return deletedCategory;
   }
 

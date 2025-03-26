@@ -16,9 +16,11 @@ export default function PackingListContainer() {
     queryKey: ["packingLists"],
     queryFn: getPackingLists, // Ideally getUserPackingLists or something
   });
+  console.log(packingLists);
+
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
-  console.log(packingLists);
+
   return (
     <ul>
       Some packing lists

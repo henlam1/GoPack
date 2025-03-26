@@ -8,7 +8,7 @@ export default function PrivateLayout() {
         {/* Header content goes here */}
         <SideBar />
       </aside>
-      <main>
+      <main className="w-full">
         <Outlet />
       </main>
       <footer>{/* Footer content goes here */}</footer>

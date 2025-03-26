@@ -18,6 +18,7 @@ export default function ItemContainer({ itemIds }: ItemContainerProps) {
     queryKey: ["item", itemId],
     queryFn: () => getItem(itemId),
   }));
+  
   const results = useQueries({
     queries: itemQueries,
     combine: (results) => {
@@ -27,14 +28,16 @@ export default function ItemContainer({ itemIds }: ItemContainerProps) {
       };
     },
   });
+  
   if (results.pending) {
     return <div>Loading...</div>;
   }
+  
   return (
-    <div className="flex flex-col">
+    <ul className="list bg-base-100 rounded-box shadow-md">
       {results.data.map((item: IItem) => {
         return <Item {...item} />;
       })}
-    </div>
+    </ul>
   );
 }
