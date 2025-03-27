@@ -20,7 +20,7 @@ export default function Navbar(){
             <Link to={privateRoutes.home}>Private Home</Link>
           </li>
           <li>
-            <Link to={privateRoutes.createPackingLists}>Create Packing List</Link>
+            <Link to={privateRoutes.packingLists.create}>Create Packing List</Link>
           </li>
         </ul>
       </div>
