@@ -4,6 +4,7 @@ import {
   addUser,
   updateUser,
   deleteUser,
+  loginUser
 } from "../controllers/userController.js";
 import validationMiddleware from "../middleware/validationMiddleware.js";
 import { userSchema } from "../validationSchemas/userSchema.js";
@@ -16,5 +17,6 @@ router.route("/")
 router.route("/:userId")
   .patch(updateUser)
   .delete(deleteUser);
-
+router.route("/login")
+  .post(loginUser);
 export default router;

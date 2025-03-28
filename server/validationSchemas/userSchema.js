@@ -24,9 +24,7 @@ export const userSchema = Joi.object({
   }),
   packingLists: Joi.array()
     .items(Joi.string().hex().length(24))
-    .required()
     .messages({
-      "array.base": "Packing list references should be strings",
-      "any.required": "Packing lists are required",
+      "array.base": "Packing list references should be strings"
     }),
 });
