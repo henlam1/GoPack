@@ -1,5 +1,6 @@
 import tryCatch from "../utils/tryCatch.js";
 import UserService from "../services/userService.js";
+import bcrypt from "bcrypt";
 
 export const getUsers = tryCatch(async (req, res, next) => {
   const users = await UserService.getUsers();
@@ -36,16 +37,18 @@ export const deleteUser = tryCatch(async (req, res, next) => {
 });
 
 export const loginUser = tryCatch(async (req, res, next) => {
-  const user = UserService.getUserByUserName(req.body.name)
+  const user = await UserService.getUserByUserName(req.body.username)
   if(user == null) {
     return res.status(404).send('Cannot find user');
   }
   try {
-    if(bcrpt.compare(req.body.password, user.password)) {
+    const matchingPassword = await bcrypt.compare(req.body.password, user.password);
+    if(matchingPassword) {
       res.status(200).send('Success');
-    } 
-    res.status(400).send('Not Allowed');
-  } catch {
-    res.status(500).send();
+    } else {
+      res.status(400).send('Not Allowed');
+    }
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
