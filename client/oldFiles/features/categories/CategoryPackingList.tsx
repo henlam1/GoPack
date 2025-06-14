@@ -94,7 +94,7 @@ export default function CategoryPackingList({
                   </div>
                   <ul
                     tabIndex={0}
-                    className="dropdown-content menu menu-sm bg-base-300 z-[1] w-52 p-0 [&_li>*]:rounded-none"
+                    className="dropdown-content menu menu-sm bg-base-300 z-1 w-52 p-0 [&_li>*]:rounded-none"
                   >
                     <li>
                       <button className="btn btn-ghost">Edit Item</button>

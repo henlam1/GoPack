@@ -11,14 +11,5 @@ export default {
   },
   plugins: [
     require("@tailwindcss/typography"),
-    require("daisyui"),
   ],
-  daisyui: {
-    themes: ["pastel", "black"],
-    darkTheme: "black",
-    base: true,
-    styled: true,
-    utils: true,
-    themeRoot: ":root",
-  },
 };
