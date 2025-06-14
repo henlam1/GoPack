@@ -13,7 +13,7 @@ import authMiddleware from "../middleware/authMiddleware.js";
 const router = Router();
 
 router.route("/")
-  .get(authMiddleware, getPackingLists)
+  .get(getPackingLists)
   .post(validationMiddleware(packingListSchema), addPackingList)
 router.route("/:packingListId")
   .get(getPackingListById)
