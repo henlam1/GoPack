@@ -8,11 +8,12 @@ import {
 } from "../controllers/packingListController.js";
 import validationMiddleware from "../middleware/validationMiddleware.js";
 import { packingListSchema } from "../validationSchemas/packingListSchema.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = Router();
 
 router.route("/")
-  .get(getPackingLists)
+  .get(authMiddleware, getPackingLists)
   .post(validationMiddleware(packingListSchema), addPackingList)
 router.route("/:packingListId")
   .get(getPackingListById)

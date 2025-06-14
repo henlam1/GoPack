@@ -35,7 +35,7 @@ class UserService {
 
   async getUserByUserName(userName) {
     const user = await User.findOne({username: userName});
-    console.log(user);
+    // console.log(user);
     return user;
   }
 

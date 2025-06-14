@@ -4,6 +4,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "defaultSecret";
 
 const authMiddleware = (req, res, next) => {
   const token = req.headers["authorization"];
+  console.log(req.headers);
   if (!token) {
     throw new AuthError("No token provided");
   }
