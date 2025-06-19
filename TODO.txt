@@ -1,18 +1,21 @@
-Client
-1. CRUD API integration for our data (packing lists, categories, items)
-2. JWT authentication
-3. User features (login/register)
-4. Sidebar sections (user info, overview, account)
-5. Client home page grid display and search bar
-6. Add packing list page
-7. Packing list page category sidebar
-8. Packing list page category table(packed, name, quantity, actions)
-9. Upcoming trips and trash page
-10. Packing list item editing API (set packed, name, quantity, delete)
+Top Priorities1
+1. Login/register features
+2. Mark item as packed
 
-Server
-1. Link resources on creation (append new category to its respective packing list)
-2. Error handling (e.g. resource doesn't exist, authorization errors)
-3. JWT authentication for requests (verify API request token matches resource owner)
-4. Modify user data model (possible settings)
-5. Modify packing list data model (set dates)
+Secondary Priorities
+1. JWT authentication
+2. Upcoming trips page
+3. Trash page
+
+Other Tasks
+1. Follow Figma to match UI
+  a. Search bars
+  b. Side bar organization
+  c. Sticky table of contents for categories
+2. Editing features
+  a. Rename lists, categories, items
+  b. Adjust quantities
+3. AI recommendations
+4. User settings
+5. CI/CD pipeline
+6. Deployment
