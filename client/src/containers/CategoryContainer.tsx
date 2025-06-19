@@ -30,7 +30,7 @@ export default function CategoryContainer({
       };
     },
   });
-  
+
   if (results.pending) {
     return <div>Loading...</div>;
   }

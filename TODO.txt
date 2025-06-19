@@ -8,6 +8,7 @@ Client
 7. Packing list page category sidebar
 8. Packing list page category table(packed, name, quantity, actions)
 9. Upcoming trips and trash page
+10. Packing list item editing API (set packed, name, quantity, delete)
 
 Server
 1. Link resources on creation (append new category to its respective packing list)
