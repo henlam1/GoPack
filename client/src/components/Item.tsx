@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import IItem from "../models/ItemModel";
 import { deleteItem } from "../services/api/items";
+import Checkbox from "./Checkbox";
 
 // TODO: ADD EDITS (TOGGLE PACKED, CHANGE NAME/QUANTITY)
 export default function Item({ _id, packed, name, quantity, category }: IItem) {
@@ -10,7 +11,9 @@ export default function Item({ _id, packed, name, quantity, category }: IItem) {
   const { mutate } = useMutation({
     mutationFn: deleteItem,
     onSuccess: () => {
-      return queryClient.invalidateQueries({ queryKey: ["category", category] });
+      return queryClient.invalidateQueries({
+        queryKey: ["category", category],
+      });
     },
   });
 
@@ -19,16 +22,20 @@ export default function Item({ _id, packed, name, quantity, category }: IItem) {
   }
 
   return (
-    <div>
-      {packed}
-      {name}
-      {quantity}
-      <button
+    <tr>
+      <th>
+        <Checkbox checked={packed} />
+      </th>
+      <td>{name}</td>
+      <td>{quantity}</td>
+      <td>
+        <button
           className="btn btn-soft btn-secondary btn-sm"
           onClick={() => handleDelete()}
         >
           Delete
         </button>
-    </div>
+      </td>
+    </tr>
   );
 }
