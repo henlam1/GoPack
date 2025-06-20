@@ -2,11 +2,10 @@ import IItem from "../models/ItemModel";
 import { useState } from "react";
 import { useItemMutations } from "../hooks/useItemMutations";
 
-// TODO: ADD EDITS (TOGGLE PACKED, CHANGE NAME/QUANTITY)
 export default function Item({ _id, packed, name, quantity, category }: IItem) {
   // The old state is retained even after updates
-  console.log("Item: ", name, quantity, packed, category);  
-  
+  console.log("Item: ", name, quantity, packed, category);
+
   // State management
   const [item, setItem] = useState({
     name: name,
@@ -15,7 +14,7 @@ export default function Item({ _id, packed, name, quantity, category }: IItem) {
   });
 
   // Hooks to manage item CRUD
-  const { updateItem, deleteItem } = useItemMutations(category, _id);
+  const { updateItem, deleteItem } = useItemMutations(category);
 
   // State management handler functions
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

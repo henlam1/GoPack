@@ -18,13 +18,13 @@ export default function ItemForm({ categoryId }: { categoryId: string }) {
     resolver: zodResolver(itemSchema),
   });
 
+  // Hooks to manage item CRUD
+  const { createItem } = useItemMutations(categoryId);
+
   async function onSubmit(data: ItemFormFields) {
     const linkedData = { ...data, category: categoryId };
     createItem.mutate(linkedData);
   }
-
-  // Hooks to manage item CRUD
-  const { createItem } = useItemMutations(categoryId);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
