@@ -6,12 +6,9 @@ import {
   updatePackingListAPI,
 } from "../services/api/packingLists";
 
-export function usePackingListMutations(packingListId: string) {
+// TODO: Invalidate user onSuccess after each packing list CRUD mutation
+export function usePackingListMutations(userId: string) {
   const queryClient = useQueryClient();
-
-  const invalidatePackingList = () => {
-    queryClient.invalidateQueries({ queryKey: ["item", packingListId] });
-  };
 
   // CRUD Mutations
   const createPackingList = useMutation({ mutationFn: createPackingListAPI });
@@ -20,7 +17,6 @@ export function usePackingListMutations(packingListId: string) {
   const deletePackingList = useMutation({ mutationFn: deletePackingListAPI });
 
   return {
-    invalidatePackingList,
     createPackingList,
     readPackingList,
     updatePackingList,

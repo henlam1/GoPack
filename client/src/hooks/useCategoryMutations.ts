@@ -6,21 +6,34 @@ import {
   updateCategoryAPI,
 } from "../services/api/categories";
 
-export function useCategoryMutations(categoryId: string) {
+export function useCategoryMutations(packingListId: string) {
   const queryClient = useQueryClient();
 
-  const invalidateCategory = () => {
-    queryClient.invalidateQueries({ queryKey: ["item", categoryId] });
-  };
-
   // CRUD Mutations
-  const createCategory = useMutation({ mutationFn: createCategoryAPI });
+  const createCategory = useMutation({
+    mutationFn: createCategoryAPI,
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ["packingList", packingListId],
+      }),
+  });
   const readCategory = useMutation({ mutationFn: getCategoryAPI });
-  const updateCategory = useMutation({ mutationFn: updateCategoryAPI });
-  const deleteCategory = useMutation({ mutationFn: deleteCategoryAPI });
+  const updateCategory = useMutation({
+    mutationFn: updateCategoryAPI,
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ["packingList", packingListId],
+      }),
+  });
+  const deleteCategory = useMutation({
+    mutationFn: deleteCategoryAPI,
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ["packingList", packingListId],
+      }),
+  });
 
   return {
-    invalidateCategory,
     createCategory,
     readCategory,
     updateCategory,
