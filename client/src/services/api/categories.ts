@@ -56,14 +56,15 @@ export async function createCategoryAPI(category: Omit<ICategory, "_id">) {
 }
 
 // TODO: DECIDE HOW TO UPDATE
-export async function updateCategoryAPI(id: string) {
+export async function updateCategoryAPI(data: {id: string, update: Partial<ICategory>}) {
+  const { id, update } = data;
   try {
     const response = await fetch(apiRoutes.categories.create, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify(update),
     });
     
     if (!response.ok) {
