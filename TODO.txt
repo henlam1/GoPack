@@ -1,20 +1,19 @@
 Top Priorities
 1. Login/register features
-2. Mark item as packed
+2. Upcoming trips page
+3. Trash page
 
 Secondary Priorities
 1. JWT authentication
-2. Upcoming trips page
-3. Trash page
 
 Other Tasks
 1. Follow Figma to match UI
   a. Search bars
   b. Side bar organization
   c. Sticky table of contents for categories
+  d. Proper form display/data reset
 2. Editing features
-  a. Rename lists, categories, items
-  b. Adjust quantities
+  a. Rename lists, categories
 3. AI recommendations
 4. User settings
 5. CI/CD pipeline
