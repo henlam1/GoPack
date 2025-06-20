@@ -1,33 +1,75 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import IItem from "../models/ItemModel";
-import { deleteItem } from "../services/api/items";
-import Checkbox from "./Checkbox";
+import { useState } from "react";
+import { useItemMutations } from "../hooks/useItemMutations";
 
 // TODO: ADD EDITS (TOGGLE PACKED, CHANGE NAME/QUANTITY)
 export default function Item({ _id, packed, name, quantity, category }: IItem) {
-  console.log("Item: ", packed, name, quantity, category);
-
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: deleteItem,
-    onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ["category", category],
-      });
-    },
+  // The old state is retained even after updates
+  console.log("Item: ", name, quantity, packed, category);  
+  
+  // State management
+  const [item, setItem] = useState({
+    name: name,
+    packed: packed,
+    quantity: quantity,
   });
 
+  // Hooks to manage item CRUD
+  const { updateItem, deleteItem } = useItemMutations(category, _id);
+
+  // State management handler functions
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, type, value, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+    setItem({ ...item, [name]: newValue });
+
+    // Set a debounce save?
+    handleEdit(name, newValue);
+  }
+
+  // Hook handler functions
+  function handleEdit(name: string, newValue: string | number | boolean) {
+    const update = { [name]: newValue };
+    updateItem.mutate({
+      id: _id,
+      update: update,
+    });
+  }
   function handleDelete() {
-    mutate(_id);
+    deleteItem.mutate(_id);
   }
 
   return (
     <tr>
       <th>
-        <Checkbox checked={packed} />
+        <input
+          type="checkbox"
+          name="packed"
+          checked={item.packed}
+          onChange={handleChange}
+          className="checkbox"
+        />
       </th>
-      <td>{name}</td>
-      <td>{quantity}</td>
+      <td>
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={item.name}
+          onChange={handleChange}
+          className="input"
+        />
+      </td>
+      <td>
+        <input
+          type="number"
+          name="quantity"
+          placeholder="#"
+          value={item.quantity}
+          onChange={handleChange}
+          className="input"
+        />
+      </td>
       <td>
         <button
           className="btn btn-soft btn-secondary btn-sm"

@@ -5,7 +5,7 @@ import {
   categoryDefaults,
 } from "../../models/zod/categorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createCategory } from "../../services/api/categories";
+import { createCategoryAPI } from "../../services/api/categories";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function CategoryForm({
@@ -24,7 +24,7 @@ export default function CategoryForm({
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: createCategory,
+    mutationFn: createCategoryAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({ queryKey: ["packingList", packingListId] });
     },

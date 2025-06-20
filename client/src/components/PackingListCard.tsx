@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import privateRoutes from "../routes/privateRoutes";
-import { deletePackingList } from "../services/api/packingLists";
+import { deletePackingListAPI } from "../services/api/packingLists";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface CardProps {
@@ -18,7 +18,7 @@ export default function PackingListCard({ _id, name }: CardProps) {
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: deletePackingList,
+    mutationFn: deletePackingListAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
         queryKey: ["packingLists"],

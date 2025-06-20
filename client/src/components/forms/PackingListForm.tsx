@@ -5,7 +5,7 @@ import {
   packingListDefaults,
 } from "../../models/zod/packingListSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createPackingList } from "../../services/api/packingLists";
+import { createPackingListAPI } from "../../services/api/packingLists";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import privateRoutes from "../../routes/privateRoutes";
@@ -23,7 +23,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: createPackingList,
+    mutationFn: createPackingListAPI,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["packingLists"] });
       console.log(data);

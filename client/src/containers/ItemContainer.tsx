@@ -1,6 +1,6 @@
 import IItem from "../models/ItemModel";
 import Item from "../components/Item";
-import { getItem } from "../services/api/items";
+import { getItemAPI } from "../services/api/items";
 import { useQueries } from "@tanstack/react-query";
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
@@ -16,7 +16,7 @@ interface ItemContainerProps {
 export default function ItemContainer({ itemIds }: ItemContainerProps) {
   const itemQueries = itemIds.map((itemId) => ({
     queryKey: ["item", itemId],
-    queryFn: () => getItem(itemId),
+    queryFn: () => getItemAPI(itemId),
   }));
 
   const results = useQueries({

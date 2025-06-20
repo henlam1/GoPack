@@ -1,7 +1,7 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import ItemContainer from "../containers/ItemContainer";
 import ICategory from "../models/CategoryModel";
-import { deleteCategory } from "../services/api/categories";
+import { deleteCategoryAPI } from "../services/api/categories";
 import ItemForm from "./forms/ItemForm";
 
 export default function Category({ _id, name, items, packingList }: ICategory) {
@@ -9,7 +9,7 @@ export default function Category({ _id, name, items, packingList }: ICategory) {
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: deleteCategory,
+    mutationFn: deleteCategoryAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
         queryKey: ["packingList", packingList],

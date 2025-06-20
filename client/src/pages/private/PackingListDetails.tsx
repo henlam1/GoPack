@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import CategoryContainer from "../../containers/CategoryContainer";
 import { useQuery } from "@tanstack/react-query";
-import { getPackingList } from "../../services/api/packingLists";
+import { getPackingListAPI } from "../../services/api/packingLists";
 import CategoryForm from "../../components/forms/CategoryForm";
 
 // THIS PAGE DISPLAYS THE RELEVANT DETAILS OF A PACKING LIST
@@ -18,7 +18,7 @@ export default function PackingListDetailsPage() {
     isError,
   } = useQuery({
     queryKey: ["packingList", id],
-    queryFn: () => getPackingList(id), // Ideally getUserPackingLists or something
+    queryFn: () => getPackingListAPI(id), // Ideally getUserPackingLists or something
   });
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
