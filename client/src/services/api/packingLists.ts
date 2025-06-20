@@ -61,12 +61,12 @@ export async function createPackingListAPI(packingList: Omit<IPackingList, "_id"
   }
 }
 
-// TODO: DECIDE HOW TO UPDATE
-export async function updatePackingListAPI(id: string) {
+export async function updatePackingListAPI(data: {id: string, update: Partial<IPackingList>}) {
+  const { id, update } = data;
   try {
     const response = await fetch(apiRoutes.packingLists.update(id), {
       method: "PATCH",
-      body: JSON.stringify("placeholder"),
+      body: JSON.stringify(update),
     });
 
     if (!response.ok) {
