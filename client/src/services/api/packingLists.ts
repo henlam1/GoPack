@@ -1,7 +1,7 @@
 import IPackingList from "../../models/PackingListModel";
 import { apiRoutes } from "../../routes/apiRoutes";
 
-export async function getPackingLists() {
+export async function getPackingListsAPI() {
   try {
     const response = await fetch(apiRoutes.packingLists.getAll);
 
@@ -17,7 +17,7 @@ export async function getPackingLists() {
   }
 }
 
-export async function getPackingList(id: string) {
+export async function getPackingListAPI(id: string) {
   try {
     const response = await fetch(apiRoutes.packingLists.getById(id));
 
@@ -36,7 +36,7 @@ export async function getPackingList(id: string) {
   }
 }
 
-export async function createPackingList(packingList: Omit<IPackingList, "_id">) {
+export async function createPackingListAPI(packingList: Omit<IPackingList, "_id">) {
   try {
     const response = await fetch(apiRoutes.packingLists.create, {
       method: "POST",
@@ -62,7 +62,7 @@ export async function createPackingList(packingList: Omit<IPackingList, "_id">) 
 }
 
 // TODO: DECIDE HOW TO UPDATE
-export async function updatePackingList(id: string) {
+export async function updatePackingListAPI(id: string) {
   try {
     const response = await fetch(apiRoutes.packingLists.update(id), {
       method: "PATCH",
@@ -81,7 +81,7 @@ export async function updatePackingList(id: string) {
   }
 }
 
-export async function deletePackingList(id: string) {
+export async function deletePackingListAPI(id: string) {
   try {
     const response = await fetch(apiRoutes.packingLists.delete(id), {
       method: "DELETE",

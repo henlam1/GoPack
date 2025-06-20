@@ -1,7 +1,7 @@
 import IItem from "../../models/ItemModel";
 import { apiRoutes } from "../../routes/apiRoutes";
 
-export async function getItems() {
+export async function getItemsAPI() {
   try {
     const response = await fetch(apiRoutes.items.getAll);
     
@@ -17,7 +17,7 @@ export async function getItems() {
   }
 }
 
-export async function getItem(id: string) {
+export async function getItemAPI(id: string) {
   try {
     const response = await fetch(apiRoutes.items.getById(id));
     
@@ -33,7 +33,7 @@ export async function getItem(id: string) {
   }
 }
 
-export async function createItem(item: Omit<IItem, "_id">) {
+export async function createItemAPI(item: Omit<IItem, "_id">) {
   try {
     const response = await fetch(apiRoutes.items.create, {
       method: "POST",
@@ -55,15 +55,15 @@ export async function createItem(item: Omit<IItem, "_id">) {
   }
 }
 
-// TODO: DECIDE HOW TO UPDATE
-export async function updateItem(id: string) {
+export async function updateItemAPI(data: {id: string, update: Partial<IItem>}) {
+  const { id, update } = data;
   try {
     const response = await fetch(apiRoutes.items.update(id), {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify(update),
     });
     
     if (!response.ok) {
@@ -78,7 +78,7 @@ export async function updateItem(id: string) {
   }
 }
 
-export async function deleteItem(id: string) {
+export async function deleteItemAPI(id: string) {
   try {
     const response = await fetch(apiRoutes.items.delete(id), {
       method: "DELETE",

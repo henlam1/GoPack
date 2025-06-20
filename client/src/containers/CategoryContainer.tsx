@@ -1,6 +1,6 @@
 import { useQueries } from "@tanstack/react-query";
 import Category from "../components/Category";
-import { getCategory } from "../services/api/categories";
+import { getCategoryAPI } from "../services/api/categories";
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
 // CategoryContainer => Fetch Categories => Render Category(props)
@@ -18,7 +18,7 @@ export default function CategoryContainer({
 }: CategoryCoatinerProps) {
   const categoryQueries = categoryIds.map((categoryId) => ({
     queryKey: ["category", categoryId],
-    queryFn: () => getCategory(categoryId),
+    queryFn: () => getCategoryAPI(categoryId),
   }));
 
   const results = useQueries({

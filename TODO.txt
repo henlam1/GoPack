@@ -1,4 +1,4 @@
-Top Priorities1
+Top Priorities
 1. Login/register features
 2. Mark item as packed
 

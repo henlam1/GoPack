@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import PackingListCard from "../components/PackingListCard";
-import { getPackingLists } from "../services/api/packingLists";
+import { getPackingListsAPI } from "../services/api/packingLists";
 import IPackingList from "../models/PackingListModel";
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
@@ -14,7 +14,7 @@ export default function PackingListContainer() {
     isError,
   } = useQuery({
     queryKey: ["packingLists"],
-    queryFn: getPackingLists, // Ideally getUserPackingLists or something
+    queryFn: getPackingListsAPI, // Ideally getUserPackingLists or something
   });
   console.log(packingLists);
 
@@ -25,7 +25,7 @@ export default function PackingListContainer() {
     <ul>
       Some packing lists
       {packingLists.map((packingList: IPackingList) => {
-        return <PackingListCard {...packingList}/>
+        return <PackingListCard {...packingList} />;
       })}
     </ul>
   );

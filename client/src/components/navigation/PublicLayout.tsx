@@ -1,4 +1,4 @@
-import Navbar from "../atomic/Navbar";
+import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 
 // TODO: Create public and private layoud

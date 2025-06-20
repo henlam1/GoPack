@@ -1,7 +1,7 @@
 import ICategory from "../../models/CategoryModel";
 import { apiRoutes } from "../../routes/apiRoutes";
 
-export async function getCategories() {
+export async function getCategoriesAPI() {
   try {
     const response = await fetch(apiRoutes.categories.getAll);
     
@@ -17,7 +17,7 @@ export async function getCategories() {
   }
 }
 
-export async function getCategory(id: string) {
+export async function getCategoryAPI(id: string) {
   try {
     const response = await fetch(apiRoutes.categories.getById(id));
     
@@ -33,7 +33,7 @@ export async function getCategory(id: string) {
   }
 }
 
-export async function createCategory(category: Omit<ICategory, "_id">) {
+export async function createCategoryAPI(category: Omit<ICategory, "_id">) {
   try {
     const response = await fetch(apiRoutes.categories.create, {
       method: "POST",
@@ -56,7 +56,7 @@ export async function createCategory(category: Omit<ICategory, "_id">) {
 }
 
 // TODO: DECIDE HOW TO UPDATE
-export async function updateCategory(id: string) {
+export async function updateCategoryAPI(id: string) {
   try {
     const response = await fetch(apiRoutes.categories.create, {
       method: "PATCH",
@@ -78,7 +78,7 @@ export async function updateCategory(id: string) {
   }
 }
 
-export async function deleteCategory(id: string) {
+export async function deleteCategoryAPI(id: string) {
   try {
     const response = await fetch(apiRoutes.categories.delete(id), {
       method: "DELETE",
