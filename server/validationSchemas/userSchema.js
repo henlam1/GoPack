@@ -9,7 +9,11 @@ export const userSchema = Joi.object({
     "any.required": "Username is required",
   }),
   password: Joi.string()
-    .pattern(new RegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,30}$"))
+    .pattern(
+      new RegExp(
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+[\]{}|;:'",.<>/?`~\\-]{8,30}$/
+      )
+    )
     .required()
     .messages({
       "string.base": "Password should be a string",
@@ -22,9 +26,7 @@ export const userSchema = Joi.object({
     "string.email": "Email must be valid",
     "any.required": "Email is required",
   }),
-  packingLists: Joi.array()
-    .items(Joi.string().hex().length(24))
-    .messages({
-      "array.base": "Packing list references should be strings"
-    }),
+  packingLists: Joi.array().items(Joi.string().hex().length(24)).messages({
+    "array.base": "Packing list references should be strings",
+  }),
 });

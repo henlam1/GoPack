@@ -15,13 +15,14 @@ export const getUserById = tryCatch(async (req, res, next) => {
 });
 
 export const addUser = tryCatch(async (req, res, next) => {
-  const user = await UserService.getUserByEmail(req.body.email)
+  console.log(req.body)
+  const user = await UserService.getUserByEmail(req.body.email);
 
-  if(user == null) {
+  if (user == null) {
     const newUser = await UserService.addUser(req.body);
     res.status(201).json(newUser);
   } else {
-    res.status(409).send('User already exists');
+    res.status(409).send("User already exists");
   }
 });
 
@@ -40,12 +41,15 @@ export const deleteUser = tryCatch(async (req, res, next) => {
 export const loginUser = tryCatch(async (req, res, next) => {
   const user = await UserService.getUserByUserName(req.body.username);
 
-  if(user == null) {
-    return res.status(404).send('Cannot find user');
+  if (user == null) {
+    return res.status(404).send("Cannot find user");
   }
   try {
-    const matchingPassword = await bcrypt.compare(req.body.password, user.password);
-    if(matchingPassword) {
+    const matchingPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (matchingPassword) {
       //   create JWT token
       const token = jwt.sign(
         {
@@ -57,14 +61,19 @@ export const loginUser = tryCatch(async (req, res, next) => {
       );
 
       //   return success response
-      res.status(200).send({
-        message: "Login Successful",
-        email: user.email,
-        token,
-      });
-
+      res
+        .status(200)
+        .cookie("access_token", token, {
+          expires: new Date(Date.now() + 900000),
+          httpOnly: true,
+          secure: true,
+        })
+        .send({
+          message: "Login Successful",
+          email: user.email,
+        });
     } else {
-      res.status(400).send('Log in unsuccessful');
+      res.status(400).send("Log in unsuccessful");
     }
   } catch (error) {
     console.log(error);

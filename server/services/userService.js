@@ -40,7 +40,7 @@ class UserService {
   }
 
   async getUserByEmail(email) {
-    const user = await User.findOne({email: this.email})
+    const user = await User.findOne({email: email})
     return user;
   }
 }
