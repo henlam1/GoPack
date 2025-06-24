@@ -24,18 +24,18 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: loginAPI,
-    onSuccess: (data) => {
-      console.log(data);
-      if (data !== undefined){
+    onSuccess: (resp) => {
+      if (resp && resp.status == 200) {
+        // Shouldn't we be setting the token in the cookie here?
         navigate(privateRoutes.home);
+      } else if (resp && resp.status == 400) {
+        console.log("no password")
+        setError("password", { type: 'manual', message: resp.message});
+      } else if (resp && resp.status == 404) {
+          console.log("no user")
+        setError("username", { type: 'manual', message: resp.message});
       }
-      throw new Error("Invalid credentials");
-    },
-    onError: (error) => {
-      console.log("Something not good")
-      console.log(error)
-      setError("username", { type: 'manual', message: error.message });
-    },
+    }
   });
 
   async function onSubmit(data: LoginFormFields) {
