@@ -7,19 +7,35 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginAPI } from "../../services/api/users";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import privateRoutes from "../../routes/privateRoutes";
 
 export default function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setError,
   } = useForm<LoginFormFields>({
     defaultValues: LoginDefaults,
     resolver: zodResolver(LoginSchema),
   });
 
+  const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: loginAPI,
+    onSuccess: (data) => {
+      console.log(data);
+      if (data !== undefined){
+        navigate(privateRoutes.home);
+      }
+      throw new Error("Invalid credentials");
+    },
+    onError: (error) => {
+      console.log("Something not good")
+      console.log(error)
+      setError("username", { type: 'manual', message: error.message });
+    },
   });
 
   async function onSubmit(data: LoginFormFields) {
