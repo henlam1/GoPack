@@ -39,7 +39,7 @@ export const deleteUser = tryCatch(async (req, res, next) => {
 });
 
 export const loginUser = tryCatch(async (req, res, next) => {
-  const user = await UserService.getUserByUserName(req.body.username);
+  const user = await UserService.getUserByUsername(req.body.username);
 
   if (user == null) {
     return res.status(404).send("Cannot find user");
@@ -66,6 +66,7 @@ export const loginUser = tryCatch(async (req, res, next) => {
         .cookie("access_token", token, {
           expires: new Date(Date.now() + 900000),
           httpOnly: true,
+          sameSite: true,
           secure: true,
         })
         .send({
