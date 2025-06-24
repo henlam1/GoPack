@@ -12,15 +12,15 @@ class UserService {
 
   async addUser(data) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
-    data.password = hashedPassword
+    data.password = hashedPassword;
     const user = new User(data);
     return await user.save();
   }
 
   async updateUser(userId, data) {
-    if(data.password != null) {
+    if (data.password != null) {
       const hashedPassword = await bcrypt.hash(data.password, 10);
-      data.password = hashedPassword
+      data.password = hashedPassword;
     }
     const updatedUser = await User.findByIdAndUpdate(userId, data, {
       new: true,
@@ -33,14 +33,14 @@ class UserService {
     return deletedUser;
   }
 
-  async getUserByUserName(userName) {
-    const user = await User.findOne({username: userName});
-    // console.log(user);
+  async getUserByUsername(username) {
+    const user = await User.findOne({ username: username });
+    console.log(user, username);
     return user;
   }
 
   async getUserByEmail(email) {
-    const user = await User.findOne({email: email})
+    const user = await User.findOne({ email: email });
     return user;
   }
 }
