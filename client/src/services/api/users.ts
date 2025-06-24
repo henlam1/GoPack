@@ -10,13 +10,12 @@ export async function loginAPI(loginForm: LoginFormFields) {
       },
       body: JSON.stringify(loginForm),
     });
-
     const statusCode = await response.status;
-
+    console.log(response)
     const resp = {
       "status": statusCode,
       "data": statusCode == 200 ? await response.json(): {},
-      "message": await response.text()
+      "errorMessage": statusCode != 200? await response.text(): ""
     }
     return resp;
   } catch (error) {
