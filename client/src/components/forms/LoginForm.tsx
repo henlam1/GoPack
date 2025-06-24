@@ -30,10 +30,12 @@ export default function LoginForm() {
         navigate(privateRoutes.home);
       } else if (resp && resp.status == 400) {
         console.log("no password")
-        setError("password", { type: 'manual', message: resp.message});
+        setError("password", { type: 'manual', message: resp.errorMessage});
       } else if (resp && resp.status == 404) {
           console.log("no user")
-        setError("username", { type: 'manual', message: resp.message});
+        setError("username", { type: 'manual', message: resp.errorMessage});
+      } else {
+        console.log("whoops")
       }
     }
   });
