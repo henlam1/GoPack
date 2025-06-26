@@ -10,17 +10,16 @@ export async function loginAPI(loginForm: LoginFormFields) {
       },
       body: JSON.stringify(loginForm),
     });
-    const statusCode = await response.status;
-    console.log(response)
-    const resp = {
-      "status": statusCode,
-      "data": statusCode == 200 ? await response.json(): {},
-      "errorMessage": statusCode != 200? await response.text(): ""
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    return resp;
+
+    const data = await response.json();
+    console.log("Login successful: ", data);
+    return data;
   } catch (error) {
     console.error(
-      "An unexpected problem occured with logging in user " + loginForm.username,
+      "A problem occured with logging in user " + loginForm.username,
       error
     );
   }
