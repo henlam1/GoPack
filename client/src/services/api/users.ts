@@ -12,7 +12,7 @@ export async function loginAPI(loginForm: LoginFormFields) {
       body: JSON.stringify(loginForm),
     });
     if (!response.ok) {
-      const { message } = await response.json()
+      const { message } = await response.json();
       throw new APIError(message, response.status);
     }
 
@@ -20,12 +20,17 @@ export async function loginAPI(loginForm: LoginFormFields) {
     console.log("Login successful: ", data);
     return data;
   } catch (error) {
-    if (error instanceof APIError) {
-      throw error;
-    }
     console.error(
       "A problem occured with logging in user " + loginForm.username,
       error
     );
+    // We needed a clear separation of API errors and network errors
+    // How will our messages display differently?
+    // Do we need an APIError class?
+    if (error instanceof APIError) {
+      throw error;
+    } else {
+      throw Error("Network error");
+    }
   }
 }

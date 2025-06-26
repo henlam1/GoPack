@@ -4,6 +4,7 @@ class APIError extends Error {
 
   constructor(message: string, status: number) {
     super(message);
+    this.name = "APIError";
     this.message = message;
     this.status = status;
   }
