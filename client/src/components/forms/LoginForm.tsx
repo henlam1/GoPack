@@ -9,6 +9,7 @@ import { loginAPI } from "../../services/api/users";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import privateRoutes from "../../routes/privateRoutes";
+import APIError from "../../services/errors/errorTypes";
 
 export default function LoginForm() {
   const {
@@ -24,20 +25,16 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: loginAPI,
-    onSuccess: (resp) => {
-      if (resp && resp.status == 200) {
-        // Shouldn't we be setting the token in the cookie here?
-        navigate(privateRoutes.home);
-      } else if (resp && resp.status == 400) {
-        console.log("no password")
-        setError("password", { type: 'manual', message: resp.errorMessage});
-      } else if (resp && resp.status == 404) {
-          console.log("no user")
-        setError("username", { type: 'manual', message: resp.errorMessage});
+    onSuccess: () => {
+      navigate(privateRoutes.home);
+    },
+    onError: (error) => {
+      if (error instanceof APIError) {
+        setError("root", { message: "Invalid username or password" });
       } else {
-        console.log("whoops")
+        setError("root", { message: "Network error" });
       }
-    }
+    },
   });
 
   async function onSubmit(data: LoginFormFields) {
@@ -61,7 +58,7 @@ export default function LoginForm() {
       <label className="floating-label mb-2">
         <span>Password</span>
         <input
-          type="text"
+          type="password"
           placeholder="password"
           className="input w-70"
           {...register("password")}
@@ -70,8 +67,17 @@ export default function LoginForm() {
           <p className="text-error-content w-70">{errors.password.message}</p>
         )}
       </label>
+      <label className="floating-label mb-2">
+        {errors.root && (
+          <p className="text-error-content w-70">{errors.root.message}</p>
+        )}
+      </label>
       <div className="card-actions">
-        <button className="btn btn-accent" type="submit">
+        <button
+          disabled={isSubmitting}
+          className="btn btn-accent"
+          type="submit"
+        >
           {isSubmitting ? "Loading..." : "Login"}
         </button>
       </div>

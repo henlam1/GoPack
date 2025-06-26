@@ -2,6 +2,7 @@ import tryCatch from "../utils/tryCatch.js";
 import UserService from "../services/userService.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { AuthError, NotFoundError } from "../middleware/errors/errorClasses.js";
 
 export const getUsers = tryCatch(async (req, res, next) => {
   const users = await UserService.getUsers();
@@ -15,7 +16,7 @@ export const getUserById = tryCatch(async (req, res, next) => {
 });
 
 export const addUser = tryCatch(async (req, res, next) => {
-  console.log(req.body)
+  console.log(req.body);
   const user = await UserService.getUserByEmail(req.body.email);
 
   if (user == null) {
@@ -42,42 +43,38 @@ export const loginUser = tryCatch(async (req, res, next) => {
   const user = await UserService.getUserByUsername(req.body.username);
 
   if (user == null) {
-    return res.status(404).send("Cannot find user");
+    throw new NotFoundError();
   }
-  try {
-    const matchingPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    if (matchingPassword) {
-      //   create JWT token
-      const token = jwt.sign(
-        {
-          userId: user._id,
-          userEmail: user.email,
-        },
-        "RANDOM-TOKEN",
-        { expiresIn: "24h" }
-      );
 
-      //   return success response
-      res
-        .status(200)
-        .cookie("access_token", token, {
-          expires: new Date(Date.now() + 900000),
-          httpOnly: true,
-          sameSite: true,
-          secure: true,
-        })
-        .send({
-          message: "Login Successful",
-          email: user.email,
-        });
-    } else {
-      res.status(400).send("Log in unsuccessful");
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send(error);
+  // Encapsulate this with a token controller later
+  const matchingPassword = await bcrypt.compare(
+    req.body.password,
+    user.password
+  );
+  if (!matchingPassword) {
+    throw new AuthError();
   }
+  //   create JWT token
+  const token = jwt.sign(
+    {
+      userId: user._id,
+      userEmail: user.email,
+    },
+    "RANDOM-TOKEN",
+    { expiresIn: "24h" }
+  );
+
+  //   return success response
+  res
+    .status(200)
+    .cookie("access_token", token, {
+      expires: new Date(Date.now() + 900000),
+      httpOnly: true,
+      sameSite: true,
+      secure: true,
+    })
+    .send({
+      message: "Login Successful",
+      email: user.email,
+    });
 });
