@@ -1,5 +1,6 @@
 import { LoginFormFields } from "../../models/zod/LoginSchema";
 import { apiRoutes } from "../../routes/apiRoutes";
+import APIError from "../errors/errorTypes";
 
 export async function loginAPI(loginForm: LoginFormFields) {
   try {
@@ -11,13 +12,17 @@ export async function loginAPI(loginForm: LoginFormFields) {
       body: JSON.stringify(loginForm),
     });
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const { message } = await response.json()
+      throw new APIError(message, response.status);
     }
 
     const data = await response.json();
     console.log("Login successful: ", data);
     return data;
   } catch (error) {
+    if (error instanceof APIError) {
+      throw error;
+    }
     console.error(
       "A problem occured with logging in user " + loginForm.username,
       error
