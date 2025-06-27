@@ -24,13 +24,8 @@ export async function loginAPI(loginForm: LoginFormFields) {
       "A problem occured with logging in user " + loginForm.username,
       error
     );
-    // We needed a clear separation of API errors and network errors
-    // How will our messages display differently?
-    // Do we need an APIError class?
-    if (error instanceof APIError) {
-      throw error;
-    } else {
-      throw Error("Network error");
-    }
+
+    if (error instanceof APIError) throw error;
+    throw Error("Network error");
   }
 }
