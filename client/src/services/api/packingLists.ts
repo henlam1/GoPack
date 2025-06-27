@@ -13,7 +13,7 @@ export async function getPackingListsAPI() {
     console.log("Packing lists fetched: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with retrieving packing lists", error);
+    console.error("A problem occurred with retrieving packing lists", error);
   }
 }
 
@@ -30,7 +30,7 @@ export async function getPackingListAPI(id: string) {
     return data;
   } catch (error) {
     console.error(
-      "A problem occured with retrieving packing list " + id,
+      "A problem occurred with retrieving packing list " + id,
       error
     );
   }
@@ -55,7 +55,7 @@ export async function createPackingListAPI(packingList: Omit<IPackingList, "_id"
     return data;
   } catch (error) {
     console.error(
-      "A problem occured with creating packing list " + packingList,
+      "A problem occurred with creating packing list " + packingList,
       error
     );
   }
@@ -77,7 +77,7 @@ export async function updatePackingListAPI(data: {id: string, update: Partial<IP
     console.log("Packing list updated: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with updating packing list " + id, error);
+    console.error("A problem occurred with updating packing list " + id, error);
   }
 }
 
@@ -95,6 +95,6 @@ export async function deletePackingListAPI(id: string) {
     console.log("Packing list deleted: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with deleting packing list " + id, error);
+    console.error("A problem occurred with deleting packing list " + id, error);
   }
 }
