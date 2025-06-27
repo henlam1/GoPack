@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import privateRoutes from "../../routes/privateRoutes";
+import publicRoutes from "../../routes/publicRoutes";
+import { logoutAPI } from "../../services/api/users";
 
 // TODO: ADD ICONS FOR EACH SIDE BAR ITEM
 
 interface Item {
   name: string;
   path: string;
+  func?: () => void;
 }
 
 const ItemList = [
@@ -25,21 +28,26 @@ const ItemList = [
     name: "Trash",
     path: privateRoutes.packingLists.trash,
   },
+  {
+    name: "Logout",
+    path: publicRoutes.home,
+    func: () => {logoutAPI()}
+  },
 ];
 
 function SideBarItems({ items }: { items: Item[] }) {
   return (
     <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-      {items.map(({ name, path }) => {
-        return <SideBarItem key={name} name={name} path={path} />;
+      {items.map(({ name, path, func }) => {
+        return <SideBarItem key={name} name={name} path={path} func={func}/>;
       })}
     </ul>
   );
 }
-function SideBarItem({ name, path }: { name: string; path: string }) {
+function SideBarItem({ name, path, func }: Item) {
   return (
     <li>
-      <Link to={path}>{name}</Link>
+      <Link to={path} onClick={func}>{name}</Link>
     </li>
   );
 }
