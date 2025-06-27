@@ -13,7 +13,7 @@ export async function getItemsAPI() {
     console.log("Items fetched: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with retrieving items", error);
+    console.error("A problem occurred with retrieving items", error);
   }
 }
 
@@ -29,7 +29,7 @@ export async function getItemAPI(id: string) {
     console.log("Item fetched: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with retrieving item " + id, error);
+    console.error("A problem occurred with retrieving item " + id, error);
   }
 }
 
@@ -51,7 +51,7 @@ export async function createItemAPI(item: Omit<IItem, "_id">) {
     console.log("Item created: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with creating item " + item, error);
+    console.error("A problem occurred with creating item " + item, error);
   }
 }
 
@@ -74,7 +74,7 @@ export async function updateItemAPI(data: {id: string, update: Partial<IItem>}) 
     console.log("Item updated: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with updating item " + id, error);
+    console.error("A problem occurred with updating item " + id, error);
   }
 }
 
@@ -92,6 +92,6 @@ export async function deleteItemAPI(id: string) {
     console.log("Item deleted: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with deleting item " + id, error);
+    console.error("A problem occurred with deleting item " + id, error);
   }
 }

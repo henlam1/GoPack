@@ -21,7 +21,7 @@ export async function loginAPI(loginForm: LoginFormFields) {
     return data;
   } catch (error) {
     console.error(
-      "A problem occured with logging in user " + loginForm.username,
+      "A problem occurred with logging in user " + loginForm.username,
       error
     );
 

@@ -13,7 +13,7 @@ export async function getCategoriesAPI() {
     console.log("Categories fetched: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with retrieving categories", error);
+    console.error("A problem occurred with retrieving categories", error);
   }
 }
 
@@ -29,7 +29,7 @@ export async function getCategoryAPI(id: string) {
     console.log("Category fetched: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with retrieving category " + id, error);
+    console.error("A problem occurred with retrieving category " + id, error);
   }
 }
 
@@ -51,7 +51,7 @@ export async function createCategoryAPI(category: Omit<ICategory, "_id">) {
     console.log("Category created: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with creating category", error);
+    console.error("A problem occurred with creating category", error);
   }
 }
 
@@ -75,7 +75,7 @@ export async function updateCategoryAPI(data: {id: string, update: Partial<ICate
     console.log("Category created: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with updating category " + id, error);
+    console.error("A problem occurred with updating category " + id, error);
   }
 }
 
@@ -93,6 +93,6 @@ export async function deleteCategoryAPI(id: string) {
     console.log("Category deleted: ", data);
     return data;
   } catch (error) {
-    console.error("A problem occured with deleting category " + id, error);
+    console.error("A problem occurred with deleting category " + id, error);
   }
 }
