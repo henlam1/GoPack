@@ -1,18 +1,22 @@
 Top Priorities
-1. JWT token middleware
+1. JWT token middleware (access token, refresh token)
   a. Protect against XSS
   b. Protect against CSRF
-  c. Ref: https://www.wisp.blog/blog/ultimate-guide-to-securing-jwt-authentication-with-httponly-cookies
+  c. Protect private routes
+  d. Remove access token on logout
+  e. Ref: https://www.wisp.blog/blog/ultimate-guide-to-securing-jwt-authentication-with-httponly-cookies
 2. Decent UI
   a. Private home page should tabulate packing lists
-  b. Public home page missing content
+  b. Forms to create packing lists/categories/data should be tabulated
+  c. Public home page missing content
 3. Critical bugs
   a. If we mark an item as packed, the UI doesn't properly reflect sometimes because our cached data is stale
 
 Secondary Priorities
 1. Editing features
-  a. Rename lists/categories
+  a. Lists/category options (ellipsis button)
 2. Upcoming trips page
+  a. Track time and dates
 3. Trash page
 
 Other Tasks
