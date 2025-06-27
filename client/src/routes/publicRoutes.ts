@@ -1,4 +1,5 @@
 const publicRoutes = {
+  home: "/",
   register: "register",
   login: "login",
 };

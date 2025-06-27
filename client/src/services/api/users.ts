@@ -29,3 +29,18 @@ export async function loginAPI(loginForm: LoginFormFields) {
     throw Error("Network error");
   }
 }
+
+export async function logoutAPI() {
+  try {
+    await fetch(apiRoutes.users.logout, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error(
+      "A problem occurred with logging out" + error
+    );
+  }
+}

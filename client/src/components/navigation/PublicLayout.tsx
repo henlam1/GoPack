@@ -1,8 +1,6 @@
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 
-// TODO: Create public and private layoud
-// TODO: Follow Figma design system
 export default function PublicLayout() {
   
   return (

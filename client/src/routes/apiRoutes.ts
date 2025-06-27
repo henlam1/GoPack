@@ -29,5 +29,6 @@ export const apiRoutes = {
   users: {
     base: `${apiBaseUrl}/api/users`,
     login: `${apiBaseUrl}/api/users/login`,
+    logout: `${apiBaseUrl}/api/users/logout`,
   },
 };
