@@ -2,7 +2,7 @@ import tryCatch from "../utils/tryCatch.js";
 import UserService from "../services/userService.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { AuthError, NotFoundError } from "../middleware/errors/errorClasses.js";
+import { AuthError, NotFoundError, UserExistsError } from "../middleware/errors/errorClasses.js";
 
 export const getUsers = tryCatch(async (req, res, next) => {
   const users = await UserService.getUsers();
@@ -19,12 +19,12 @@ export const addUser = tryCatch(async (req, res, next) => {
   console.log(req.body);
   const user = await UserService.getUserByEmail(req.body.email);
 
-  if (user == null) {
-    const newUser = await UserService.addUser(req.body);
-    res.status(201).json(newUser);
-  } else {
-    res.status(409).send("User already exists");
+  if (user) {
+    throw new UserExistsError();
   }
+  
+  const newUser = await UserService.addUser(req.body);
+  res.status(201).json(newUser);
 });
 
 export const updateUser = tryCatch(async (req, res, next) => {
