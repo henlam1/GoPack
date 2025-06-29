@@ -1,5 +1,5 @@
 import tryCatch from "../utils/tryCatch.js";
-import ItemService from "../services/itemService.js";
+import ItemService from "../services/ItemService.js";
 
 export const getItems = tryCatch(async (req, res, next) => {
   const items = await ItemService.getItems();
