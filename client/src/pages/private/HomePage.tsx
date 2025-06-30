@@ -5,7 +5,7 @@ import PackingListContainer from "../../containers/PackingListContainer";
 // TODO: IMPLEMENT USER CONTEXT FOR PACKINGLIST CONTAINER TO GET PACKINGLISTIDS
 export default function HomePage() {
   return (
-    <div>
+    <div className="m-4">
       CLIENT HOME PAGE
       <PackingListContainer />
     </div>
