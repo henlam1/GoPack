@@ -1,5 +1,5 @@
 import Category from "../models/categoryModel.js";
-import PackingListService from "./packingListService.js";
+import PackingListService from "./PackingListService.js";
 
 class CategoryService {
   async getCategories() {
