@@ -12,12 +12,14 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors({
-  origin: ['http://localhost:5173'], // Can be an array
-  credentials: true, // Critical for cookies
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type']
-}));
+app.use(
+  cors({
+    origin: ["http://localhost:5173"], // Can be an array
+    credentials: true, // Critical for cookies
+    methods: ["GET", "PATCH", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
