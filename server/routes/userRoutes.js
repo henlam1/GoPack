@@ -4,7 +4,8 @@ import {
   addUser,
   updateUser,
   deleteUser,
-  loginUser
+  loginUser,
+  logoutUser,
 } from "../controllers/userController.js";
 import validationMiddleware from "../middleware/validationMiddleware.js";
 import { userSchema } from "../validationSchemas/userSchema.js";
@@ -19,4 +20,7 @@ router.route("/:userId")
   .delete(deleteUser);
 router.route("/login")
   .post(loginUser);
+router.route("/logout")
+  .post(logoutUser)
+  
 export default router;

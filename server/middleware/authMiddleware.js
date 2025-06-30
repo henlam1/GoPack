@@ -1,21 +1,22 @@
 import jwt from "jsonwebtoken";
+import { InvalidAccessTokenError, MissingAccessTokenError } from "./errors/errorClasses.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "defaultSecret";
 
-const authMiddleware = (req, res, next) => {
-  const token = req.headers["authorization"];
-  console.log(req.headers);
+const authenticateToken = (req, res, next) => {
+  const token = req.cookies.accessToken;
+
   if (!token) {
-    throw new AuthError("No token provided");
+    throw new MissingAccessTokenError();
   }
 
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) {
-      throw new AuthError("Failed to authenticate token");
+      throw new InvalidAccessTokenError();
     }
-    req.userId = decoded?.indexOf;
+    req.user = user;
     next();
   });
 };
 
-export default authMiddleware;
+export default authenticateToken;

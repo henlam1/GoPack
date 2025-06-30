@@ -30,3 +30,26 @@ export class UserExistsError extends AppError {
     super(message, 409);
   }
 }
+
+export class MissingAccessTokenError extends AppError {
+  constructor(message = "Missing access token") {
+    super(message, 401);
+  }
+}
+
+export class InvalidAccessTokenError extends AppError {
+  constructor(message = "Invalid or missing access token") {
+    super(message, 403);
+  }
+}
+export class MissingRefreshTokenError extends AppError {
+  constructor(message = "Missing refresh token") {
+    super(message, 401);
+  }
+}
+
+export class InvalidRefreshTokenError extends AppError {
+  constructor(message = "Invalid or missing refresh token") {
+    super(message, 403);
+  }
+}
