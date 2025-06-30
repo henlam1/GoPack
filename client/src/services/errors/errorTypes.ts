@@ -1,4 +1,4 @@
-class APIError extends Error {
+export class APIError extends Error {
   message: string;
   status: number;
 
@@ -10,4 +10,24 @@ class APIError extends Error {
   }
 }
 
-export default APIError;
+export class TokenError extends Error {
+  message: string;
+  status: number = 401;
+
+  constructor(message: string) {
+    super(message);
+    this.name = "TokenError";
+    this.message = message;
+  }
+}
+
+export class NetworkError extends Error {
+  message: string;
+  error: unknown;
+
+  constructor(message: string, error: unknown) {
+    super(message);
+    this.message = message;
+    this.error = error;
+  }
+}

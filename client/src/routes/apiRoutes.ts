@@ -31,4 +31,8 @@ export const apiRoutes = {
     login: `${apiBaseUrl}/api/users/login`,
     logout: `${apiBaseUrl}/api/users/logout`,
   },
+  tokens: {
+    base: `${apiBaseUrl}/api/tokens`,
+    refresh: `${apiBaseUrl}/api/tokens/refresh`,
+  }
 };

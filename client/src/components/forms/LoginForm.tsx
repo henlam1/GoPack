@@ -9,7 +9,7 @@ import { loginAPI } from "../../services/api/users";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import privateRoutes from "../../routes/privateRoutes";
-import APIError from "../../services/errors/errorTypes";
+import { APIError } from "../../services/errors/errorTypes";
 
 export default function LoginForm() {
   const {
