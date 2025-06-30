@@ -1,100 +1,47 @@
 import IPackingList from "../../models/PackingListModel";
 import { apiRoutes } from "../../routes/apiRoutes";
+import apiRequest from "./apiRequest";
 
 export async function getPackingListsAPI() {
-  try {
-    const response = await fetch(apiRoutes.packingLists.getAll);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Packing lists fetched: ", data);
-    return data;
-  } catch (error) {
-    console.error("A problem occurred with retrieving packing lists", error);
-  }
+  const data = await apiRequest(apiRoutes.packingLists.getAll);
+  console.log("Packing lists fetched: ", data);
+  return data;
 }
 
 export async function getPackingListAPI(id: string) {
-  try {
-    const response = await fetch(apiRoutes.packingLists.getById(id));
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Packing lists fetched: ", data);
-    return data;
-  } catch (error) {
-    console.error(
-      "A problem occurred with retrieving packing list " + id,
-      error
-    );
-  }
+  const data = await apiRequest(apiRoutes.packingLists.getById(id));
+  console.log("Packing list fetched: ", data);
+  return data;
 }
 
-export async function createPackingListAPI(packingList: Omit<IPackingList, "_id">) {
-  try {
-    const response = await fetch(apiRoutes.packingLists.create, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(packingList),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Packing list created: ", data);
-    return data;
-  } catch (error) {
-    console.error(
-      "A problem occurred with creating packing list " + packingList,
-      error
-    );
-  }
+export async function createPackingListAPI(
+  packingList: Omit<IPackingList, "_id">
+) {
+  const data = await apiRequest(apiRoutes.packingLists.create, {
+    method: "POST",
+    body: JSON.stringify(packingList),
+  });
+  console.log("Packing list created: ", data);
+  return data;
 }
 
-export async function updatePackingListAPI(data: {id: string, update: Partial<IPackingList>}) {
-  const { id, update } = data;
-  try {
-    const response = await fetch(apiRoutes.packingLists.update(id), {
-      method: "PATCH",
-      body: JSON.stringify(update),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Packing list updated: ", data);
-    return data;
-  } catch (error) {
-    console.error("A problem occurred with updating packing list " + id, error);
-  }
+export async function updatePackingListAPI(params: {
+  id: string;
+  update: Partial<IPackingList>;
+}) {
+  const { id, update } = params;
+  const data = await apiRequest(apiRoutes.packingLists.update(id), {
+    method: "PATCH",
+    body: JSON.stringify(update),
+  });
+  console.log("Packing list updated: ", data);
+  return data;
 }
 
 export async function deletePackingListAPI(id: string) {
-  try {
-    const response = await fetch(apiRoutes.packingLists.delete(id), {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Packing list deleted: ", data);
-    return data;
-  } catch (error) {
-    console.error("A problem occurred with deleting packing list " + id, error);
-  }
+  const data = await apiRequest(apiRoutes.packingLists.delete(id), {
+    method: "DELETE",
+  });
+  console.log("Packing list deleted: ", data);
+  return data;
 }

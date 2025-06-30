@@ -1,6 +1,7 @@
 import { LoginFormFields } from "../../models/zod/LoginSchema";
 import { apiRoutes } from "../../routes/apiRoutes";
-import APIError from "../errors/errorTypes";
+import { APIError } from "../errors/errorTypes";
+import apiRequest from "./apiRequest";
 
 export async function loginAPI(loginForm: LoginFormFields) {
   try {
@@ -10,6 +11,7 @@ export async function loginAPI(loginForm: LoginFormFields) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(loginForm),
+      credentials: "include",
     });
     if (!response.ok) {
       const { message } = await response.json();
@@ -31,16 +33,9 @@ export async function loginAPI(loginForm: LoginFormFields) {
 }
 
 export async function logoutAPI() {
-  try {
-    await fetch(apiRoutes.users.logout, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  } catch (error) {
-    console.error(
-      "A problem occurred with logging out" + error
-    );
-  }
+  const data = await apiRequest(apiRoutes.users.logout, {
+    method: "POST",
+  });
+  console.log("User logged out: ", data);
+  return data;
 }
