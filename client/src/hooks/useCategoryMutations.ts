@@ -6,31 +6,37 @@ import {
   updateCategoryAPI,
 } from "../services/api/categories";
 
-export function useCategoryMutations(packingListId: string) {
+export function useCategoryMutations(
+  packingListId?: string,
+  categoryId?: string
+) {
   const queryClient = useQueryClient();
 
   // CRUD Mutations
   const createCategory = useMutation({
     mutationFn: createCategoryAPI,
-    onSuccess: () =>
-      queryClient.invalidateQueries({
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
         queryKey: ["packingList", packingListId],
-      }),
+      });
+    },
   });
   const readCategory = useMutation({ mutationFn: getCategoryAPI });
   const updateCategory = useMutation({
     mutationFn: updateCategoryAPI,
-    onSuccess: () =>
-      queryClient.invalidateQueries({
-        queryKey: ["packingList", packingListId],
-      }),
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
+        queryKey: ["category", categoryId],
+      });
+    },
   });
   const deleteCategory = useMutation({
     mutationFn: deleteCategoryAPI,
-    onSuccess: () =>
-      queryClient.invalidateQueries({
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
         queryKey: ["packingList", packingListId],
-      }),
+      });
+    },
   });
 
   return {

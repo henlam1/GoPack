@@ -13,7 +13,7 @@ export default function Category({ _id, name, items, packingList }: ICategory) {
   });
 
   // Hooks to manage item CRUD
-  const { updateCategory, deleteCategory } = useCategoryMutations(packingList);
+  const { updateCategory, deleteCategory } = useCategoryMutations(packingList, _id);
 
   // State management handler functions
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
