@@ -5,10 +5,9 @@ import {
   packingListDefaults,
 } from "../../models/zod/packingListSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createPackingListAPI } from "../../services/api/packingLists";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import privateRoutes from "../../routes/privateRoutes";
+import { usePackingListMutations } from "../../hooks/usePackingListMutations";
 
 export default function PackingListForm({ userId }: { userId: string }) {
   const {
@@ -20,20 +19,16 @@ export default function PackingListForm({ userId }: { userId: string }) {
     resolver: zodResolver(packingListSchema),
   });
 
+  // Hooks to manage item CRUD
+  const { createPackingList } = usePackingListMutations(userId);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: createPackingListAPI,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["packingLists"] });
-      console.log(data);
-      navigate(privateRoutes.packingLists.details(data._id));
-    },
-  });
 
   async function onSubmit(data: PackingListFormFields) {
     const linkedData = { ...data, user: userId };
-    mutate(linkedData);
+    createPackingList.mutate(linkedData, { onSuccess: (data) => {
+      console.log(data);
+      navigate(privateRoutes.packingLists.details(data._id));
+    }});
   }
 
   return (

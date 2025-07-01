@@ -14,7 +14,7 @@ export default function Item({ _id, packed, name, quantity, category }: IItem) {
   });
 
   // Hooks to manage item CRUD
-  const { updateItem, deleteItem } = useItemMutations(category);
+  const { updateItem, deleteItem } = useItemMutations(category, _id);
 
   // State management handler functions
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

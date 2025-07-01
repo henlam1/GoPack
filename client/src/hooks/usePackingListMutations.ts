@@ -7,7 +7,7 @@ import {
 } from "../services/api/packingLists";
 
 // TODO: Invalidate user onSuccess after each packing list CRUD mutation
-export function usePackingListMutations(userId: string) {
+export function usePackingListMutations(userId?: string, packingListId?: string) {
   const queryClient = useQueryClient();
 
   // CRUD Mutations

@@ -6,27 +6,36 @@ import {
   deleteItemAPI,
 } from "../services/api/items";
 
-export function useItemMutations(categoryId: string) {
+export function useItemMutations(categoryId?: string, itemId?: string) {
   const queryClient = useQueryClient();
 
   // CRUD Mutations
   const createItem = useMutation({
     mutationFn: createItemAPI,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["category", categoryId] }),
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
+        queryKey: ["category", categoryId],
+      });
+    },
   });
   const readItem = useMutation({
     mutationFn: getItemAPI,
   });
   const updateItem = useMutation({
     mutationFn: updateItemAPI,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["category", categoryId] }),
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
+        queryKey: ["item", itemId],
+      });
+    },
   });
   const deleteItem = useMutation({
     mutationFn: deleteItemAPI,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["category", categoryId] }),
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
+        queryKey: ["category", categoryId],
+      });
+    },
   });
 
   return { createItem, readItem, updateItem, deleteItem };

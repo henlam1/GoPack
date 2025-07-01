@@ -5,8 +5,7 @@ import {
   categoryDefaults,
 } from "../../models/zod/categorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createCategoryAPI } from "../../services/api/categories";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCategoryMutations } from "../../hooks/useCategoryMutations";
 
 export default function CategoryForm({
   packingListId,
@@ -22,17 +21,12 @@ export default function CategoryForm({
     resolver: zodResolver(categorySchema),
   });
 
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: createCategoryAPI,
-    onSuccess: () => {
-      return queryClient.invalidateQueries({ queryKey: ["packingList", packingListId] });
-    },
-  });
+  // Hooks to manage item CRUD
+  const { createCategory } = useCategoryMutations(packingListId);
 
   async function onSubmit(data: CategoryFormFields) {
     const linkedData = { ...data, packingList: packingListId };
-    mutate(linkedData);
+    createCategory.mutate(linkedData);
   }
 
   return (
