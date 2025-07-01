@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { InvalidAccessTokenError, MissingAccessTokenError } from "./errors/errorClasses.js";
 
-const JWT_SECRET = process.env.JWT_SECRET || "defaultSecret";
+const JWT_SECRET = process.env.JWT_SECRET || "RANDOM-TOKEN";
 
 const authenticateToken = (req, res, next) => {
   const token = req.cookies.accessToken;
