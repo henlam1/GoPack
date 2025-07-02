@@ -25,7 +25,7 @@ export default function PackingListDetailsPage() {
 
   return (
     <div>
-      VIEW/UPDATE PACKING LIST PAGE ID: {id}
+      <p className="text-2xl font-bold">VIEW/UPDATE PACKING LIST PAGE ID: {id}</p>
       <CategoryContainer categoryIds={packingList.categories} />
       <CategoryForm packingListId={id} />
     </div>

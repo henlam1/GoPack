@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import publicRoutes from "../../routes/publicRoutes";
+import { logoutAPI } from "../../services/api/users";
 
-export default function Navbar() {
+export default function Navbar({ privacy = "public" }) {
   return (
-    <div className="navbar bg-base-100 shadow-sm mb-5">
+    <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
         <Link to={"/"} className="btn btn-ghost text-xl">
           GoPack!
@@ -11,12 +12,21 @@ export default function Navbar() {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to={publicRoutes.login}>Login</Link>
-          </li>
-          <li>
-            <Link to={publicRoutes.register}>Register</Link>
-          </li>
+          {privacy == "public" &&
+            <li>
+              <Link to={publicRoutes.login}>Login</Link>
+            </li>
+          }
+          {privacy == "public" &&
+            <li>
+              <Link to={publicRoutes.register}>Register</Link>
+            </li>
+          }
+          {privacy != "public" &&
+            <li>
+              <Link to={publicRoutes.home} onClick={() => {logoutAPI()}}>Logout</Link>
+            </li>
+          }
           <li>
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
