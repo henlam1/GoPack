@@ -13,6 +13,7 @@ export default function ItemForm({ categoryId }: { categoryId: string }) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ItemFormFields>({
     defaultValues: itemDefaults,
@@ -28,6 +29,7 @@ export default function ItemForm({ categoryId }: { categoryId: string }) {
     const linkedData = { ...data, category: categoryId };
     createItem.mutate(linkedData);
     toggleShowForm();
+    reset();
   }
 
   function toggleShowForm() {

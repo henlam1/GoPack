@@ -57,7 +57,7 @@ export default function Category({ _id, name, items, packingList }: ICategory) {
     <div className="card card-border border-primary shadow-sm w-96">
       <div className="card-body">
       <div className="card-actions">
-        <button className="btn btn-square btn-sm btn-soft btn-secondary absolute inset-y-3 right-5">
+        <button className="btn btn-square btn-sm btn-soft btn-secondary absolute inset-y-3 right-5" onClick={handleDelete}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-3 w-3"
