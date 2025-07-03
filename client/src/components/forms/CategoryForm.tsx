@@ -15,6 +15,7 @@ export default function CategoryForm({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<CategoryFormFields>({
     defaultValues: categoryDefaults,
@@ -27,6 +28,7 @@ export default function CategoryForm({
   async function onSubmit(data: CategoryFormFields) {
     const linkedData = { ...data, packingList: packingListId };
     createCategory.mutate(linkedData);
+    reset();
   }
 
   return (
