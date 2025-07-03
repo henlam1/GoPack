@@ -34,25 +34,16 @@ export default function ItemContainer({ itemIds }: ItemContainerProps) {
   }
 
   return (
-    <ul className="list bg-base-100 rounded-box shadow-md">
-      <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Packed</th>
-              <th>Name</th>
-              <th>Quantity</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.data.map((item: IItem) => {
-              return <Item {...item} />;
-            })}
-          </tbody>
-        </table>
+    <>
+      <div className="grid grid-cols-3 gap-4">
+        <p className="text-xl ml-2">Item</p>
+        <p className="text-xl ml-2">Qty</p>
+        <p className="text-xl">Actions</p>
+        {results.data.length > 0 && results.data.map((item: IItem) => {
+          return <Item {...item} />;
+        })}
+        {results.data.length == 0 && <div className="col-span-full mx-auto bg-accent text-accent-content">There are no items on this list yet!</div>}
       </div>
-    </ul>
+    </>
   );
 }

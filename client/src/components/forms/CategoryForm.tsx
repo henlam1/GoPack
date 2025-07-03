@@ -30,10 +30,12 @@ export default function CategoryForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("name")} type="text" placeholder="Category name" />
-      {errors.name && <div className="text-red-500">{errors.name.message}</div>}
-      <button>{isSubmitting ? "Loading..." : "Submit"}</button>
-    </form>
+    <div className="mb-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="join">
+        <input {...register("name")} type="text" placeholder="Category name" className="input join-item" />
+        <button className="btn btn-primary join-item">{isSubmitting ? "Loading..." : "Add New Category"}</button>
+      </form>
+      {errors.name && <p className="block text-error">{errors.name.message}</p>}
+    </div>
   );
 }

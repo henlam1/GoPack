@@ -22,10 +22,13 @@ export default function PackingListContainer() {
   if (isError) return <div>Error...</div>;
 
   return (
-    <div className="flex flex-row gap-3 flex-wrap">
-      {packingLists.map((packingList: IPackingList) => {
-        return <PackingListCard {...packingList} />;
-      })}
+    <div>
+      <h2 className="text-5xl font-semibold tracking-tight sm:text-7xl mb-10">Packing Lists</h2>
+      <div className="flex flex-row gap-3 flex-wrap">
+        {packingLists.map((packingList: IPackingList) => {
+          return <PackingListCard {...packingList} />;
+        })}
+      </div>
     </div>
   );
 }

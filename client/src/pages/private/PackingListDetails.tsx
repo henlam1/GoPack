@@ -24,10 +24,13 @@ export default function PackingListDetailsPage() {
   if (isError) return <div>Error...</div>;
 
   return (
-    <div>
-      <p className="text-2xl font-bold">VIEW/UPDATE PACKING LIST PAGE ID: {id}</p>
-      <CategoryContainer categoryIds={packingList.categories} />
+    <div className="m-4">
+      <p className="text-5xl font-semibold tracking-tight sm:text-7xl mb-10">
+        <span className="font-bold text-primary-content"> {packingList.name} </span>
+        Packing List
+      </p>
       <CategoryForm packingListId={id} />
+      <CategoryContainer categoryIds={packingList.categories} />
     </div>
   );
 }
