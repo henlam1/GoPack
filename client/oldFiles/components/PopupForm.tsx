@@ -32,7 +32,6 @@ function PopupForm({title, formArr, onSubmit, submitBtn, onClose}: PopupFormProp
     };
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault(); // Prevent page from refreshing when submitting
-        console.log("cunt");
         onSubmit(form, () => setForm(initForm))
     };
 

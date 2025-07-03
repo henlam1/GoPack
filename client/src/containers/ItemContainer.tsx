@@ -34,16 +34,14 @@ export default function ItemContainer({ itemIds }: ItemContainerProps) {
   }
 
   return (
-    <>
-      <div className="grid grid-cols-3 gap-4">
-        <p className="text-xl ml-2">Item</p>
-        <p className="text-xl ml-2">Qty</p>
-        <p className="text-xl">Actions</p>
-        {results.data.length > 0 && results.data.map((item: IItem) => {
-          return <Item {...item} />;
-        })}
-        {results.data.length == 0 && <div className="col-span-full mx-auto bg-accent text-accent-content">There are no items on this list yet!</div>}
-      </div>
-    </>
+    <div className="grid grid-cols-3 gap-4">
+      <p className="text-xl ml-2">Item</p>
+      <p className="text-xl ml-2">Qty</p>
+      <p className="text-xl">Actions</p>
+      {results.data.length > 0 && results.data.map((item: IItem) => {
+        return <Item {...item} key={item._id} />;
+      })}
+      {results.data.length == 0 && <div className="col-span-full mx-auto bg-accent text-accent-content">There are no items on this list yet!</div>}
+    </div>
   );
 }

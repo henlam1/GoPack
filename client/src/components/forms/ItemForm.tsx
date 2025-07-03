@@ -40,10 +40,6 @@ export default function ItemForm({ categoryId }: { categoryId: string }) {
     <>
       { showForm &&
         (<form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-3 gap-4">
-          {/* <input {...register("packed")} type="checkbox" />
-          {errors.packed && (
-            <div className="text-red-500">{errors.packed.message}</div>
-          )} */}
           <span>
             <input {...register("name")} type="text" placeholder="Item name" className="input validator" />
             {errors.name && <p className="block text-error">{errors.name.message}</p>}
@@ -59,6 +55,7 @@ export default function ItemForm({ categoryId }: { categoryId: string }) {
             <button 
               className="btn btn-square btn-neutral" 
               onClick={e => {
+                reset();
                 e.stopPropagation();
                 toggleShowForm();
               }}
