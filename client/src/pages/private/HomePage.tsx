@@ -6,7 +6,6 @@ import PackingListContainer from "../../containers/PackingListContainer";
 export default function HomePage() {
   return (
     <div className="m-4">
-      CLIENT HOME PAGE
       <PackingListContainer />
     </div>
   )

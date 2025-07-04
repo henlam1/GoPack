@@ -36,11 +36,10 @@ export default function CategoryContainer({
   }
 
   return (
-    <>
+    <div className="flex flex-row gap-3 flex-wrap">      
       {results.data.map((category) => {
-        console.log(category);
-        return <Category {...category} />;
+        return <Category key={category._id} {...category} />;
       })}
-    </>
+    </div>
   );
 }
