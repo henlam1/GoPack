@@ -36,19 +36,26 @@ export default function PackingListCard({ _id, name }: CardProps) {
         <img
           src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
           alt="Shoes"
-          onClick={handleClick}
         />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
         <p>blah blah, we can put some random default image on top</p>
+        <div className="card-actions justify-end">
+          <button 
+            className="btn btn-primary btn-sm"
+            onClick={handleClick}
+          >
+            View
+          </button>
+          <button
+            className="btn btn-secondary btn-sm"
+            onClick={() => handleDelete()}
+          >
+            Delete
+          </button>
+        </div>
 
-        <button
-          className="btn btn-soft btn-secondary btn-sm"
-          onClick={() => handleDelete()}
-        >
-          Delete
-        </button>
       </div>
     </div>
   );
