@@ -97,3 +97,7 @@ export const logoutUser = tryCatch(async (req, res, next) => {
 
   res.status(200).json({ message: "Logged out successfully" });
 });
+
+export const hydrateUser = tryCatch(async (req, res, next) => {
+  res.status(200).json(req.user.email);
+});
