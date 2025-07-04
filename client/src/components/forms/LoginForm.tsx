@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import privateRoutes from "../../routes/privateRoutes";
 import { APIError } from "../../services/errors/errorTypes";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function LoginForm() {
   const {
@@ -23,9 +24,11 @@ export default function LoginForm() {
   });
 
   const navigate = useNavigate();
+  const { setUser } = useAuth();
   const { mutate } = useMutation({
     mutationFn: loginAPI,
-    onSuccess: () => {
+    onSuccess: (data: { email: string; message: string }) => {
+      setUser(data.email);
       navigate(privateRoutes.home);
     },
     onError: (error) => {

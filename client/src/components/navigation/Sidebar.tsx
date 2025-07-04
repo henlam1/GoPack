@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import privateRoutes from "../../routes/privateRoutes";
 import publicRoutes from "../../routes/publicRoutes";
-import { logoutAPI } from "../../services/api/users";
+import { useAuth } from "../../hooks/useAuth";
 
 // TODO: ADD ICONS FOR EACH SIDE BAR ITEM
 
@@ -11,35 +11,11 @@ interface Item {
   func?: () => void;
 }
 
-const ItemList = [
-  {
-    name: "Add Packing List",
-    path: privateRoutes.packingLists.create,
-  },
-  {
-    name: "Home",
-    path: privateRoutes.home,
-  },
-  {
-    name: "Upcoming",
-    path: privateRoutes.packingLists.upcoming,
-  },
-  {
-    name: "Trash",
-    path: privateRoutes.packingLists.trash,
-  },
-  {
-    name: "Logout",
-    path: publicRoutes.home,
-    func: () => {logoutAPI()}
-  },
-];
-
 function SideBarItems({ items }: { items: Item[] }) {
   return (
     <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
       {items.map(({ name, path, func }) => {
-        return <SideBarItem key={name} name={name} path={path} func={func}/>;
+        return <SideBarItem key={name} name={name} path={path} func={func} />;
       })}
     </ul>
   );
@@ -47,13 +23,44 @@ function SideBarItems({ items }: { items: Item[] }) {
 function SideBarItem({ name, path, func }: Item) {
   return (
     <li>
-      <Link to={path} onClick={func}>{name}</Link>
+      <Link to={path} onClick={func}>
+        {name}
+      </Link>
     </li>
   );
 }
 
 export default function SideBar() {
   // TODO: Create sidebar items based off Figma
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const ItemList = [
+    {
+      name: "Add Packing List",
+      path: privateRoutes.packingLists.create,
+    },
+    {
+      name: "Home",
+      path: privateRoutes.home,
+    },
+    {
+      name: "Upcoming",
+      path: privateRoutes.packingLists.upcoming,
+    },
+    {
+      name: "Trash",
+      path: privateRoutes.packingLists.trash,
+    },
+    {
+      name: "Logout",
+      path: publicRoutes.home,
+      func: async () => {
+        await logout();
+        navigate(publicRoutes.login);
+      },
+    },
+  ];
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

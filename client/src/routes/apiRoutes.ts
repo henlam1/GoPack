@@ -30,6 +30,7 @@ export const apiRoutes = {
     base: `${apiBaseUrl}/api/users`,
     login: `${apiBaseUrl}/api/users/login`,
     logout: `${apiBaseUrl}/api/users/logout`,
+    hydrate: `${apiBaseUrl}/api/users/hydrate`,
   },
   tokens: {
     base: `${apiBaseUrl}/api/tokens`,

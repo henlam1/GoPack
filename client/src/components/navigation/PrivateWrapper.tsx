@@ -1,7 +1,10 @@
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import PrivateLayout from "./PrivateLayout";
+import Loading from "../feedback/Loading";
 
 export default function PrivateWrapper() {
-  const auth = true;
-  return auth ? <PrivateLayout /> : <Navigate to="/login" />;
+  const { isAuthenticated, isLoading } = useAuth();
+  if (isLoading) return <Loading />;
+  return isAuthenticated ? <PrivateLayout /> : <Navigate to="/login" />;
 }

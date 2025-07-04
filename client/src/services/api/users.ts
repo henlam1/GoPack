@@ -39,3 +39,9 @@ export async function logoutAPI() {
   console.log("User logged out: ", data);
   return data;
 }
+
+export async function hydrateAPI() {
+  const data = await apiRequest(apiRoutes.users.hydrate)
+  console.log("User session hydrated: ", data)
+  return data;
+}
