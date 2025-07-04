@@ -47,54 +47,67 @@ export default function Item({ _id, packed, name, quantity, category}: IItem) {
   return (
     <>
       { editing && (
-      <input
-        type="text"
-        name="name"
-        placeholder="Name"
-        value={item.name}
-        onChange={handleChange}
-        className="input"
-      />
-      )}
-
-      { !editing && (
-      <span className="input input-ghost cursor-pointer" onClick={handleClick}>{item.name}</span>
-      )}
-      
-      { editing && (
-      <input
-        type="number"
-        name="quantity"
-        placeholder="#"
-        value={item.quantity}
-        onChange={handleChange}
-        className="input"
-      />
-      )}
-
-      { !editing && (
-      <span onClick={handleClick} className="input input-ghost cursor-pointer">{item.quantity}</span>
-      )}
-
-      { !editing && (
+      <>
         <input
-        type="checkbox"
-        name="packed"
-        checked={item.packed}
-        onChange={handleChange}
-        className="checkbox [--size:2.5em]"
-      />
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={item.name}
+          onChange={handleChange}
+          className="input"
+        />
+          <input
+          type="number"
+          name="quantity"
+          placeholder="#"
+          value={item.quantity}
+          onChange={handleChange}
+          className="input"
+        />
+        <span className="flex gap-1">
+          <button className="btn btn-square btn-error text-xl" onClick={() => handleDelete()}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="size-[1.2em]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="6"
+                d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <button className="btn btn-square btn-neutral" onClick={(toggleEditing)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            className="size-[2em]"
+            stroke="currentColor">
+            <path
+              d="M13.775,18.707,8.482,13.414a2,2,0,0,1,0-2.828l5.293-5.293,1.414,1.414L9.9,12l5.293,5.293Z"     
+            />
+          </svg>
+
+          </button>
+        </span>
+      </>
       )}
 
-      { editing && (
-        <span className="flex gap-1">
-        <button className="btn btn-square btn-error text-xl" onClick={() => handleDelete()}>
-          X
-        </button>
-      <button className="btn btn-square btn-neutral" onClick={(toggleEditing)}>
-        <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 404.43"><path fill-rule="nonzero" d="m68.69 184.48 443.31.55v34.98l-438.96-.54 173.67 159.15-23.6 25.79L0 199.94 218.6.02l23.6 25.79z"/></svg>      
-      </button>
-      </span>
+      { !editing && (
+      <>
+        <span className="input input-ghost cursor-pointer" onClick={handleClick}>{item.name}</span>
+        <span onClick={handleClick} className="input input-ghost cursor-pointer">{item.quantity}</span>
+        <input
+          type="checkbox"
+          name="packed"
+          checked={item.packed}
+          onChange={handleChange}
+          className="checkbox [--size:2.5em]"
+        />
+      </>
       )}
     </>
   );
