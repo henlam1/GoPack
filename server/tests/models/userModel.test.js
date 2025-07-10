@@ -24,7 +24,10 @@ describe("User model CRUD operations", () => {
   it("should find a user", async () => {
     const user = await User.create(mockUser);
     const found = await User.findById(user._id);
-    expect(found.email).toBe("test@gmail.com");
+    expect(found).not.toBeNull();
+    if (found) {
+      expect(found.email).toBe("test@gmail.com");
+    }
   });
   // UPDATE
   it("should update a user", async () => {
@@ -36,7 +39,10 @@ describe("User model CRUD operations", () => {
       },
       { new: true }
     );
-    expect(updated.username).toBe("updated username");
+    expect(updated).not.toBeNull();
+    if (updated) {
+      expect(updated.username).toBe("updated username");
+    }
   });
   // DELETE
   it("should delete a user", async () => {
