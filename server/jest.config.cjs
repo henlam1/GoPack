@@ -7,7 +7,7 @@ const config = {
   transformIgnorePatterns: ["node_modules"],
   testMatch: ['**/*.test.js'],
   verbose: true,
-  preset: "@shelf/jest-mongodb",
+  preset: "ts-jest",
 };
 
 module.exports = config;
