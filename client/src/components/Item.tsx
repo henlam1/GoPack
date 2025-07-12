@@ -65,14 +65,9 @@ export default function Item({ _id, packed, name, quantity, category}: IItem) {
           onChange={handleChange}
           className="input"
         />
-          <input
-          type="checkbox"
-          name="packed"
-          checked={item.packed}
-          onChange={handleChange}
-          className="checkbox [--size:2.5em]"
-          disabled
-        />
+        <button className="btn btn-sm btn-error" onClick={() => handleDelete()}>
+          Delete
+        </button>
       </>
       )}
 
