@@ -1,13 +1,22 @@
 import mongoose from "mongoose";
-import { configDotenv } from "dotenv";
+import { MongoMemoryServer } from "mongodb-memory-server";
 
-configDotenv();
-let connection;
+let mongoServer;
 
 beforeAll(async () => {
-  connection = await mongoose.connect(process.env.ATLAS_TEST_URI || "");
+  mongoServer = await MongoMemoryServer.create();
+  const uri = mongoServer.getUri();
+  await mongoose.connect(uri);
 });
 
 afterAll(async () => {
-  await mongoose.connection.close();
+  await mongoose.disconnect();
+  await mongoServer.stop();
+});
+
+afterEach(async () => {
+  const collections = mongoose.connection.collections;
+  for (const key in collections) {
+    await collections[key].deleteMany({});
+  }
 });

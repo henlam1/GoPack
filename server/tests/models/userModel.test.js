@@ -7,10 +7,6 @@ const mockUser = {
   packingLists: [],
 };
 
-beforeEach(async () => {
-  await User.deleteMany();
-});
-
 describe("User model CRUD operations", () => {
   // CREATE
   it("should create a new user", async () => {

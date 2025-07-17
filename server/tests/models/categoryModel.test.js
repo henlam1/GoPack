@@ -9,10 +9,6 @@ const mockCategory = {
   packingList: mockPackingListId,
 };
 
-beforeEach(async () => {
-  await Category.deleteMany();
-});
-
 describe("Category model CRUD operations", () => {
   // CREATE
   it("should create a new category", async () => {

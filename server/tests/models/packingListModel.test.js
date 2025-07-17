@@ -9,10 +9,6 @@ const mockPackingList = {
   user: mockUserId,
 };
 
-beforeEach(async () => {
-  await PackingList.deleteMany();
-});
-
 describe("PackingList model CRUD operations", () => {
   // CREATE
   it("should create a new packingList", async () => {
