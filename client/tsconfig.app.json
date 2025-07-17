@@ -25,11 +25,6 @@
   },
   "include": [
     "src",
-    "oldFiles/components",
-    "oldFiles/features",
-    "oldFiles/interfaces",
-    "oldFiles/pages",
-    "oldFiles/services",
-    "oldFiles/layout"
-  ]
+  ],
+  "exclude": ["../server", "vite.config.ts"]
 }
