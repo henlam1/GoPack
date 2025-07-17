@@ -1,32 +1,25 @@
 import User from "../../models/userModel";
+import { buildMockUser } from "../helpers/buildMockData";
 
-const mockUser = {
-  username: "test",
-  email: "test@gmail.com",
-  password: "test1!",
-  packingLists: [],
-};
+const mockUser = buildMockUser();
 
 describe("User model CRUD operations", () => {
-  // CREATE
-  it("should create a new user", async () => {
+  it("create a new user", async () => {
     const user = await User.create(mockUser);
     expect(user.username).toBe("test");
-    expect(user.email).toBe("test@gmail.com");
+    expect(user.email).toBe("jest_test@gmail.com");
     expect(user.password).toBe("test1!");
     expect(user.packingLists).toHaveLength(0);
   });
-  // READ
-  it("should find a user", async () => {
+  it("find a user", async () => {
     const user = await User.create(mockUser);
     const found = await User.findById(user._id);
     expect(found).not.toBeNull();
     if (found) {
-      expect(found.email).toBe("test@gmail.com");
+      expect(found.email).toBe("jest_test@gmail.com");
     }
   });
-  // UPDATE
-  it("should update a user", async () => {
+  it("update a user", async () => {
     const user = await User.create(mockUser);
     const updated = await User.findByIdAndUpdate(
       user._id,
@@ -40,8 +33,7 @@ describe("User model CRUD operations", () => {
       expect(updated.username).toBe("updated username");
     }
   });
-  // DELETE
-  it("should delete a user", async () => {
+  it("delete a user", async () => {
     const user = await User.create(mockUser);
     await User.findByIdAndDelete(user._id);
     const found = await User.findById(user._id);
