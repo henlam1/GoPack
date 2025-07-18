@@ -29,3 +29,5 @@ Other Tasks
 3. User settings
 4. CI/CD pipeline
 5. Deployment
+
+Check email config for github contributions again
