@@ -8,7 +8,7 @@ describe("User model CRUD operations", () => {
     const user = await User.create(mockUser);
     expect(user.username).toBe("test");
     expect(user.email).toBe("jest_test@gmail.com");
-    expect(user.password).toBe("test1!");
+    expect(user.password).toBe("testing1!");
     expect(user.packingLists).toHaveLength(0);
   });
   it("find a user", async () => {
