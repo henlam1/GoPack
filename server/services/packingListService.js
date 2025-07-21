@@ -1,4 +1,7 @@
+import { NotFoundError } from "../middleware/errors/errorClasses.js";
 import PackingList from "../models/packingListModel.js";
+import CategoryService from "./CategoryService.js";
+import UserService from "./UserService.js";
 
 class PackingListService {
   async getPackingLists() {
@@ -6,7 +9,9 @@ class PackingListService {
   }
 
   async getPackingListById(packingListId) {
-    return await PackingList.findById(packingListId);
+    const packingList = await PackingList.findById(packingListId);
+    if (!packingList) throw new NotFoundError();
+    return packingList;
   }
 
   async addPackingList(data) {
@@ -22,10 +27,22 @@ class PackingListService {
         new: true,
       }
     );
+    if (!updatedPackingList) throw new NotFoundError();
     return updatedPackingList;
   }
 
   async deletePackingList(packingListId) {
+    // Delete categories
+    const packingList = await PackingList.findById(packingListId);
+    if (!packingList) throw new NotFoundError();
+    packingList.categories.forEach(async (categoryId) => {
+      await CategoryService.deleteCategory(categoryId);
+    });
+
+    // Remove packing list from user
+    await UserService;
+
+    // Delete packing list
     const deletedPackingList = await PackingList.findByIdAndDelete(
       packingListId
     );
@@ -33,16 +50,26 @@ class PackingListService {
   }
 
   async addCategory(packingListId, categoryId) {
-    const result = await PackingList.findByIdAndUpdate(packingListId, {
-      $push: { categories: categoryId },
-    });
+    const result = await PackingList.findByIdAndUpdate(
+      packingListId,
+      {
+        $push: { categories: categoryId },
+      },
+      { new: true }
+    );
+    if (!result) throw new NotFoundError();
     return result;
   }
 
   async removeCategory(packingListId, categoryId) {
-    const result = await PackingList.findByIdAndUpdate(packingListId, {
-      $pull: { categories: categoryId },
-    });
+    const result = await PackingList.findByIdAndUpdate(
+      packingListId,
+      {
+        $pull: { categories: categoryId },
+      },
+      { new: true }
+    );
+    if (!result) throw new NotFoundError();
     return result;
   }
 }

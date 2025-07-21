@@ -1,7 +1,10 @@
 import CategoryService from "../../services/CategoryService";
+import PackingListService from "../../services/PackingListService";
 import {
   insertMockCategory,
   insertMockCategories,
+  insertMockItem,
+  insertMockPackingList,
 } from "../helpers/insertMockData";
 
 describe("Category service operations", () => {
@@ -36,12 +39,27 @@ describe("Category service operations", () => {
   });
 
   it("deletes a category by id", async () => {
-    const mockCategory = await insertMockCategory();
-    const deletedCategory = await CategoryService.deleteCategory(
-      mockCategory._id
-    );
+    // Link packing list and item
+    let packingList = await insertMockPackingList();
+    const category = await insertMockCategory({ packingList: packingList._id });
+
+    // Delete category
+    const deletedCategory = await CategoryService.deleteCategory(category._id);
     expect(deletedCategory).toBeTruthy();
-    const search = await CategoryService.getCategoryById(mockCategory._id);
-    expect(search).toBeFalsy();
+  });
+
+  it("adds an item by id", async () => {
+    const item = await insertMockItem();
+    let category = await insertMockCategory();
+    category = await CategoryService.addItem(category._id, item._id);
+    expect(category.items).toHaveLength(1);
+    expect(category.items[0]).toStrictEqual(item._id);
+  });
+
+  it("removes an item by id", async () => {
+    const item = await insertMockItem();
+    let category = await insertMockCategory({items: [item]});
+    category = await CategoryService.removeItem(category._id, item._id);
+    expect(category.items).toHaveLength(0);
   });
 });

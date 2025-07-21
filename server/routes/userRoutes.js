@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getUsers,
+  getUserById,
   addUser,
   updateUser,
   deleteUser,
@@ -11,6 +12,7 @@ import {
 import validationMiddleware from "../middleware/validationMiddleware.js";
 import authenticateToken from "../middleware/authMiddleware.js";
 import { userSchema } from "../validationSchemas/userSchema.js";
+import validObjectId from "../middleware/validObjectId.js";
 
 const router = Router();
 
@@ -18,8 +20,9 @@ router.route("/")
   .get(getUsers)
   .post(validationMiddleware(userSchema), addUser)
 router.route("/:userId")
-  .patch(updateUser)
-  .delete(deleteUser);
+  .get(validObjectId("userId"), getUserById)
+  .patch(validObjectId("userId"), updateUser)
+  .delete(validObjectId("userId"), deleteUser);
 router.route("/login")
   .post(loginUser);
 router.route("/logout")

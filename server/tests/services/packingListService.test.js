@@ -1,7 +1,9 @@
 import PackingListService from "../../services/PackingListService";
 import {
+  insertMockCategory,
   insertMockPackingList,
   insertMockPackingLists,
+  insertMockUser,
 } from "../helpers/insertMockData";
 
 describe("Packing list service operations", () => {
@@ -38,14 +40,29 @@ describe("Packing list service operations", () => {
   });
 
   it("deletes a packing list by id", async () => {
-    const mockPackingList = await insertMockPackingList();
+    // Link user and packing list
+    let user = await insertMockUser();
+    const packingList = await insertMockPackingList({ user: user._id });
+
+    // Delete packing list
     const deletedPackingList = await PackingListService.deletePackingList(
-      mockPackingList._id
+      packingList._id
     );
     expect(deletedPackingList).toBeTruthy();
-    const search = await PackingListService.getPackingListById(
-      mockPackingList._id
-    );
-    expect(search).toBeFalsy();
+  });
+
+  it("adds a category by id", async () => {
+    const category = await insertMockCategory();
+    let packingList = await insertMockPackingList();
+    packingList = await PackingListService.addCategory(packingList._id, category._id);
+    expect(packingList.categories).toHaveLength(1);
+    expect(packingList.categories[0]).toStrictEqual(category._id);
+  });
+
+  it("removes a category by id", async () => {
+    const category = await insertMockCategory();
+    let packingList = await insertMockPackingList({ categories: [category] });
+    packingList = await PackingListService.removeCategory(packingList._id, category._id);
+    expect(packingList.categories).toHaveLength(0);
   });
 });

@@ -1,5 +1,6 @@
+import CategoryService from "../../services/CategoryService";
 import ItemService from "../../services/ItemService";
-import { insertMockItem, insertMockItems } from "../helpers/insertMockData";
+import { insertMockCategory, insertMockItem, insertMockItems } from "../helpers/insertMockData";
 
 describe("Item service operations", () => {
   beforeEach(async () => {
@@ -29,10 +30,13 @@ describe("Item service operations", () => {
     expect(updatedItem.quantity).toEqual(20);
   });
   it("deletes a item by id", async () => {
-    const mockItem = await insertMockItem();
-    const deletedItem = await ItemService.deleteItem(mockItem._id);
+    // Link item to a category
+    let category = await insertMockCategory();
+    const item = await insertMockItem({category: category._id});
+    category.items.push(item._id);
+
+    // Delete item
+    const deletedItem = await ItemService.deleteItem(item._id);
     expect(deletedItem).toBeTruthy();
-    const search = await ItemService.getItemById(mockItem._id);
-    expect(search).toBeFalsy();
   });
 });

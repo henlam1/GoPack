@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import Item from "../../models/itemModel";
-import { buildMockItem } from "../helpers/buildMockData";
+import { createMockItem } from "../helpers/createMockData";
 
-const mockItem = buildMockItem();
+const mockItem = createMockItem();
 
 describe("Item model CRUD operations", () => {
   it("create a new item", async () => {

@@ -1,8 +1,8 @@
 import Category from "../../models/categoryModel";
 import mongoose from "mongoose";
-import { buildMockCategory } from "../helpers/buildMockData";
+import { createMockCategory } from "../helpers/createMockData";
 
-const mockCategory = buildMockCategory();
+const mockCategory = createMockCategory();
 
 describe("Category model CRUD operations", () => {
   it("create a new category", async () => {

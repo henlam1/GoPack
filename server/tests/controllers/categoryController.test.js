@@ -4,7 +4,7 @@ import {
   insertMockCategory,
   insertMockCategories,
 } from "../helpers/insertMockData";
-import { buildMockCategory, buildObjectId } from "../helpers/buildMockData";
+import { createMockCategory, createObjectId } from "../helpers/createMockData";
 
 describe("GET /categories", () => {
   it("should return all categories", async () => {
@@ -23,7 +23,7 @@ describe("GET /categories", () => {
     expect(resCategory.name).toBe("Clothes");
   });
   it("should return not found error", async () => {
-    const mockId = buildObjectId();
+    const mockId = createObjectId();
     const res = await request(testApp).get(`/api/categories/${mockId}`);
     expect(res.status).toBe(404);
   });
@@ -31,8 +31,10 @@ describe("GET /categories", () => {
 
 describe("POST /categories", () => {
   it("should create a new category", async () => {
-    const mockCategory = await buildMockCategory({ name: "Apples" });
-    const res = await request(testApp).post(`/api/categories`).send(mockCategory);
+    const mockCategory = await createMockCategory({ name: "Apples" });
+    const res = await request(testApp)
+      .post(`/api/categories`)
+      .send(mockCategory);
     const newCategory = res.body;
     expect(res.status).toBe(201);
     expect(newCategory.name).toBe("Apples");

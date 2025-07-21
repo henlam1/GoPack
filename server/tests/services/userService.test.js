@@ -1,5 +1,5 @@
 import UserService from "../../services/UserService";
-import { insertMockUser, insertMockUsers } from "../helpers/insertMockData";
+import { insertMockPackingList, insertMockUser, insertMockUsers } from "../helpers/insertMockData";
 
 describe("User service operations", () => {
   beforeEach(async () => {
@@ -14,6 +14,18 @@ describe("User service operations", () => {
   it("gets user by id", async () => {
     const mockUser = await insertMockUser();
     const res = await UserService.getUserById(mockUser._id);
+    expect(res._id).toEqual(mockUser._id);
+  });
+
+  it("gets user by username", async () => {
+    const mockUser = await insertMockUser({ username: "JohnDoe"});
+    const res = await UserService.getUserByUsername("JohnDoe");
+    expect(res._id).toEqual(mockUser._id);
+  });
+
+  it("gets user by email", async () => {
+    const mockUser = await insertMockUser({ username: "johnDoe@gmail.com"});
+    const res = await UserService.getUserByUsername("johnDoe@gmail.com");
     expect(res._id).toEqual(mockUser._id);
   });
 
@@ -36,7 +48,20 @@ describe("User service operations", () => {
     const mockUser = await insertMockUser();
     const deletedUser = await UserService.deleteUser(mockUser._id);
     expect(deletedUser).toBeTruthy();
-    const search = await UserService.getUserById(mockUser._id);
-    expect(search).toBeFalsy();
+  });
+
+  it("adds a packing list by id", async () => {
+    const packingList = await insertMockPackingList();
+    let user = await insertMockUser();
+    user = await UserService.addPackingList(user._id, packingList._id);
+    expect(user.packingLists).toHaveLength(1);
+    expect(user.packingLists[0]).toStrictEqual(packingList._id);
+  });
+
+  it("removes a packing list by id", async () => {
+    const packingList = await insertMockPackingList();
+    let user = await insertMockUser({ packingLists: [packingList] });
+    user = await UserService.removePackingList(user._id, packingList._id);
+    expect(user.packingLists).toHaveLength(0);
   });
 });

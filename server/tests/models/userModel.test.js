@@ -1,7 +1,7 @@
 import User from "../../models/userModel";
-import { buildMockUser } from "../helpers/buildMockData";
+import { createMockUser } from "../helpers/createMockData";
 
-const mockUser = buildMockUser();
+const mockUser = createMockUser();
 
 describe("User model CRUD operations", () => {
   it("create a new user", async () => {

@@ -8,6 +8,7 @@ import {
 } from "../controllers/categoryController.js";
 import validationMiddleware from "../middleware/validationMiddleware.js";
 import { categorySchema } from "../validationSchemas/categorySchema.js";
+import validObjectId from "../middleware/validObjectId.js";
 
 const router = Router();
 
@@ -17,8 +18,8 @@ router
   .post(validationMiddleware(categorySchema), addCategory);
 router
   .route("/:categoryId")
-  .get(getCategoryById)
-  .patch(updateCategory)
-  .delete(deleteCategory);
+  .get(validObjectId("categoryId"), getCategoryById)
+  .patch(validObjectId("categoryId"), updateCategory)
+  .delete(validObjectId("categoryId"), deleteCategory);
 
 export default router;

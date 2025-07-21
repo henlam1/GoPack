@@ -1,8 +1,8 @@
 import PackingList from "../../models/packingListModel";
 import mongoose from "mongoose";
-import { buildMockPackingList } from "../helpers/buildMockData";
+import { createMockPackingList } from "../helpers/createMockData";
 
-const mockPackingList = buildMockPackingList();
+const mockPackingList = createMockPackingList();
 
 describe("PackingList model CRUD operations", () => {
   it("create a new packingList", async () => {

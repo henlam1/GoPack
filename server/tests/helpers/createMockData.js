@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const buildMockItem = (overrides = {}) => {
+export const createMockItem = (overrides = {}) => {
   return {
     name: "item",
     quantity: 5,
@@ -10,7 +10,7 @@ export const buildMockItem = (overrides = {}) => {
   };
 };
 
-export const buildMockCategory = (overrides = {}) => {
+export const createMockCategory = (overrides = {}) => {
   return {
     name: "category",
     items: [],
@@ -19,7 +19,7 @@ export const buildMockCategory = (overrides = {}) => {
   };
 };
 
-export const buildMockPackingList = (overrides = {}) => {
+export const createMockPackingList = (overrides = {}) => {
   return {
     name: "packingList",
     categories: [],
@@ -28,16 +28,16 @@ export const buildMockPackingList = (overrides = {}) => {
   };
 };
 
-export const buildMockUser = (overrides = {}) => {
+export const createMockUser = (overrides = {}) => {
   return {
     username: "test",
     email: "jest_test@gmail.com",
-    password: "test1!",
+    password: "testing1!",
     packingLists: [],
     ...overrides,
   };
 };
 
-export const buildObjectId = () => {
+export const createObjectId = () => {
   return new mongoose.Types.ObjectId();
 }

@@ -1,7 +1,7 @@
 import request from "supertest";
 import testApp from "../testApp";
 import { insertMockItem, insertMockItems } from "../helpers/insertMockData";
-import { buildMockItem, buildObjectId } from "../helpers/buildMockData";
+import { createMockItem, createObjectId } from "../helpers/createMockData";
 
 describe("GET /items", () => {
   it("should return all items", async () => {
@@ -20,7 +20,7 @@ describe("GET /items", () => {
     expect(resItem.name).toBe("Toothbrush");
   });
   it("should return not found error", async () => {
-    const mockId = buildObjectId();
+    const mockId = createObjectId();
     const res = await request(testApp).get(`/api/items/${mockId}`);
     expect(res.status).toBe(404);
   });
@@ -28,7 +28,7 @@ describe("GET /items", () => {
 
 describe("POST /items", () => {
   it("should create a new item", async () => {
-    const mockItem = await buildMockItem({ name: "Apple", quantity: 10 });
+    const mockItem = await createMockItem({ name: "Apple", quantity: 10 });
     const res = await request(testApp).post(`/api/items`).send(mockItem);
     const newItem = res.body;
     expect(res.status).toBe(201);

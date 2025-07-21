@@ -1,7 +1,10 @@
 import request from "supertest";
 import testApp from "../testApp";
-import { insertMockPackingList, insertMockPackingLists } from "../helpers/insertMockData";
-import { buildMockPackingList, buildObjectId } from "../helpers/buildMockData";
+import {
+  insertMockPackingList,
+  insertMockPackingLists,
+} from "../helpers/insertMockData";
+import { createMockPackingList, createObjectId } from "../helpers/createMockData";
 
 describe("GET /packing_lists", () => {
   it("should return all packing_lists", async () => {
@@ -11,7 +14,9 @@ describe("GET /packing_lists", () => {
     expect(res.body).toHaveLength(3);
   });
   it("should return packing list by id", async () => {
-    const mockPackingList = await insertMockPackingList({ name: "Europe Trip" });
+    const mockPackingList = await insertMockPackingList({
+      name: "Europe Trip",
+    });
     const mockId = mockPackingList._id.toString();
     const res = await request(testApp).get(`/api/packing_lists/${mockId}`);
     const resPackingList = res.body;
@@ -20,7 +25,7 @@ describe("GET /packing_lists", () => {
     expect(resPackingList.name).toBe("Europe Trip");
   });
   it("should return not found error", async () => {
-    const mockId = buildObjectId();
+    const mockId = createObjectId();
     const res = await request(testApp).get(`/api/packing_lists/${mockId}`);
     expect(res.status).toBe(404);
   });
@@ -28,8 +33,10 @@ describe("GET /packing_lists", () => {
 
 describe("POST /packing_lists", () => {
   it("should create a new packing list", async () => {
-    const mockPackingList = await buildMockPackingList({ name: "Asia Trip" });
-    const res = await request(testApp).post(`/api/packing_lists`).send(mockPackingList);
+    const mockPackingList = await createMockPackingList({ name: "Asia Trip" });
+    const res = await request(testApp)
+      .post(`/api/packing_lists`)
+      .send(mockPackingList);
     const newPackingList = res.body;
     expect(res.status).toBe(201);
     expect(newPackingList.name).toBe("Asia Trip");

@@ -1,7 +1,7 @@
 import request from "supertest";
 import testApp from "../testApp";
 import { insertMockUser, insertMockUsers } from "../helpers/insertMockData";
-import { buildMockUser, buildObjectId } from "../helpers/buildMockData";
+import { createMockUser, createObjectId } from "../helpers/createMockData";
 
 describe("GET /users", () => {
   it("should return all users", async () => {
@@ -19,7 +19,7 @@ describe("GET /users", () => {
     expect(resUser._id).toBe(mockId);
   });
   it("should return not found error", async () => {
-    const mockId = buildObjectId();
+    const mockId = createObjectId();
     const res = await request(testApp).get(`/api/users/${mockId}`);
     expect(res.status).toBe(404);
   });
@@ -27,7 +27,7 @@ describe("GET /users", () => {
 
 describe("POST /users", () => {
   it("should create a new user", async () => {
-    const mockUser = await buildMockUser({ username: "Jane" });
+    const mockUser = await createMockUser({ username: "Jane" });
     const res = await request(testApp).post(`/api/users`).send(mockUser);
     const newUser = res.body;
     expect(res.status).toBe(201);
