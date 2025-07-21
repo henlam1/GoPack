@@ -6,7 +6,7 @@ export const buildMockItem = (overrides = {}) => {
     quantity: 5,
     packed: true,
     category: new mongoose.Types.ObjectId(),
-    ...overrides
+    ...overrides,
   };
 };
 
@@ -15,7 +15,7 @@ export const buildMockCategory = (overrides = {}) => {
     name: "category",
     items: [],
     packingList: new mongoose.Types.ObjectId(),
-    ...overrides
+    ...overrides,
   };
 };
 
@@ -24,7 +24,7 @@ export const buildMockPackingList = (overrides = {}) => {
     name: "packingList",
     categories: [],
     user: new mongoose.Types.ObjectId(),
-    ...overrides
+    ...overrides,
   };
 };
 
@@ -34,6 +34,10 @@ export const buildMockUser = (overrides = {}) => {
     email: "jest_test@gmail.com",
     password: "test1!",
     packingLists: [],
-    ...overrides
+    ...overrides,
   };
 };
+
+export const buildObjectId = () => {
+  return new mongoose.Types.ObjectId();
+}

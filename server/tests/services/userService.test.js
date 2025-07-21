@@ -29,7 +29,6 @@ describe("User service operations", () => {
       username: "Henry",
       password: mockUser.password,
     });
-    console.log(updatedUser);
     expect(updatedUser.username).toEqual("Henry");
   });
 
