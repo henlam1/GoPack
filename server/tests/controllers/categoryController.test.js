@@ -44,6 +44,17 @@ describe("POST /categories", () => {
     expect(res.status).toBe(201);
     expect(newCategory.name).toBe("Apples");
   });
+  it("should return validation error", async () => {
+    const packingList = await insertMockPackingList();
+    const mockCategory = await createMockCategory({
+      name: "",
+      packingList: packingList._id,
+    });
+    const res = await request(testApp)
+      .post(`/api/categories`)
+      .send(mockCategory);
+    expect(res.status).toBe(400);
+  });
 });
 
 describe("PATCH /categories", () => {

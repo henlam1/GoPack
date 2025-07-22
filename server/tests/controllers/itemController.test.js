@@ -44,6 +44,16 @@ describe("POST /items", () => {
     expect(newItem.name).toBe("Apple");
     expect(newItem.quantity).toBe(10);
   });
+  it("should return a validation error", async () => {
+    const category = await insertMockCategory();
+    const mockItem = await createMockItem({
+      name: "",
+      quantity: -1,
+      category: category._id,
+    });
+    const res = await request(testApp).post(`/api/items/`).send(mockItem);
+    expect(res.status).toBe(400);
+  });
 });
 
 describe("PATCH /items", () => {

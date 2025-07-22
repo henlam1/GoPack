@@ -33,6 +33,14 @@ describe("POST /users", () => {
     expect(res.status).toBe(201);
     expect(newUser.username).toBe("Jane");
   });
+  it("should return a validation error", async () => {
+    const mockUser = await createMockUser({
+      username: "",
+      password: "realPassword",
+    });
+    const res = await request(testApp).post(`/api/users`).send(mockUser);
+    expect(res.status).toBe(400);
+  });
 });
 
 describe("PATCH /users", () => {

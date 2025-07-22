@@ -41,6 +41,13 @@ describe("POST /packing_lists", () => {
     expect(res.status).toBe(201);
     expect(newPackingList.name).toBe("Asia Trip");
   });
+  it("should create a validation error", async () => {
+    const mockPackingList = await createMockPackingList({ name: "" });
+    const res = await request(testApp)
+      .post(`/api/packing_lists`)
+      .send(mockPackingList);
+    expect(res.status).toBe(400);
+  });
 });
 
 describe("PATCH /packing_lists", () => {
