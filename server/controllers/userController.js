@@ -20,9 +20,7 @@ export const getUserById = tryCatch(async (req, res, next) => {
 });
 
 export const addUser = tryCatch(async (req, res, next) => {
-  console.log(req.body);
   const user = await UserService.getUserByEmail(req.body.email);
-
   if (user) {
     throw new UserExistsError();
   }
@@ -46,7 +44,7 @@ export const deleteUser = tryCatch(async (req, res, next) => {
 export const loginUser = tryCatch(async (req, res, next) => {
   const user = await UserService.getUserByUsername(req.body.username);
 
-  if (user == null || typeof user.password !== 'string') {
+  if (user == null || typeof user.password !== "string") {
     throw new NotFoundError();
   }
 
@@ -72,7 +70,7 @@ export const loginUser = tryCatch(async (req, res, next) => {
     httpOnly: true,
     sameSite: true,
     secure: true,
-    maxAge: 15 * 60 * 1000 // 15 minutes
+    maxAge: 15 * 60 * 1000, // 15 minutes
   });
 
   res.cookie("refreshToken", refreshToken, {
@@ -80,7 +78,7 @@ export const loginUser = tryCatch(async (req, res, next) => {
     sameSite: true,
     secure: true,
     path: "/api/tokens/refresh", // Only sent to the endpoint that re-generates refresh tokens
-    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
   //   return success response

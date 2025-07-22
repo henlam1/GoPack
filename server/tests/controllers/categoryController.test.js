@@ -3,6 +3,7 @@ import testApp from "../testApp";
 import {
   insertMockCategory,
   insertMockCategories,
+  insertMockPackingList,
 } from "../helpers/insertMockData";
 import { createMockCategory, createObjectId } from "../helpers/createMockData";
 
@@ -31,7 +32,11 @@ describe("GET /categories", () => {
 
 describe("POST /categories", () => {
   it("should create a new category", async () => {
-    const mockCategory = await createMockCategory({ name: "Apples" });
+    const packingList = await insertMockPackingList();
+    const mockCategory = await createMockCategory({
+      name: "Apples",
+      packingList: packingList._id,
+    });
     const res = await request(testApp)
       .post(`/api/categories`)
       .send(mockCategory);
@@ -53,11 +58,19 @@ describe("PATCH /categories", () => {
     expect(updatedCategory._id).toBe(mockId);
     expect(updatedCategory.name).toBe("Updated name");
   });
+  it("should return not found error", async () => {
+    const mockId = createObjectId();
+    const res = await request(testApp).patch(`/api/categories/${mockId}`);
+    expect(res.status).toBe(404);
+  });
 });
 
 describe("DELETE /categories", () => {
   it("should delete an category by id", async () => {
-    const mockCategory = await insertMockCategory();
+    const packingList = await insertMockPackingList();
+    const mockCategory = await insertMockCategory({
+      packingList: packingList._id,
+    });
     const mockId = mockCategory._id.toString();
     const res = await request(testApp).delete(`/api/categories/${mockId}`);
     const deletedCategory = res.body;
@@ -65,5 +78,10 @@ describe("DELETE /categories", () => {
     expect(deletedCategory._id).toBe(mockId);
     const search = await request(testApp).get(`/api/categories/${mockId}`);
     expect(search.status).toBe(404);
+  });
+  it("should return not found error", async () => {
+    const mockId = createObjectId();
+    const res = await request(testApp).delete(`/api/categories/${mockId}`);
+    expect(res.status).toBe(404);
   });
 });

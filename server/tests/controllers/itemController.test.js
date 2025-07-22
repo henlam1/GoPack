@@ -1,6 +1,10 @@
 import request from "supertest";
 import testApp from "../testApp";
-import { insertMockItem, insertMockItems } from "../helpers/insertMockData";
+import {
+  insertMockCategory,
+  insertMockItem,
+  insertMockItems,
+} from "../helpers/insertMockData";
 import { createMockItem, createObjectId } from "../helpers/createMockData";
 
 describe("GET /items", () => {
@@ -28,8 +32,13 @@ describe("GET /items", () => {
 
 describe("POST /items", () => {
   it("should create a new item", async () => {
-    const mockItem = await createMockItem({ name: "Apple", quantity: 10 });
-    const res = await request(testApp).post(`/api/items`).send(mockItem);
+    const category = await insertMockCategory();
+    const mockItem = await createMockItem({
+      name: "Apple",
+      quantity: 10,
+      category: category._id,
+    });
+    const res = await request(testApp).post(`/api/items/`).send(mockItem);
     const newItem = res.body;
     expect(res.status).toBe(201);
     expect(newItem.name).toBe("Apple");
@@ -49,11 +58,17 @@ describe("PATCH /items", () => {
     expect(updatedItem._id).toBe(mockId);
     expect(updatedItem.name).toBe("Updated name");
   });
+  it("should return not found error", async () => {
+    const mockId = createObjectId();
+    const res = await request(testApp).patch(`/api/items/${mockId}`);
+    expect(res.status).toBe(404);
+  });
 });
 
 describe("DELETE /items", () => {
   it("should delete an item by id", async () => {
-    const mockItem = await insertMockItem();
+    const category = await insertMockCategory();
+    const mockItem = await insertMockItem({ category: category._id });
     const mockId = mockItem._id.toString();
     const res = await request(testApp).delete(`/api/items/${mockId}`);
     const deletedItem = res.body;
@@ -61,5 +76,10 @@ describe("DELETE /items", () => {
     expect(deletedItem._id).toBe(mockId);
     const search = await request(testApp).get(`/api/items/${mockId}`);
     expect(search.status).toBe(404);
+  });
+  it("should return not found error", async () => {
+    const mockId = createObjectId();
+    const res = await request(testApp).delete(`/api/items/${mockId}`);
+    expect(res.status).toBe(404);
   });
 });

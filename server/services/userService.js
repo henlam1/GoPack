@@ -15,13 +15,11 @@ class UserService {
 
   async getUserByUsername(username) {
     const user = await User.findOne({ username: username });
-    if (!user) throw new NotFoundError();
     return user;
   }
 
   async getUserByEmail(email) {
     const user = await User.findOne({ email: email });
-    if (!user) throw new NotFoundError();
     return user;
   }
 
