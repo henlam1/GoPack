@@ -56,7 +56,7 @@ export default function SideBar() {
       path: publicRoutes.home,
       func: async () => {
         await logout();
-        navigate(publicRoutes.login);
+        navigate(publicRoutes.home);
       },
     },
   ];

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import publicRoutes from "../../routes/publicRoutes";
-import { logoutAPI } from "../../services/api/users";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Navbar({ privacy = "public" }) {
+  const { logout } = useAuth();
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
@@ -24,7 +25,7 @@ export default function Navbar({ privacy = "public" }) {
           }
           {privacy != "public" &&
             <li>
-              <Link to={publicRoutes.home} onClick={() => {logoutAPI()}}>Logout</Link>
+              <Link to={publicRoutes.home} onClick={async () => { await logout();}}>Logout</Link>
             </li>
           }
           <li>
