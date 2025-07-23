@@ -1,6 +1,6 @@
 // tests/auth/login.spec.ts
 import { test, expect } from "@playwright/test";
-import login from "../helpers/login.setup";
+import login from "../setup/login.setup";
 
 test("logout should logout user", async ({ page }) => {
   // Login
