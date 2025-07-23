@@ -14,8 +14,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     retry: false,
   });
 
-  function logout() {
-    logoutAPI();
+  async function logout() {
+    await logoutAPI();
     queryClient.removeQueries({ queryKey: ["user"] });
     setShouldHydrate(false);
   }
