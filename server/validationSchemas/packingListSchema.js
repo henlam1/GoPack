@@ -7,6 +7,10 @@ export const packingListSchema = Joi.object({
     "string.max": "Packing list name has a maximum length of 30 characters",
     "any.required": "Packing list name is required",
   }),
+  startDate: Joi.string(),
+  endDate: Joi.string(),
+  destination: Joi.string().max(30).messages({ "string.max": "Destination has a maximum length of 30"}),
+  description: Joi.string().max(30).messages({ "string.max": "Description has a maximum length of 30"}),
   categories: Joi.array()
     .items(Joi.string().hex().length(24))
     .required()

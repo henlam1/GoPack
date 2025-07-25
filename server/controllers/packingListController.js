@@ -1,5 +1,5 @@
 import tryCatch from "../utils/tryCatch.js";
-import PackingListService from "../services/PackingListService.js";
+import PackingListService from "../services/packingListService.js";
 
 export const getPackingLists = tryCatch(async (req, res, next) => {
   const packingLists = await PackingListService.getPackingLists();
@@ -15,6 +15,7 @@ export const getPackingListById = tryCatch(async (req, res, next) => {
 });
 
 export const addPackingList = tryCatch(async (req, res, next) => {
+  console.log(req.body)
   const newPackingList = await PackingListService.addPackingList(req.body);
   res.status(201).json(newPackingList);
 });

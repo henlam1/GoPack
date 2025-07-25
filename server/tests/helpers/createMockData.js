@@ -22,6 +22,10 @@ export const createMockCategory = (overrides = {}) => {
 export const createMockPackingList = (overrides = {}) => {
   return {
     name: "packingList",
+    startDate: "2025-7-25",
+    endDate: "2025-7-25",
+    destination: "",
+    description: "",
     categories: [],
     user: new mongoose.Types.ObjectId(),
     ...overrides,

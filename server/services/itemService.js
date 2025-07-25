@@ -1,6 +1,6 @@
 import { NotFoundError } from "../middleware/errors/errorClasses.js";
 import Item from "../models/itemModel.js";
-import CategoryService from "./CategoryService.js";
+import CategoryService from "./categoryService.js";
 
 class ItemService {
   async getItems() {
