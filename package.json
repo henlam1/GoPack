@@ -5,10 +5,20 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prepare": "husky",
     "check:precommit": "lint-staged",
-    "lint:client": "npx --prefix client eslint . --ext .js,.ts,.jsx,.tsx",
+    "lint:client": "npx eslint client --config client/eslint.config.js --ext .js,.ts,.jsx,.tsx",
     "format:client": "prettier --write client",
-    "lint:server": "npx --prefix server eslint . --ext .js,.ts",
+    "lint:server": "npx eslint server --config server/eslint.config.js --ext .js,.ts",
     "format:server": "prettier --write server"
+  },
+  "lint-staged": {
+    "client/**/*.{js,ts,jsx,tsx}": [
+      "npm run lint:client",
+      "npm run format:client"
+    ],
+    "server/**/*.{js,ts}": [
+      "npm run lint:server",
+      "npm run format:server"
+    ]
   },
   "dependencies": {
     "concurrently": "^9.1.2",
