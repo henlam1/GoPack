@@ -4,7 +4,7 @@ export class APIError extends Error {
 
   constructor(message: string, status: number) {
     super(message);
-    this.name = "APIError";
+    this.name = 'APIError';
     this.message = message;
     this.status = status;
   }
@@ -16,7 +16,7 @@ export class TokenError extends Error {
 
   constructor(message: string) {
     super(message);
-    this.name = "TokenError";
+    this.name = 'TokenError';
     this.message = message;
   }
 }

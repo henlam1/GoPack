@@ -1,10 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   createItemAPI,
   getItemAPI,
   updateItemAPI,
   deleteItemAPI,
-} from "../services/api/items";
+} from '../services/api/items';
 
 export function useItemMutations(categoryId?: string, itemId?: string) {
   const queryClient = useQueryClient();
@@ -14,7 +14,7 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
     mutationFn: createItemAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
-        queryKey: ["category", categoryId],
+        queryKey: ['category', categoryId],
       });
     },
   });
@@ -25,7 +25,7 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
     mutationFn: updateItemAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
-        queryKey: ["item", itemId],
+        queryKey: ['item', itemId],
       });
     },
   });
@@ -33,7 +33,7 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
     mutationFn: deleteItemAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
-        queryKey: ["category", categoryId],
+        queryKey: ['category', categoryId],
       });
     },
   });

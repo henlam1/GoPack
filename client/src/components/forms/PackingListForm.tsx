@@ -1,14 +1,14 @@
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import {
   packingListSchema,
   PackingListFormFields,
   packingListDefaults,
-} from "../../models/zod/packingListSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-import privateRoutes from "../../routes/privateRoutes";
-import { usePackingListMutations } from "../../hooks/usePackingListMutations";
-import { useEffect } from "react";
+} from '../../models/zod/packingListSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
+import privateRoutes from '../../routes/privateRoutes';
+import { usePackingListMutations } from '../../hooks/usePackingListMutations';
+import { useEffect } from 'react';
 
 export default function PackingListForm({ userId }: { userId: string }) {
   const {
@@ -40,13 +40,13 @@ export default function PackingListForm({ userId }: { userId: string }) {
   }
 
   // Hooks to dynamically update date values
-  const startDate = watch("startDate");
-  const endDate = watch("endDate");
+  const startDate = watch('startDate');
+  const endDate = watch('endDate');
 
   useEffect(() => {
     if (new Date(endDate) < new Date(startDate)) {
       // Auto-update endDate to match startDate
-      setValue("endDate", startDate);
+      setValue('endDate', startDate);
     }
   }, [startDate, endDate, setValue]);
 
@@ -55,7 +55,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
       <label className="floating-label mb-2">
         <span>Packing List Name</span>
         <input
-          {...register("name")}
+          {...register('name')}
           type="text"
           placeholder="Packing List Name"
           className="input w-70"
@@ -67,7 +67,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
       <label className="floating-label mb-2">
         <span>Start Date</span>
         <input
-          {...register("startDate")}
+          {...register('startDate')}
           type="date"
           placeholder="Start Date"
           className="input w-70"
@@ -79,9 +79,9 @@ export default function PackingListForm({ userId }: { userId: string }) {
       <label className="floating-label mb-2">
         <span>End Date</span>
         <input
-          {...register("endDate")}
+          {...register('endDate')}
           type="date"
-          min={watch("startDate")}
+          min={watch('startDate')}
           placeholder="End Date"
           className="input w-70"
         />
@@ -92,7 +92,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
       <label className="floating-label mb-2">
         <span>Destination</span>
         <input
-          {...register("destination")}
+          {...register('destination')}
           type="text"
           placeholder="Destination"
           className="input w-70"
@@ -106,7 +106,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
       <label className="floating-label mb-2">
         <span>Description</span>
         <input
-          {...register("description")}
+          {...register('description')}
           type="text"
           placeholder="Description"
           className="input w-70"
@@ -128,7 +128,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
           className="btn btn-accent"
           type="submit"
         >
-          {isSubmitting ? "Loading..." : "Create Packing List"}
+          {isSubmitting ? 'Loading...' : 'Create Packing List'}
         </button>
       </div>
     </form>

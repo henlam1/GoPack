@@ -1,4 +1,4 @@
-import PackingListContainer from "../../containers/PackingListContainer";
+import PackingListContainer from '../../containers/PackingListContainer';
 
 // THIS PAGE DISPLAYS PACKING LISTS IN A ROW OF CARDS (EASY NAVIGATION)
 // CLICKING ON A CARD RE-DIRECTS YOU TO THE DETAILS PAGE
@@ -8,5 +8,5 @@ export default function HomePage() {
     <div className="m-4">
       <PackingListContainer />
     </div>
-  )
+  );
 }

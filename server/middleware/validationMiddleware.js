@@ -1,4 +1,4 @@
-import { ValidationError } from "./errors/errorClasses.js";
+import { ValidationError } from './errors/errorClasses.js';
 
 // Joi schema validation middleware
 const validationMiddleware = (schema) => (req, res, next) => {

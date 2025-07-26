@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import privateRoutes from "../routes/privateRoutes";
-import { deletePackingListAPI } from "../services/api/packingLists";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from 'react-router-dom';
+import privateRoutes from '../routes/privateRoutes';
+import { deletePackingListAPI } from '../services/api/packingLists';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface CardProps {
   _id: string;
@@ -9,7 +9,7 @@ interface CardProps {
 }
 
 export default function PackingListCard({ _id, name }: CardProps) {
-  console.log("Packing List: ", _id, name);
+  console.log('Packing List: ', _id, name);
   const navigate = useNavigate();
 
   function handleClick() {
@@ -21,7 +21,7 @@ export default function PackingListCard({ _id, name }: CardProps) {
     mutationFn: deletePackingListAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
-        queryKey: ["packingLists"],
+        queryKey: ['packingLists'],
       });
     },
   });
@@ -42,10 +42,7 @@ export default function PackingListCard({ _id, name }: CardProps) {
         <h2 className="card-title">{name}</h2>
         <p>blah blah, we can put some random default image on top</p>
         <div className="card-actions justify-end">
-          <button 
-            className="btn btn-primary btn-sm"
-            onClick={handleClick}
-          >
+          <button className="btn btn-primary btn-sm" onClick={handleClick}>
             View
           </button>
           <button
@@ -55,7 +52,6 @@ export default function PackingListCard({ _id, name }: CardProps) {
             Delete
           </button>
         </div>
-
       </div>
     </div>
   );

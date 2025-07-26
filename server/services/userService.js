@@ -1,6 +1,6 @@
-import { NotFoundError } from "../middleware/errors/errorClasses.js";
-import User from "../models/userModel.js";
-import bcrypt from "bcrypt";
+import { NotFoundError } from '../middleware/errors/errorClasses.js';
+import User from '../models/userModel.js';
+import bcrypt from 'bcrypt';
 
 class UserService {
   async getUsers() {
@@ -54,7 +54,7 @@ class UserService {
       {
         $push: { packingLists: packingListId },
       },
-      { new: true }
+      { new: true },
     );
     if (!result) throw new NotFoundError();
     return result;
@@ -66,7 +66,7 @@ class UserService {
       {
         $pull: { packingLists: packingListId },
       },
-      { new: true }
+      { new: true },
     );
     if (!result) throw new NotFoundError();
     return result;

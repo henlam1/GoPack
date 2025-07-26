@@ -1,16 +1,16 @@
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import {
   LoginFormFields,
   LoginSchema,
   LoginDefaults,
-} from "../../models/zod/LoginSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginAPI } from "../../services/api/users";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import privateRoutes from "../../routes/privateRoutes";
-import { APIError } from "../../services/errors/errorTypes";
-import { useAuth } from "../../hooks/useAuth";
+} from '../../models/zod/LoginSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginAPI } from '../../services/api/users';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import privateRoutes from '../../routes/privateRoutes';
+import { APIError } from '../../services/errors/errorTypes';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function LoginForm() {
   const {
@@ -33,9 +33,9 @@ export default function LoginForm() {
     },
     onError: (error) => {
       if (error instanceof APIError) {
-        setError("root", { message: "Invalid username or password" });
+        setError('root', { message: 'Invalid username or password' });
       } else {
-        setError("root", { message: "Network error" });
+        setError('root', { message: 'Network error' });
       }
     },
   });
@@ -52,7 +52,7 @@ export default function LoginForm() {
           type="text"
           placeholder="username"
           className="input w-70"
-          {...register("username")}
+          {...register('username')}
         />
         {errors.username && (
           <p className="text-error-content w-70">{errors.username.message}</p>
@@ -64,7 +64,7 @@ export default function LoginForm() {
           type="password"
           placeholder="password"
           className="input w-70"
-          {...register("password")}
+          {...register('password')}
         />
         {errors.password && (
           <p className="text-error-content w-70">{errors.password.message}</p>
@@ -81,7 +81,7 @@ export default function LoginForm() {
           className="btn btn-accent"
           type="submit"
         >
-          {isSubmitting ? "Loading..." : "Login"}
+          {isSubmitting ? 'Loading...' : 'Login'}
         </button>
       </div>
     </form>

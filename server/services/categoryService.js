@@ -1,7 +1,7 @@
-import { NotFoundError } from "../middleware/errors/errorClasses.js";
-import Category from "../models/categoryModel.js";
-import ItemService from "./itemService.js";
-import PackingListService from "./packingListService.js";
+import { NotFoundError } from '../middleware/errors/errorClasses.js';
+import Category from '../models/categoryModel.js';
+import ItemService from './ItemService.js';
+import PackingListService from './PackingListService.js';
 
 class CategoryService {
   async getCategories() {
@@ -50,7 +50,7 @@ class CategoryService {
       {
         $push: { items: itemId },
       },
-      { new: true }
+      { new: true },
     );
     if (!result) throw new NotFoundError();
     return result;
@@ -62,7 +62,7 @@ class CategoryService {
       {
         $pull: { items: itemId },
       },
-      { new: true }
+      { new: true },
     );
     if (!result) throw new NotFoundError();
     return result;

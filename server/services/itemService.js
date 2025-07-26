@@ -1,6 +1,6 @@
-import { NotFoundError } from "../middleware/errors/errorClasses.js";
-import Item from "../models/itemModel.js";
-import CategoryService from "./categoryService.js";
+import { NotFoundError } from '../middleware/errors/errorClasses.js';
+import Item from '../models/itemModel.js';
+import CategoryService from './CategoryService.js';
 
 class ItemService {
   async getItems() {
@@ -30,10 +30,7 @@ class ItemService {
   async deleteItem(itemId) {
     const deletedItem = await Item.findByIdAndDelete(itemId);
     if (!deletedItem) throw new NotFoundError();
-    await CategoryService.removeItem(
-      deletedItem.category,
-      itemId
-    );
+    await CategoryService.removeItem(deletedItem.category, itemId);
     return deletedItem;
   }
 }

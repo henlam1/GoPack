@@ -1,13 +1,13 @@
-import { Outlet } from "react-router-dom";
-import SideBar from "./Sidebar";
-import Navbar from "./Navbar";
+import { Outlet } from 'react-router-dom';
+import SideBar from './Sidebar';
+import Navbar from './Navbar';
 
 export default function PrivateLayout() {
   return (
     <div>
       <header>
         {/* Header content goes here */}
-        <Navbar privacy="private"/>
+        <Navbar privacy="private" />
       </header>
       <div className="flex flex-row">
         <aside>
@@ -20,6 +20,5 @@ export default function PrivateLayout() {
         <footer>{/* Footer content goes here */}</footer>
       </div>
     </div>
-
   );
 }

@@ -3,10 +3,7 @@ interface IconButtonProps {
   text: string;
 }
 
-export default function IconButton({
-  svgIcon,
-  text,
-}: IconButtonProps) {
+export default function IconButton({ svgIcon, text }: IconButtonProps) {
   return (
     <button className="btn">
       {svgIcon}

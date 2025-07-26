@@ -1,9 +1,9 @@
-import validationMiddleware from "../middleware/validationMiddleware";
+import validationMiddleware from '../middleware/validationMiddleware';
 
 // Routes Type: Route[]
 // Route Type: { method, path, schema, controller }
 // Apply validation middlewares to specified routes
-// 
+//
 // EXAMPLE USAGE IN packingListRoutes.js
 // const router = Router()
 

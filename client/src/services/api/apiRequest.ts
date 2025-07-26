@@ -1,25 +1,25 @@
 // Utility function to wrap API requests and handle token refreshes
 
-import { apiRoutes } from "../../routes/apiRoutes";
-import { isNetworkError } from "../errors/errorHelpers";
-import { APIError, TokenError, NetworkError } from "../errors/errorTypes";
+import { apiRoutes } from '../../routes/apiRoutes';
+import { isNetworkError } from '../errors/errorHelpers';
+import { APIError, TokenError, NetworkError } from '../errors/errorTypes';
 
 const apiRequest = async (url: string, options: Partial<RequestInit> = {}) => {
   try {
     const response = await fetch(url, {
       ...options,
-      credentials: "include",
+      credentials: 'include',
       headers: {
         ...options.headers,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
     // If unauthorized, try to refresh token
     if (response.status === 401) {
       const refreshResponse = await fetch(apiRoutes.tokens.refresh, {
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
       });
 
       // If our token is refreshed, retry the request
@@ -28,8 +28,8 @@ const apiRequest = async (url: string, options: Partial<RequestInit> = {}) => {
       }
 
       // If our token wasn't refreshed, re-direct user to login and get a new refresh token
-      window.location.href = "/login";
-      throw new TokenError("Session expired. Please log in again");
+      window.location.href = '/login';
+      throw new TokenError('Session expired. Please log in again');
     }
 
     // Throw API error
@@ -41,7 +41,7 @@ const apiRequest = async (url: string, options: Partial<RequestInit> = {}) => {
     return response.json();
   } catch (error) {
     if (isNetworkError(error)) {
-      throw new NetworkError("A network error occurred", error)
+      throw new NetworkError('A network error occurred', error);
     }
 
     // Rethrown errors like APIError or TokenError

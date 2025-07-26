@@ -1,64 +1,64 @@
-import request from "supertest";
-import testApp from "../testApp";
-import { insertMockUser, insertMockUsers } from "../helpers/insertMockData";
-import { createMockUser, createObjectId } from "../helpers/createMockData";
+import request from 'supertest';
+import testApp from '../testApp';
+import { insertMockUser, insertMockUsers } from '../helpers/insertMockData';
+import { createMockUser, createObjectId } from '../helpers/createMockData';
 
-describe("GET /users", () => {
-  it("should return all users", async () => {
+describe('GET /users', () => {
+  it('should return all users', async () => {
     await insertMockUsers();
-    const res = await request(testApp).get("/api/users");
+    const res = await request(testApp).get('/api/users');
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(3);
   });
-  it("should return user by id", async () => {
-    const mockUser = await insertMockUser({ username: "John" });
+  it('should return user by id', async () => {
+    const mockUser = await insertMockUser({ username: 'John' });
     const mockId = mockUser._id.toString();
     const res = await request(testApp).get(`/api/users/${mockId}`);
     const resUser = res.body;
     expect(res.status).toBe(200);
     expect(resUser._id).toBe(mockId);
   });
-  it("should return not found error", async () => {
+  it('should return not found error', async () => {
     const mockId = createObjectId();
     const res = await request(testApp).get(`/api/users/${mockId}`);
     expect(res.status).toBe(404);
   });
 });
 
-describe("POST /users", () => {
-  it("should create a new user", async () => {
-    const mockUser = await createMockUser({ username: "Jane" });
-    const res = await request(testApp).post(`/api/users`).send(mockUser);
+describe('POST /users', () => {
+  it('should create a new user', async () => {
+    const mockUser = await createMockUser({ username: 'Jane' });
+    const res = await request(testApp).post('/api/users').send(mockUser);
     const newUser = res.body;
     expect(res.status).toBe(201);
-    expect(newUser.username).toBe("Jane");
+    expect(newUser.username).toBe('Jane');
   });
-  it("should return a validation error", async () => {
+  it('should return a validation error', async () => {
     const mockUser = await createMockUser({
-      username: "",
-      password: "realPassword",
+      username: '',
+      password: 'realPassword',
     });
-    const res = await request(testApp).post(`/api/users`).send(mockUser);
+    const res = await request(testApp).post('/api/users').send(mockUser);
     expect(res.status).toBe(400);
   });
 });
 
-describe("PATCH /users", () => {
-  it("should update an user by id", async () => {
+describe('PATCH /users', () => {
+  it('should update an user by id', async () => {
     const mockUser = await insertMockUser();
     const mockId = mockUser._id.toString();
     const res = await request(testApp)
       .patch(`/api/users/${mockId}`)
-      .send({ username: "Updated username" });
+      .send({ username: 'Updated username' });
     const updatedUser = res.body;
     expect(res.status).toBe(200);
     expect(updatedUser._id).toBe(mockId);
-    expect(updatedUser.username).toBe("Updated username");
+    expect(updatedUser.username).toBe('Updated username');
   });
 });
 
-describe("DELETE /users", () => {
-  it("should delete an user by id", async () => {
+describe('DELETE /users', () => {
+  it('should delete an user by id', async () => {
     const mockUser = await insertMockUser();
     const mockId = mockUser._id.toString();
     const res = await request(testApp).delete(`/api/users/${mockId}`);

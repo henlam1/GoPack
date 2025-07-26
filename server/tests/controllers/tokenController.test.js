@@ -1,31 +1,29 @@
-import request from "supertest";
-import testApp from "../testApp";
-import { createMockUser } from "../helpers/createMockData";
-import TokenService from "../../services/TokenService";
+import request from 'supertest';
+import testApp from '../testApp';
+import { createMockUser } from '../helpers/createMockData';
+import TokenService from '../../services/TokenService';
 
-describe("POST /refresh", () => {
+describe('POST /refresh', () => {
   const user = createMockUser();
 
-  it("should generate a new access token", async () => {
+  it('should generate a new access token', async () => {
     const accessToken = await TokenService.generateAccessToken(user);
     const refreshToken = await TokenService.generateRefreshToken(user);
     const res = await request(testApp)
-      .post("/api/tokens/refresh")
-      .set("Cookie", [
+      .post('/api/tokens/refresh')
+      .set('Cookie', [
         `accessToken=${accessToken}`,
         `refreshToken=${refreshToken}`,
       ]);
     expect(res.status).toBe(200);
-    expect(res.body.message).toBe("Token refreshed successfully")
+    expect(res.body.message).toBe('Token refreshed successfully');
   });
 
-  it("should not generate a new access token with a missing refresh token", async () => {
+  it('should not generate a new access token with a missing refresh token', async () => {
     const accessToken = await TokenService.generateAccessToken(user);
     const res = await request(testApp)
-      .post("/api/tokens/refresh")
-      .set("Cookie", [
-        `accessToken=${accessToken}`,
-      ]);
+      .post('/api/tokens/refresh')
+      .set('Cookie', [`accessToken=${accessToken}`]);
     expect(res.status).toBe(401);
   });
 });

@@ -23,8 +23,6 @@
     /* Types */
     "types": ["node"]
   },
-  "include": [
-    "src",
-  ],
+  "include": ["src"],
   "exclude": ["../server", "vite.config.ts"]
 }

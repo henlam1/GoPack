@@ -1,8 +1,7 @@
-import { useQueries } from "@tanstack/react-query";
-import Category from "../components/Category";
-import { getCategoryAPI } from "../services/api/categories";
-import { CategoryContextProvider } from "../context/CategoryContext.js";
-
+import { useQueries } from '@tanstack/react-query';
+import Category from '../components/Category';
+import { getCategoryAPI } from '../services/api/categories';
+import { CategoryContextProvider } from '../context/CategoryContext.js';
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
 // CategoryContainer => Fetch Categories => Render Category(props)
@@ -19,7 +18,7 @@ export default function CategoryContainer({
   categoryIds,
 }: CategoryCoatinerProps) {
   const categoryQueries = categoryIds.map((categoryId) => ({
-    queryKey: ["category", categoryId],
+    queryKey: ['category', categoryId],
     queryFn: () => getCategoryAPI(categoryId),
   }));
 
@@ -38,11 +37,13 @@ export default function CategoryContainer({
   }
 
   return (
-    <div className="flex flex-row gap-3 flex-wrap">      
+    <div className="flex flex-row gap-3 flex-wrap">
       {results.data.map((category) => {
-        return <CategoryContextProvider>
-          <Category key={category._id} {...category} />
-        </CategoryContextProvider>;
+        return (
+          <CategoryContextProvider>
+            <Category key={category._id} {...category} />
+          </CategoryContextProvider>
+        );
       })}
     </div>
   );
