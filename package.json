@@ -2,9 +2,18 @@
   "scripts": {
     "server": "npm run dev --prefix server",
     "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "prepare": "husky",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "concurrently": "^9.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.32.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.2"
   }
 }
