@@ -1,8 +1,7 @@
-import Navbar from "./Navbar";
-import { Outlet } from "react-router-dom";
+import Navbar from './Navbar';
+import { Outlet } from 'react-router-dom';
 
 export default function PublicLayout() {
-  
   return (
     <div>
       <header>

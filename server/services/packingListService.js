@@ -1,7 +1,7 @@
-import { NotFoundError } from "../middleware/errors/errorClasses.js";
-import PackingList from "../models/packingListModel.js";
-import CategoryService from "./categoryService.js";
-import UserService from "./userService.js";
+import { NotFoundError } from '../middleware/errors/errorClasses.js';
+import PackingList from '../models/packingListModel.js';
+import CategoryService from './CategoryService.js';
+import UserService from './UserService.js';
 
 class PackingListService {
   async getPackingLists() {
@@ -25,7 +25,7 @@ class PackingListService {
       data,
       {
         new: true,
-      }
+      },
     );
     if (!updatedPackingList) throw new NotFoundError();
     return updatedPackingList;
@@ -43,9 +43,8 @@ class PackingListService {
     await UserService;
 
     // Delete packing list
-    const deletedPackingList = await PackingList.findByIdAndDelete(
-      packingListId
-    );
+    const deletedPackingList =
+      await PackingList.findByIdAndDelete(packingListId);
     return deletedPackingList;
   }
 
@@ -55,7 +54,7 @@ class PackingListService {
       {
         $push: { categories: categoryId },
       },
-      { new: true }
+      { new: true },
     );
     if (!result) throw new NotFoundError();
     return result;
@@ -67,7 +66,7 @@ class PackingListService {
       {
         $pull: { categories: categoryId },
       },
-      { new: true }
+      { new: true },
     );
     if (!result) throw new NotFoundError();
     return result;

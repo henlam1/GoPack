@@ -1,11 +1,14 @@
-import tryCatch from "../utils/tryCatch.js";
-import TokenService from "../services/TokenService.js";
-import jwt from "jsonwebtoken";
-import { InvalidRefreshTokenError, MissingRefreshTokenError } from "../middleware/errors/errorClasses.js";
+import tryCatch from '../utils/tryCatch.js';
+import TokenService from '../services/TokenService.js';
+import jwt from 'jsonwebtoken';
+import {
+  InvalidRefreshTokenError,
+  MissingRefreshTokenError,
+} from '../middleware/errors/errorClasses.js';
 
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "RANDOM-TOKEN";
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'RANDOM-TOKEN';
 
-export const refreshToken = tryCatch(async (req, res, next) => {
+export const refreshToken = tryCatch(async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
@@ -21,13 +24,13 @@ export const refreshToken = tryCatch(async (req, res, next) => {
     const accessToken = TokenService.generateAccessToken({ userId: user._id });
 
     // Set new access token cookie
-    res.cookie("accessToken", accessToken, {
+    res.cookie('accessToken', accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: 'strict',
       maxAge: 15 * 60 * 1000,
     });
 
-    res.status(200).json({ message: "Token refreshed successfully" });
+    res.status(200).json({ message: 'Token refreshed successfully' });
   });
 });

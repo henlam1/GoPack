@@ -1,13 +1,13 @@
-import Category from "../../models/categoryModel";
-import Item from "../../models/itemModel";
-import PackingList from "../../models/packingListModel";
-import User from "../../models/userModel";
+import Category from '../../models/categoryModel';
+import Item from '../../models/itemModel';
+import PackingList from '../../models/packingListModel';
+import User from '../../models/userModel';
 import {
   createMockCategory,
   createMockItem,
   createMockPackingList,
   createMockUser,
-} from "./createMockData";
+} from './createMockData';
 
 export const insertMockItem = async (overrides = {}) => {
   const item = createMockItem(overrides);
@@ -31,7 +31,7 @@ export const insertMockCategories = async (count = 3, overrides = {}) => {
   const categories = [];
   for (let i = 0; i < count; i++) {
     categories.push(
-      createMockCategory({ name: `Category ${i + 1}`, ...overrides })
+      createMockCategory({ name: `Category ${i + 1}`, ...overrides }),
     );
   }
   return await Category.insertMany(categories);
@@ -46,7 +46,7 @@ export const insertMockPackingLists = async (count = 3, overrides = {}) => {
   const packingLists = [];
   for (let i = 0; i < count; i++) {
     packingLists.push(
-      createMockPackingList({ name: `PackingList ${i + 1}`, ...overrides })
+      createMockPackingList({ name: `PackingList ${i + 1}`, ...overrides }),
     );
   }
   return await PackingList.insertMany(packingLists);
@@ -65,7 +65,7 @@ export const insertMockUsers = async (count = 3, overrides = {}) => {
         username: `User ${i + 1}`,
         email: `jest_test${i + 1}@gmail.com`,
         ...overrides,
-      })
+      }),
     );
   }
   return await User.insertMany(users);

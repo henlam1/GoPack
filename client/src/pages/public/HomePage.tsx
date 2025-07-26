@@ -1,7 +1,3 @@
 export default function HomePage() {
-  return (
-    <div>
-      PUBLIC HOME PAGE
-    </div>
-  )
+  return <div>PUBLIC HOME PAGE</div>;
 }

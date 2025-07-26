@@ -1,5 +1,5 @@
 const miscRoutes = {
-  notFound: "/404",
+  notFound: '/404',
 };
 
 export default miscRoutes;

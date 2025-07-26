@@ -1,20 +1,43 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   createPackingListAPI,
   deletePackingListAPI,
   getPackingListAPI,
   updatePackingListAPI,
-} from "../services/api/packingLists";
+} from '../services/api/packingLists';
 
-// TODO: Invalidate user onSuccess after each packing list CRUD mutation
-export function usePackingListMutations(userId?: string, packingListId?: string) {
+export function usePackingListMutations(
+  userId?: string,
+  packingListId?: string,
+) {
   const queryClient = useQueryClient();
 
   // CRUD Mutations
-  const createPackingList = useMutation({ mutationFn: createPackingListAPI });
+  const createPackingList = useMutation({
+    mutationFn: createPackingListAPI,
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
+        queryKey: ['user', userId],
+      });
+    },
+  });
   const readPackingList = useMutation({ mutationFn: getPackingListAPI });
-  const updatePackingList = useMutation({ mutationFn: updatePackingListAPI });
-  const deletePackingList = useMutation({ mutationFn: deletePackingListAPI });
+  const updatePackingList = useMutation({
+    mutationFn: updatePackingListAPI,
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
+        queryKey: ['packingList', packingListId],
+      });
+    },
+  });
+  const deletePackingList = useMutation({
+    mutationFn: deletePackingListAPI,
+    onSuccess: () => {
+      return queryClient.invalidateQueries({
+        queryKey: ['user', userId],
+      });
+    },
+  });
 
   return {
     createPackingList,

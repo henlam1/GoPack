@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { genHexString } from "../../utils/stringHelpers";
+import { z } from 'zod';
+import { genHexString } from '../../utils/stringHelpers';
 
 export const itemSchema = z.object({
   name: z.string().min(1).max(30),
@@ -14,4 +14,4 @@ export const itemDefaults = {
   quantity: 1,
   packed: false,
   category: genHexString(24),
-}
+};

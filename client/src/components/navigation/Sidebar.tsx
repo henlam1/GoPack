@@ -1,7 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
-import privateRoutes from "../../routes/privateRoutes";
-import publicRoutes from "../../routes/publicRoutes";
-import { useAuth } from "../../hooks/useAuth";
+import { Link, useNavigate } from 'react-router-dom';
+import privateRoutes from '../../routes/privateRoutes';
+import publicRoutes from '../../routes/publicRoutes';
+import { useAuth } from '../../hooks/useAuth';
 
 // TODO: ADD ICONS FOR EACH SIDE BAR ITEM
 
@@ -36,23 +36,23 @@ export default function SideBar() {
   const navigate = useNavigate();
   const ItemList = [
     {
-      name: "Add Packing List",
+      name: 'Add Packing List',
       path: privateRoutes.packingLists.create,
     },
     {
-      name: "Home",
+      name: 'Home',
       path: privateRoutes.home,
     },
     {
-      name: "Upcoming",
+      name: 'Upcoming',
       path: privateRoutes.packingLists.upcoming,
     },
     {
-      name: "Trash",
+      name: 'Trash',
       path: privateRoutes.packingLists.trash,
     },
     {
-      name: "Logout",
+      name: 'Logout',
       path: publicRoutes.home,
       func: async () => {
         await logout();

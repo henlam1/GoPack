@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { formatDate, genHexString } from "../../utils/stringHelpers";
+import { z } from 'zod';
+import { formatDate, genHexString } from '../../utils/stringHelpers';
 
 export const packingListSchema = z
   .object({
@@ -16,9 +16,9 @@ export const packingListSchema = z
       return new Date(data.endDate) >= new Date(data.startDate);
     },
     {
-      message: "End date must be on or after start date",
-      path: ["endDate"],
-    }
+      message: 'End date must be on or after start date',
+      path: ['endDate'],
+    },
   );
 
 export type PackingListFormFields = z.infer<typeof packingListSchema>;
@@ -26,8 +26,8 @@ export type PackingListFormFields = z.infer<typeof packingListSchema>;
 export const packingListDefaults = {
   startDate: formatDate(new Date()),
   endDate: formatDate(new Date()),
-  destination: "",
-  description: "",
+  destination: '',
+  description: '',
   categories: [],
   user: genHexString(24),
 };

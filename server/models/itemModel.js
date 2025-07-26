@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const itemSchema = new mongoose.Schema({
   name: { type: String },
@@ -6,9 +6,9 @@ const itemSchema = new mongoose.Schema({
   packed: { type: Boolean },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
+    ref: 'Category',
   },
 });
 
-const Item = mongoose.model("Item", itemSchema);
+const Item = mongoose.model('Item', itemSchema);
 export default Item;

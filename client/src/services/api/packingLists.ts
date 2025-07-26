@@ -1,27 +1,27 @@
-import IPackingList from "../../models/PackingListModel";
-import { apiRoutes } from "../../routes/apiRoutes";
-import apiRequest from "./apiRequest";
+import IPackingList from '../../models/PackingListModel';
+import { apiRoutes } from '../../routes/apiRoutes';
+import apiRequest from './apiRequest';
 
 export async function getPackingListsAPI() {
   const data = await apiRequest(apiRoutes.packingLists.getAll);
-  console.log("Packing lists fetched: ", data);
+  console.log('Packing lists fetched: ', data);
   return data;
 }
 
 export async function getPackingListAPI(id: string) {
   const data = await apiRequest(apiRoutes.packingLists.getById(id));
-  console.log("Packing list fetched: ", data);
+  console.log('Packing list fetched: ', data);
   return data;
 }
 
 export async function createPackingListAPI(
-  packingList: Omit<IPackingList, "_id">
+  packingList: Omit<IPackingList, '_id'>,
 ) {
   const data = await apiRequest(apiRoutes.packingLists.create, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(packingList),
   });
-  console.log("Packing list created: ", data);
+  console.log('Packing list created: ', data);
   return data;
 }
 
@@ -31,17 +31,17 @@ export async function updatePackingListAPI(params: {
 }) {
   const { id, update } = params;
   const data = await apiRequest(apiRoutes.packingLists.update(id), {
-    method: "PATCH",
+    method: 'PATCH',
     body: JSON.stringify(update),
   });
-  console.log("Packing list updated: ", data);
+  console.log('Packing list updated: ', data);
   return data;
 }
 
 export async function deletePackingListAPI(id: string) {
   const data = await apiRequest(apiRoutes.packingLists.delete(id), {
-    method: "DELETE",
+    method: 'DELETE',
   });
-  console.log("Packing list deleted: ", data);
+  console.log('Packing list deleted: ', data);
   return data;
 }
