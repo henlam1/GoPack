@@ -15,7 +15,7 @@ export default [
       },
     },
     rules: {
-      'no-unused-vars': 'warn',
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^next$' }],
       semi: ['error', 'always'],
       quotes: ['error', 'single', { avoidEscape: true }],
     },

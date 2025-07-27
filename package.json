@@ -6,25 +6,16 @@
     "prepare": "husky",
     "check:precommit": "lint-staged",
     "lint:client": "npx eslint client --config client/eslint.config.js --ext .js,.ts,.jsx,.tsx",
-    "format:client": "prettier --write client",
+    "format:client": "npx prettier --write client",
     "lint:server": "npx eslint server --config server/eslint.config.js --ext .js,.ts",
-    "format:server": "prettier --write server"
-  },
-  "lint-staged": {
-    "client/**/*.{js,ts,jsx,tsx}": [
-      "npm run lint:client",
-      "npm run format:client"
-    ],
-    "server/**/*.{js,ts}": [
-      "npm run lint:server",
-      "npm run format:server"
-    ]
+    "format:server": "npx prettier --write server"
   },
   "dependencies": {
     "concurrently": "^9.1.2",
     "lint-staged": "^15.5.2"
   },
   "devDependencies": {
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "prettier": "3.6.2"
   }
 }

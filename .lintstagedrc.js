@@ -1,10 +1,10 @@
 module.exports = {
   'client/**/*.{js,ts,jsx,tsx}': [
-    'npm run lint:client',
+    'npx eslint --config client/eslint.config.js --ext .js,.ts,.jsx,.tsx',
     'npm run format:client'
   ],
   'server/**/*.{js,ts}': [
-    'npm run lint:server',
+    'npx eslint --config server/eslint.config.js --ext .js,.ts',
     'npm run format:server'
   ]
 };
