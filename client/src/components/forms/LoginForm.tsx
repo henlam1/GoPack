@@ -1,9 +1,5 @@
 import { useForm } from 'react-hook-form';
-import {
-  LoginFormFields,
-  LoginSchema,
-  LoginDefaults,
-} from '../../models/zod/LoginSchema';
+import { LoginFormFields, LoginSchema } from '../../models/zod/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginAPI } from '../../services/api/users';
 import { useMutation } from '@tanstack/react-query';
@@ -19,7 +15,6 @@ export default function LoginForm() {
     formState: { errors, isSubmitting },
     setError,
   } = useForm<LoginFormFields>({
-    defaultValues: LoginDefaults,
     resolver: zodResolver(LoginSchema),
   });
 

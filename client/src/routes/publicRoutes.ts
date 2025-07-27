@@ -1,7 +1,7 @@
 const publicRoutes = {
   home: '/',
-  register: 'register',
-  login: 'login',
+  register: '/register',
+  login: '/login',
 };
 
 export default publicRoutes;
