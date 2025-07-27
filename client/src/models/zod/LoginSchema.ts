@@ -9,8 +9,3 @@ export const LoginSchema = z.object({
 });
 
 export type LoginFormFields = z.infer<typeof LoginSchema>;
-
-export const LoginDefaults = {
-  username: '',
-  password: '',
-};
