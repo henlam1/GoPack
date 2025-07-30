@@ -6,31 +6,11 @@ let mongoServer;
 /**
  * Starts up an in-memory MongoDB instance and connects mongoose to it.
  */
-export const startMemoryDb = async (index = '0') => {
-  mongoServer = await MongoMemoryServer.create({
-    instance: { dbName: `testdb_worker${index}` },
-  });
+export const startMemoryDb = async () => {
+  mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
   await mongoose.connect(uri);
-
-  console.log(`Memory MongoDB running at ${uri}`);
 };
-
-/**
- * Starts up an in-memory MongoDB instance for individual workers and connects mongoose to it.
- */
-export async function startIsolatedMemoryDb() {
-  const workerIndex = process.env.TEST_WORKER_INDEX || '0';
-  const mongoServer = await MongoMemoryServer.create({
-    instance: {
-      dbName: `testdb_worker${workerIndex}`,
-    },
-  });
-
-  const uri = mongoServer.getUri();
-  // Use this URI in your Express server setup
-  return { uri, mongoServer };
-}
 
 /**
  * Disconnects mongoose and stops the in-memory MongoDB instance.

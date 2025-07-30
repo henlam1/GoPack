@@ -2,7 +2,7 @@ import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import routes from './routes/index.js';
+import routes from './routes/testRoutes.js';
 import errorHandler from './middleware/errors/errorHandler.js';
 
 const testApp = express();
