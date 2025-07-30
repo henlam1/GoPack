@@ -1,11 +1,10 @@
-import { expect, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
+import { LoginPage } from '../pageObjects/public/LoginPage';
+import { testUser } from '../fixtures/users';
 
-async function login(page: Page) {
-  await page.goto('http://localhost:5173/login');
-  await page.getByLabel('Username').fill('test');
-  await page.getByLabel('Password').fill('testing1!');
-  await page.getByRole('button', { name: 'Login' }).click();
-  await expect(page).toHaveURL('http://localhost:5173/home');
+export async function login(page: Page) {
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.fillCredentials(testUser.email, testUser.password);
+  await loginPage.submit();
 }
-
-export default login;

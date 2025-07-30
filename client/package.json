@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "test": "npx playwright test"
+    "test": "npx playwright test --ui --workers=1"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",

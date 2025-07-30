@@ -1,14 +1,19 @@
 {
   "scripts": {
-    "server": "npm run dev --prefix server",
-    "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+
     "prepare": "husky",
     "check:precommit": "lint-staged",
     "lint:client": "npx eslint client --config client/eslint.config.js --ext .js,.ts,.jsx,.tsx",
     "format:client": "npx prettier --write client",
     "lint:server": "npx eslint server --config server/eslint.config.js --ext .js,.ts",
-    "format:server": "npx prettier --write server"
+    "format:server": "npx prettier --write server",
+
+    "test:unit": "cd server && npm run test",
+    "test:e2e": "cd client && npm run test",
+    "test": "npm run test:unit && npm run test:e2e"
   },
   "dependencies": {
     "concurrently": "^9.1.2",
@@ -16,6 +21,8 @@
   },
   "devDependencies": {
     "husky": "^9.1.7",
+    "mongodb-memory-server": "^10.1.4",
+    "mongoose": "^8.16.5",
     "prettier": "3.6.2"
   }
 }

@@ -24,7 +24,9 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Global setup */
-  // globalSetup: './tests/setup/global.setup.ts',
+  // globalSetup: './tests/config/global.setup.ts',
+  /* Global teardown */
+  // globalTeardown: './tests/config/global.teardown.ts',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -73,10 +75,20 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'npm run dev',
-    cwd: '..',
-    url: 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      name: 'Frontend Client',
+      command: 'npm run dev',
+      cwd: '.',
+      port: 5173,
+      reuseExistingServer: true,
+    },
+    {
+      name: 'Backend Server',
+      command: 'npm run test:server',
+      cwd: '../server',
+      port: 5050,
+      reuseExistingServer: false,
+    },
+  ],
 });

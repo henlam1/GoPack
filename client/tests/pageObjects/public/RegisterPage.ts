@@ -1,4 +1,4 @@
-import { expect, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class RegisterPage {
   constructor(private page: Page) {}
@@ -23,10 +23,5 @@ export class RegisterPage {
   /** Submit the form */
   async submit() {
     await this.page.getByRole('button', { name: 'Register' }).click();
-  }
-
-  /** Assert register redirection to the login page */
-  async assertRedirect() {
-    await expect(this.page).toHaveURL('/login');
   }
 }

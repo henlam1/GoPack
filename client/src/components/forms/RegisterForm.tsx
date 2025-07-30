@@ -14,7 +14,7 @@ export default function RegisterForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setError,
   } = useForm<RegisterFormFields>({
     resolver: zodResolver(UserRegisterSchema),
@@ -83,8 +83,12 @@ export default function RegisterForm() {
         )}
       </label>
       <div className="card-actions">
-        <button className="btn btn-accent" type="submit">
-          Register
+        <button
+          disabled={isSubmitting}
+          className="btn btn-accent"
+          type="submit"
+        >
+          {isSubmitting ? 'Loading...' : 'Register'}
         </button>
       </div>
     </form>

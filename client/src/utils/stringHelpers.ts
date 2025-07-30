@@ -14,3 +14,7 @@ export function formatDate(date: Date) {
   const dateFormatted = `${year}-${month}-${day}`;
   return dateFormatted;
 }
+
+export function getTodayDate(): string {
+  return new Date().toISOString().split('T')[0];
+}
