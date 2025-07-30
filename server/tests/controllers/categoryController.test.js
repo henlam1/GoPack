@@ -1,5 +1,5 @@
 import request from 'supertest';
-import testApp from '../testApp';
+import testApp from '../../test-app.js';
 import {
   insertMockCategory,
   insertMockCategories,

@@ -1,14 +1,14 @@
 import 'dotenv/config';
-import connectDB from './config/db.js';
 import app from './app.js';
+import { startMemoryDb } from './test-utils/memoryDb.js';
 
-// Connect to DB
-await connectDB();
+// Connect DB
+await startMemoryDb();
 
 // start the Express server
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Test server listening on port ${PORT}`);
 });
 
 export default app;

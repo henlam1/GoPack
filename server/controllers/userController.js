@@ -22,6 +22,7 @@ export const getUserById = tryCatch(async (req, res) => {
 export const addUser = tryCatch(async (req, res) => {
   const user = await UserService.getUserByEmail(req.body.email);
   if (user) {
+    console.log(user);
     throw new UserExistsError();
   }
 
