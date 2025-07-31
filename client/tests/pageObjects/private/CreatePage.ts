@@ -3,6 +3,11 @@ import { Page } from '@playwright/test';
 export class CreatePage {
   constructor(private page: Page) {}
 
+  /** Navigate to the private home page */
+  async goto() {
+    await this.page.goto('/packing-lists/new');
+  }
+
   /** Fill in the creation form
    * @param {string} name - The packing list's username
    * @param {string} startDate - The packing list's start date

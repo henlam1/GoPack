@@ -1,7 +1,9 @@
+import { getTodayDate } from '../../src/utils/stringHelpers';
+
 export const testPackingList = {
   name: 'packingList',
-  startDate: '2025-7-25',
-  endDate: '2025-7-25',
+  startDate: getTodayDate(),
+  endDate: getTodayDate(),
   destination: 'Europe',
-  description: 'We are going to Italy and France',
+  description: 'We are going to Italy',
 };
