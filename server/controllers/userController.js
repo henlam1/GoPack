@@ -98,5 +98,5 @@ export const logoutUser = tryCatch(async (req, res) => {
 });
 
 export const hydrateUser = tryCatch(async (req, res) => {
-  res.status(200).json(req.user.email);
+  res.status(200).json(req.user.userEmail);
 });

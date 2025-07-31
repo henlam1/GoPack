@@ -4,7 +4,13 @@ import PrivateLayout from './PrivateLayout';
 import Loading from '../feedback/Loading';
 
 export default function PrivateWrapper() {
-  const { isAuthenticated, isLoading } = useAuth();
-  if (isLoading) return <Loading />;
-  return isAuthenticated ? <PrivateLayout /> : <Navigate to="/login" />;
+  const { hydrationStatus, isAuthenticated } = useAuth();
+  console.log(
+    `hydrationStatus: ${hydrationStatus}, isAuthenticated: ${isAuthenticated}`,
+  );
+  if (hydrationStatus === 'idle' || hydrationStatus === 'hydrating')
+    return <Loading />;
+  if (hydrationStatus === 'disabled' || !isAuthenticated)
+    return <Navigate to="/login" />;
+  return <PrivateLayout />;
 }

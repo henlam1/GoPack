@@ -2,6 +2,7 @@ import { createContext } from 'react';
 
 interface AuthContextValue {
   user: string;
+  hydrationStatus: string;
   isAuthenticated: boolean;
   isLoading: boolean;
   logout: () => Promise<void>;
