@@ -1,12 +1,11 @@
 import { expect, test } from '@playwright/test';
 import { resetDb } from '../../requests/memoryDb';
-import { createUser } from '../../requests/users';
-import { testUser } from '../../fixtures/users';
 import { LoginPage } from '../../pageObjects/public/LoginPage';
+import { register } from '../../setup/register.setup';
 
 test.beforeEach(async ({ page }) => {
   await resetDb(page);
-  await createUser(page, testUser);
+  await register(page);
 });
 
 test('login form should authenticate user', async ({ page }) => {
