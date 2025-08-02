@@ -16,7 +16,13 @@ export class CreatePage {
    * @param {string} description - The packing list's description
    * @return {void}
    */
-  async fillForm(name, startDate, endDate, destination, description) {
+  async fillForm(
+    name: string,
+    startDate: string,
+    endDate: string,
+    destination: string,
+    description: string,
+  ) {
     await this.page.getByLabel('Name').fill(name);
     await this.page.getByLabel('Start Date').fill(startDate);
     await this.page.getByLabel('End Date').fill(endDate);

@@ -34,12 +34,15 @@ export default function CategoryForm({
   return (
     <div className="mb-8">
       <form onSubmit={handleSubmit(onSubmit)} className="join">
-        <input
-          {...register('name')}
-          type="text"
-          placeholder="Category name"
-          className="input join-item"
-        />
+        <label className="floating-label mb-2">
+          <span>Category Name</span>
+          <input
+            {...register('name')}
+            type="text"
+            placeholder="Category Name"
+            className="input join-item"
+          />
+        </label>
         <button className="btn btn-primary join-item">
           {isSubmitting ? 'Loading...' : 'Add New Category'}
         </button>
