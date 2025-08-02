@@ -5,6 +5,6 @@ import { testUser } from '../fixtures/users';
 export async function login(page: Page) {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
-  await loginPage.fillCredentials(testUser.email, testUser.password);
+  await loginPage.fillCredentials(testUser.username, testUser.password);
   await loginPage.submit();
 }

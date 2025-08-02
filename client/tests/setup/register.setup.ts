@@ -6,7 +6,7 @@ export async function register(page: Page) {
   const registerPage = new RegisterPage(page);
   await registerPage.goto();
   await registerPage.fillCredentials(
-    testUser.email,
+    testUser.username,
     testUser.password,
     testUser.email,
   );
