@@ -10,7 +10,7 @@ const initialCategoryContext: CategoryContextType = {
   editing: false,
 };
 
-function categoryReducer(category: CategoryContextType, action: String) {
+function categoryReducer(category: CategoryContextType, action: string) {
   switch (action) {
     case 'toggleEdit': {
       return {
@@ -24,8 +24,8 @@ function categoryReducer(category: CategoryContextType, action: String) {
 }
 
 export const CategoryContext = createContext(initialCategoryContext);
-export const CategoryDispatchContext = createContext((a: any, b: any) =>
-  console.log(a, b),
+export const CategoryDispatchContext = createContext(() =>
+  null
 );
 
 export function CategoryContextProvider({ children }: Props) {
