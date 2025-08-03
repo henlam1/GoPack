@@ -1,6 +1,6 @@
 import tryCatch from '../utils/tryCatch.js';
-import UserService from '../services/UserService.js';
-import TokenService from '../services/TokenService.js';
+import UserService from '../services/userService.js';
+import TokenService from '../services/tokenService.js';
 import bcrypt from 'bcrypt';
 import {
   AuthError,

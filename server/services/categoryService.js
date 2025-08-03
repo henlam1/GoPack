@@ -1,7 +1,7 @@
 import { NotFoundError } from '../middleware/errors/errorClasses.js';
 import Category from '../models/categoryModel.js';
-import ItemService from './ItemService.js';
-import PackingListService from './PackingListService.js';
+import ItemService from './itemService.js';
+import PackingListService from './packingListService.js';
 
 class CategoryService {
   async getCategories() {

@@ -1,5 +1,5 @@
 import tryCatch from '../utils/tryCatch.js';
-import CategoryService from '../services/CategoryService.js';
+import CategoryService from '../services/categoryService.js';
 
 export const getCategories = tryCatch(async (req, res) => {
   const categories = await CategoryService.getCategories();

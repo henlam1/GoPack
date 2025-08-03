@@ -1,5 +1,5 @@
 import tryCatch from '../utils/tryCatch.js';
-import TokenService from '../services/TokenService.js';
+import TokenService from '../services/tokenService.js';
 import jwt from 'jsonwebtoken';
 import {
   InvalidRefreshTokenError,
