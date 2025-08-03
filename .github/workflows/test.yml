@@ -12,13 +12,13 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - name: Run Client Tests (E2E)
-        run: |
-          cd client
-          npm install
-          npm run test
       - name: Run Server Tests (Unit)
         run: |
           cd server
+          npm install
+          npm run test
+      - name: Run Client Tests (E2E)
+        run: |
+          cd client
           npm install
           npm run test
