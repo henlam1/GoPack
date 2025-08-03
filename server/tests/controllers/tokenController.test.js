@@ -1,7 +1,7 @@
 import request from 'supertest';
 import testApp from '../../test-app.js';
 import { createMockUser } from '../helpers/createMockData';
-import TokenService from '../../services/TokenService';
+import TokenService from '../../services/tokenService';
 
 describe('POST /refresh', () => {
   const user = createMockUser();
