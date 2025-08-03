@@ -21,4 +21,5 @@ jobs:
         run: |
           cd client
           npm install
+          npx playwright install
           npm run test
