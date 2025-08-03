@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import app from './app.js';
 import { startMemoryDb } from './test-utils/memoryDb.js';
 
