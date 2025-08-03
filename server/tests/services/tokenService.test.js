@@ -1,4 +1,4 @@
-import TokenService from '../../services/TokenService';
+import TokenService from '../../services/tokenService';
 import { createMockUser } from '../helpers/createMockData';
 import jwt from 'jsonwebtoken';
 

@@ -1,4 +1,4 @@
-import ItemService from '../../services/ItemService';
+import ItemService from '../../services/itemService';
 import {
   insertMockCategory,
   insertMockItem,

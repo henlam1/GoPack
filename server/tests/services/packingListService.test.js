@@ -1,4 +1,4 @@
-import PackingListService from '../../services/PackingListService';
+import PackingListService from '../../services/packingListService';
 import {
   insertMockCategory,
   insertMockPackingList,

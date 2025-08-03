@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../app';
 import { createMockItem, createMockUser } from '../helpers/createMockData';
-import TokenService from '../../services/TokenService';
+import TokenService from '../../services/tokenService';
 
 describe('Authentication middleware', () => {
   const user = createMockUser();
