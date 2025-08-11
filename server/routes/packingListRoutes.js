@@ -18,8 +18,9 @@ router
   .post(validationMiddleware(packingListSchema), addPackingList);
 router
   .route('/:packingListId')
-  .get(validObjectId('packingListId'), getPackingListById)
-  .patch(validObjectId('packingListId'), updatePackingList)
-  .delete(validObjectId('packingListId'), deletePackingList);
+  .all(validObjectId('packingListId'))
+  .get(getPackingListById)
+  .patch(updatePackingList)
+  .delete(deletePackingList);
 
 export default router;

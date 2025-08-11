@@ -1,5 +1,5 @@
 import request from 'supertest';
-import testApp from '../../test-app.js';
+import app from '../../app.js';
 import {
   insertMockCategory,
   insertMockItem,
@@ -10,14 +10,14 @@ import { createMockItem, createObjectId } from '../helpers/createMockData';
 describe('GET /items', () => {
   it('should return all items', async () => {
     await insertMockItems();
-    const res = await request(testApp).get('/api/items');
+    const res = await request(app).get('/api/items');
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(3);
   });
   it('should return item by id', async () => {
     const mockItem = await insertMockItem({ name: 'Toothbrush' });
     const mockId = mockItem._id.toString();
-    const res = await request(testApp).get(`/api/items/${mockId}`);
+    const res = await request(app).get(`/api/items/${mockId}`);
     const resItem = res.body;
     expect(res.status).toBe(200);
     expect(resItem._id).toBe(mockId);
@@ -25,7 +25,7 @@ describe('GET /items', () => {
   });
   it('should return not found error', async () => {
     const mockId = createObjectId();
-    const res = await request(testApp).get(`/api/items/${mockId}`);
+    const res = await request(app).get(`/api/items/${mockId}`);
     expect(res.status).toBe(404);
   });
 });
@@ -38,7 +38,7 @@ describe('POST /items', () => {
       quantity: 10,
       category: category._id,
     });
-    const res = await request(testApp).post('/api/items/').send(mockItem);
+    const res = await request(app).post('/api/items/').send(mockItem);
     const newItem = res.body;
     expect(res.status).toBe(201);
     expect(newItem.name).toBe('Apple');
@@ -51,7 +51,7 @@ describe('POST /items', () => {
       quantity: -1,
       category: category._id,
     });
-    const res = await request(testApp).post('/api/items/').send(mockItem);
+    const res = await request(app).post('/api/items/').send(mockItem);
     expect(res.status).toBe(400);
   });
 });
@@ -60,7 +60,7 @@ describe('PATCH /items', () => {
   it('should update an item by id', async () => {
     const mockItem = await insertMockItem();
     const mockId = mockItem._id.toString();
-    const res = await request(testApp)
+    const res = await request(app)
       .patch(`/api/items/${mockId}`)
       .send({ name: 'Updated name' });
     const updatedItem = res.body;
@@ -70,7 +70,7 @@ describe('PATCH /items', () => {
   });
   it('should return not found error', async () => {
     const mockId = createObjectId();
-    const res = await request(testApp).patch(`/api/items/${mockId}`);
+    const res = await request(app).patch(`/api/items/${mockId}`);
     expect(res.status).toBe(404);
   });
 });
@@ -80,16 +80,16 @@ describe('DELETE /items', () => {
     const category = await insertMockCategory();
     const mockItem = await insertMockItem({ category: category._id });
     const mockId = mockItem._id.toString();
-    const res = await request(testApp).delete(`/api/items/${mockId}`);
+    const res = await request(app).delete(`/api/items/${mockId}`);
     const deletedItem = res.body;
     expect(res.status).toBe(200);
     expect(deletedItem._id).toBe(mockId);
-    const search = await request(testApp).get(`/api/items/${mockId}`);
+    const search = await request(app).get(`/api/items/${mockId}`);
     expect(search.status).toBe(404);
   });
   it('should return not found error', async () => {
     const mockId = createObjectId();
-    const res = await request(testApp).delete(`/api/items/${mockId}`);
+    const res = await request(app).delete(`/api/items/${mockId}`);
     expect(res.status).toBe(404);
   });
 });

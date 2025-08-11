@@ -1,5 +1,9 @@
-const apiBaseUrl =
-  import.meta.env.VITE_REACT_APP_URL || 'http://localhost:5050';
+const isVite =
+  typeof import.meta != 'undefined' && typeof import.meta.env !== 'undefined';
+
+const apiBaseUrl = isVite
+  ? import.meta.env.VITE_REACT_APP_URL
+  : process.env.VITE_REACT_APP_URL;
 
 export const apiRoutes = {
   packingLists: {
@@ -35,5 +39,8 @@ export const apiRoutes = {
   tokens: {
     base: `${apiBaseUrl}/api/tokens`,
     refresh: `${apiBaseUrl}/api/tokens/refresh`,
+  },
+  tests: {
+    reset: `${apiBaseUrl}/api/test-db/reset`,
   },
 };

@@ -8,12 +8,28 @@ import authenticateToken from '../middleware/authMiddleware.js';
 import testDataRoutes from './testDataRoutes.js';
 
 const router = Router();
+const ENABLE_AUTH = process.env.ENABLE_AUTH === 'true';
 
-router.use('/packing_lists', authenticateToken, packingListRoutes);
-router.use('/categories', authenticateToken, categoryRoutes);
-router.use('/items', authenticateToken, itemRoutes);
+// Conditional middleware
+if (ENABLE_AUTH) {
+  router.use('/packing_lists', authenticateToken, packingListRoutes);
+  router.use('/categories', authenticateToken, categoryRoutes);
+  router.use('/items', authenticateToken, itemRoutes);
+  // router.use('/users', authenticateToken, privateUserRoutes);
+} else {
+  router.use('/packing_lists', packingListRoutes);
+  router.use('/categories', categoryRoutes);
+  router.use('/items', itemRoutes);
+  // router.use('/users', privateUserRoutes);
+}
+
+// Public routes
 router.use('/users', userRoutes);
 router.use('/tokens', tokenRoutes);
-router.use('/test-db', testDataRoutes);
+
+// Test routes
+if (process.env.NODE_ENV !== 'production') {
+  router.use('/test-db', testDataRoutes);
+}
 
 export default router;
