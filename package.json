@@ -13,7 +13,7 @@
 
     "test:unit": "cd server && npm run test",
     "test:e2e": "cd client && npm run test",
-    "test": "npm run test:unit && npm run test"
+    "test": "npm run test:unit && npm run test:e2e"
   },
   "dependencies": {
     "concurrently": "^9.1.2",
