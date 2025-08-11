@@ -22,8 +22,9 @@ router.route('/hydrate').get(authenticateToken, hydrateUser);
 router.route('/').get(getUsers).post(validationMiddleware(userSchema), addUser);
 router
   .route('/:userId')
-  .get(validObjectId('userId'), getUserById)
-  .patch(validObjectId('userId'), updateUser)
-  .delete(validObjectId('userId'), deleteUser);
+  .all(validObjectId('userId'))
+  .get(getUserById)
+  .patch(updateUser)
+  .delete(deleteUser);
 
 export default router;

@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite --mode development",
+    "test": "npx playwright test --workers=1",
+    "test:ui": "npx playwright test --workers=1 --ui",
+    "build": "tsc -b && vite build --mode production",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "preview": "vite preview",
-    "test": "npx playwright test --workers=1"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
@@ -31,7 +32,9 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "cross-env": "^10.0.0",
     "daisyui": "^5.0.0-beta.9",
+    "dotenv": "^17.2.1",
     "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",

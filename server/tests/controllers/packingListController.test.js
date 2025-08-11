@@ -1,5 +1,5 @@
 import request from 'supertest';
-import testApp from '../../test-app.js';
+import app from '../../app.js';
 import {
   insertMockPackingList,
   insertMockPackingLists,
@@ -12,7 +12,7 @@ import {
 describe('GET /packing_lists', () => {
   it('should return all packing_lists', async () => {
     await insertMockPackingLists();
-    const res = await request(testApp).get('/api/packing_lists');
+    const res = await request(app).get('/api/packing_lists');
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(3);
   });
@@ -21,7 +21,7 @@ describe('GET /packing_lists', () => {
       name: 'Europe Trip',
     });
     const mockId = mockPackingList._id.toString();
-    const res = await request(testApp).get(`/api/packing_lists/${mockId}`);
+    const res = await request(app).get(`/api/packing_lists/${mockId}`);
     const resPackingList = res.body;
     expect(res.status).toBe(200);
     expect(resPackingList._id).toBe(mockId);
@@ -29,7 +29,7 @@ describe('GET /packing_lists', () => {
   });
   it('should return not found error', async () => {
     const mockId = createObjectId();
-    const res = await request(testApp).get(`/api/packing_lists/${mockId}`);
+    const res = await request(app).get(`/api/packing_lists/${mockId}`);
     expect(res.status).toBe(404);
   });
 });
@@ -43,7 +43,7 @@ describe('POST /packing_lists', () => {
       destination: 'Asia',
       description: 'We go around Asia',
     });
-    const res = await request(testApp)
+    const res = await request(app)
       .post('/api/packing_lists')
       .send(mockPackingList);
     const newPackingList = res.body;
@@ -52,7 +52,7 @@ describe('POST /packing_lists', () => {
   });
   it('should create a validation error', async () => {
     const mockPackingList = await createMockPackingList({ name: '' });
-    const res = await request(testApp)
+    const res = await request(app)
       .post('/api/packing_lists')
       .send(mockPackingList);
     expect(res.status).toBe(400);
@@ -63,7 +63,7 @@ describe('PATCH /packing_lists', () => {
   it('should update an packing list by id', async () => {
     const mockPackingList = await insertMockPackingList();
     const mockId = mockPackingList._id.toString();
-    const res = await request(testApp)
+    const res = await request(app)
       .patch(`/api/packing_lists/${mockId}`)
       .send({ name: 'Updated packing_lists' });
     const updatedPackingList = res.body;
@@ -77,11 +77,11 @@ describe('DELETE /packing_lists', () => {
   it('should delete an packing list by id', async () => {
     const mockPackingList = await insertMockPackingList();
     const mockId = mockPackingList._id.toString();
-    const res = await request(testApp).delete(`/api/packing_lists/${mockId}`);
+    const res = await request(app).delete(`/api/packing_lists/${mockId}`);
     const deletedPackingList = res.body;
     expect(res.status).toBe(200);
     expect(deletedPackingList._id).toBe(mockId);
-    const search = await request(testApp).get(`/api/packing_lists/${mockId}`);
+    const search = await request(app).get(`/api/packing_lists/${mockId}`);
     expect(search.status).toBe(404);
   });
 });

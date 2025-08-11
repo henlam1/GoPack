@@ -15,8 +15,9 @@ const router = Router();
 router.route('/').get(getItems).post(validationMiddleware(itemSchema), addItem);
 router
   .route('/:itemId')
-  .get(validObjectId('itemId'), getItemById)
-  .patch(validObjectId('itemId'), updateItem)
-  .delete(validObjectId('itemId'), deleteItem);
+  .all(validObjectId('itemId'))
+  .get(getItemById)
+  .patch(updateItem)
+  .delete(deleteItem);
 
 export default router;

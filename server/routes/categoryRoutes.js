@@ -18,8 +18,9 @@ router
   .post(validationMiddleware(categorySchema), addCategory);
 router
   .route('/:categoryId')
-  .get(validObjectId('categoryId'), getCategoryById)
-  .patch(validObjectId('categoryId'), updateCategory)
-  .delete(validObjectId('categoryId'), deleteCategory);
+  .all(validObjectId('categoryId'))
+  .get(getCategoryById)
+  .patch(updateCategory)
+  .delete(deleteCategory);
 
 export default router;
