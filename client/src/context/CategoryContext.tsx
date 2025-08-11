@@ -24,9 +24,7 @@ function categoryReducer(category: CategoryContextType, action: string) {
 }
 
 export const CategoryContext = createContext(initialCategoryContext);
-export const CategoryDispatchContext = createContext(() =>
-  null
-);
+export const CategoryDispatchContext = createContext(() => null);
 
 export function CategoryContextProvider({ children }: Props) {
   const [category, dispatch] = useReducer(
