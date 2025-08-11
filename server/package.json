@@ -8,7 +8,7 @@
     "prod": "cross-env NODE_ENV=production ENABLE_AUTH=true node server.js",
     "dev": "cross-env NODE_ENV=development PORT=5050 ENABLE_AUTH=true nodemon server.js",
     "test:e2e": "cross-env NODE_ENV=test PORT=5055 ENABLE_AUTH=false node server.js",
-    "test:unit": "cross-env NODE_ENV=test PORT=5055 ENABLE_AUTH=false jest"
+    "test": "cross-env NODE_ENV=test PORT=5055 ENABLE_AUTH=false jest"
   },
   "keywords": [],
   "author": "",
