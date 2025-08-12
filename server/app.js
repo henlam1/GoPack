@@ -3,7 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import routes from './routes/index.js';
 import errorHandler from './middleware/errors/errorHandler.js';
-import { getEnv } from './config/env.js';
+import getEnv from './config/env.js';
 
 const app = express();
 const { isProd, isDev, isTest } = getEnv();
