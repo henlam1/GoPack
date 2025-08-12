@@ -17,15 +17,14 @@ class TokenService {
 
   getSameSite() {
     const { isProd } = getEnv();
-    const sameSite = isProd ? false : true;
-    console.log(sameSite);
+    const sameSite = isProd ? 'none' : 'strict';
     return sameSite;
   }
 
   setAccessToken(res, accessToken) {
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      sameSite: false,
+      sameSite: this.getSameSite(),
       secure: true,
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
