@@ -24,12 +24,7 @@ export const refreshToken = tryCatch(async (req, res) => {
     const accessToken = TokenService.generateAccessToken({ userId: user._id });
 
     // Set new access token cookie
-    res.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-      maxAge: 15 * 60 * 1000,
-    });
+    TokenService.setAccessToken(res, accessToken);
 
     res.status(200).json({ message: 'Token refreshed successfully' });
   });

@@ -15,7 +15,9 @@ app.use(cookieParser());
 // CORS
 app.use(
   cors({
-    origin: isProd ? ['https://gopack-client.onrender.com'] : ['http://localhost:5173'], // Can be an array
+    origin: isProd
+      ? ['https://gopack-client.onrender.com']
+      : ['http://localhost:5173'], // Can be an array
     credentials: true, // Critical for cookies
     methods: ['GET', 'PATCH', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],

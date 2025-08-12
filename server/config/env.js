@@ -1,4 +1,4 @@
-export const getEnv = () => {
+const getEnv = () => {
   const env = process.env.NODE_ENV || 'development';
   return {
     isProd: env === 'production',
@@ -6,3 +6,5 @@ export const getEnv = () => {
     isTest: env === 'test',
   };
 };
+
+export default getEnv;

@@ -67,20 +67,8 @@ export const loginUser = tryCatch(async (req, res) => {
   const refreshToken = TokenService.generateRefreshToken({ userId: user._id });
 
   //   Attach HTTP cookies
-  res.cookie('accessToken', accessToken, {
-    httpOnly: true,
-    sameSite: true,
-    secure: true,
-    maxAge: 15 * 60 * 1000, // 15 minutes
-  });
-
-  res.cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    sameSite: true,
-    secure: true,
-    path: '/api/tokens/refresh', // Only sent to the endpoint that re-generates refresh tokens
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
+  TokenService.setAccessToken(res, accessToken);
+  TokenService.setRefreshToken(res, refreshToken);
 
   //   return success response
   res.status(200).send({
