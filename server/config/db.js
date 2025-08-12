@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-const uri = process.env.ATLAS_URI || '';
 
 const connectDB = async () => {
   try {
     // Connect the client to the server
+    const uri = process.env.ATLAS_URI || '';
     await mongoose.connect(uri);
     // Send a ping to confirm a successful connection
     console.log(
