@@ -30,6 +30,7 @@ if (isProd) {
     console.log(`PROD MODE: ${req.method} ${req.url}`);
     next();
   });
+  app.set('trust proxy', 1); // Trust the first hop in production server
 }
 
 if (isDev) {
