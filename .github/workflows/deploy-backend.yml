@@ -1,0 +1,9 @@
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Backend Deploy
+        run: curl -X POST ${{ secrets.RENDER_BACKEND_HOOK }}
