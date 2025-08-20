@@ -22,13 +22,13 @@ export const createMockCategory = (overrides = {}) => {
 export const createMockPackingList = (overrides = {}) => {
   return {
     name: 'packingList',
+    categories: [],
+    user: new mongoose.Types.ObjectId(),
     startDate: Date.now(),
     endDate: Date.now(),
     destination: '',
     description: '',
     status: 'active',
-    categories: [],
-    user: new mongoose.Types.ObjectId(),
     ...overrides,
   };
 };

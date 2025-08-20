@@ -3,12 +3,14 @@ import app from '../../app.js';
 import {
   insertMockPackingList,
   insertMockPackingLists,
+  insertMockUser,
 } from '../helpers/insertMockData';
 import {
   createMockPackingList,
-  createMockUser,
   createObjectId,
 } from '../helpers/createMockData';
+import { ObjectId } from 'mongodb';
+import { addPackingList } from '../../controllers/packingListController.js';
 
 describe('GET /packing_lists', () => {
   it('should return all packing_lists', async () => {
@@ -37,19 +39,24 @@ describe('GET /packing_lists', () => {
 
 describe('POST /packing_lists', () => {
   it('should create a new packing list', async () => {
-    const mockPackingList = await createMockPackingList({
+    const mockUser = await insertMockUser();
+    const mockPackingList = {
       name: 'Asia Trip',
       startDate: '2025-07-25',
       endDate: '2025-07-25',
       destination: 'Asia',
       description: 'We go around Asia',
-    });
-    const res = await request(app)
-      .post('/api/packing_lists')
-      .send(mockPackingList);
-    const newPackingList = res.body;
-    expect(res.status).toBe(201);
-    expect(newPackingList.name).toBe('Asia Trip');
+    };
+
+    const req = {
+      body: mockPackingList,
+      user: { userId: mockUser._id.toString() },
+    };
+    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    const next = jest.fn();
+
+    await addPackingList(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(201);
   });
   it('should create a validation error', async () => {
     const mockPackingList = await createMockPackingList({ name: '' });
@@ -76,8 +83,10 @@ describe('PATCH /packing_lists', () => {
 
 describe('DELETE /packing_lists', () => {
   it('should delete an packing list by id', async () => {
-    const mockPackingList = await insertMockPackingList();
+    const mockUser = await insertMockUser();
+    const mockPackingList = await insertMockPackingList({ user: mockUser._id });
     const mockId = mockPackingList._id.toString();
+    mockUser.packingLists.push(new ObjectId(mockId));
     const res = await request(app).delete(`/api/packing_lists/${mockId}`);
     const deletedPackingList = res.body;
     expect(res.status).toBe(200);

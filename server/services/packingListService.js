@@ -37,7 +37,6 @@ class PackingListService {
     const packingList = await PackingList.findById(packingListId);
     if (!packingList) throw new NotFoundError();
     for (const categoryId of packingList.categories) {
-      console.log('Deleting category: ', categoryId);
       await CategoryService.deleteCategory(categoryId);
     }
 
@@ -47,7 +46,6 @@ class PackingListService {
     // Delete packing list
     const deletedPackingList =
       await PackingList.findByIdAndDelete(packingListId);
-    console.log('Deleted packing list: ', deletedPackingList);
     return deletedPackingList;
   }
 
