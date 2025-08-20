@@ -4,8 +4,8 @@ import CategoryService from './categoryService.js';
 import UserService from './userService.js';
 
 class PackingListService {
-  async getPackingLists() {
-    return await PackingList.find();
+  async getPackingLists(filter) {
+    return await PackingList.find(filter);
   }
 
   async getPackingListById(packingListId) {

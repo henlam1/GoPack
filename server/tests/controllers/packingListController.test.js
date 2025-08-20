@@ -38,8 +38,8 @@ describe('POST /packing_lists', () => {
   it('should create a new packing list', async () => {
     const mockPackingList = await createMockPackingList({
       name: 'Asia Trip',
-      startDate: '2025-7-25',
-      endDate: '2025-7-25',
+      startDate: '2025-07-25',
+      endDate: '2025-07-25',
       destination: 'Asia',
       description: 'We go around Asia',
     });

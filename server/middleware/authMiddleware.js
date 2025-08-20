@@ -13,11 +13,14 @@ const authenticateToken = (req, res, next) => {
     throw new MissingAccessTokenError();
   }
 
-  jwt.verify(token, JWT_SECRET, (err, user) => {
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) {
       throw new InvalidAccessTokenError();
     }
-    req.user = user;
+    req.user = {
+      userId: decoded.userId,
+      userEmail: decoded.userEmail,
+    };
     next();
   });
 };

@@ -1,8 +1,29 @@
 import tryCatch from '../utils/tryCatch.js';
 import PackingListService from '../services/packingListService.js';
+import dayjs from 'dayjs';
 
 export const getPackingLists = tryCatch(async (req, res) => {
-  const packingLists = await PackingListService.getPackingLists();
+  const { status, filter } = req.query;
+  const query = {};
+
+  if (req.user) {
+    query.user = req.user.userId;
+  }
+
+  if (status) {
+    query.status = status;
+  }
+
+  if (filter === 'upcoming') {
+    query.startDate = { $gte: dayjs().format('YYYY-MM-DD') };
+    query.status = 'active';
+  }
+
+  if (filter === 'trashed') {
+    query.status = 'trashed';
+  }
+
+  const packingLists = await PackingListService.getPackingLists(query);
   res.status(200).json(packingLists);
 });
 
