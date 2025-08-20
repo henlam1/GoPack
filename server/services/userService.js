@@ -1,6 +1,7 @@
 import { NotFoundError } from '../middleware/errors/errorClasses.js';
 import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
+import packingListService from './packingListService.js';
 
 class UserService {
   async getUsers() {
@@ -43,6 +44,13 @@ class UserService {
   }
 
   async deleteUser(userId) {
+    const user = await User.findById(userId);
+    if (!user) throw new NotFoundError();
+    for (const packingListId of user.packingLists) {
+      console.log('Deleting packing list: ', packingListId);
+      await packingListService.deletePackingList(packingListId);
+    }
+
     const deletedUser = await User.findByIdAndDelete(userId);
     if (!deletedUser) throw new NotFoundError();
     return deletedUser;

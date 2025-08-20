@@ -10,9 +10,11 @@ export const packingListSchema = Joi.object({
   startDate: Joi.string(),
   endDate: Joi.string(),
   destination: Joi.string()
+    .allow('')
     .max(30)
     .messages({ 'string.max': 'Destination has a maximum length of 30' }),
   description: Joi.string()
+    .allow('')
     .max(30)
     .messages({ 'string.max': 'Description has a maximum length of 30' }),
   categories: Joi.array()

@@ -16,6 +16,7 @@ class PackingListService {
 
   async addPackingList(data) {
     const newList = new PackingList(data);
+    await UserService.addPackingList(data.user, newList._id);
     return await newList.save();
   }
 
@@ -35,16 +36,18 @@ class PackingListService {
     // Delete categories
     const packingList = await PackingList.findById(packingListId);
     if (!packingList) throw new NotFoundError();
-    packingList.categories.forEach(async (categoryId) => {
+    for (const categoryId of packingList.categories) {
+      console.log('Deleting category: ', categoryId);
       await CategoryService.deleteCategory(categoryId);
-    });
+    }
 
     // Remove packing list from user
-    await UserService;
+    await UserService.removePackingList(packingList.user, packingList._id);
 
     // Delete packing list
     const deletedPackingList =
       await PackingList.findByIdAndDelete(packingListId);
+    console.log('Deleted packing list: ', deletedPackingList);
     return deletedPackingList;
   }
 

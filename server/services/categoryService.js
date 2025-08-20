@@ -32,9 +32,9 @@ class CategoryService {
     // Clear items
     const category = await Category.findById(categoryId);
     if (!category) throw new NotFoundError();
-    category.items.forEach(async (itemId) => {
+    for (const itemId of category.items) {
       await ItemService.deleteItem(itemId);
-    });
+    }
 
     // Remove category from packing list
     await PackingListService.removeCategory(category.packingList, categoryId);
