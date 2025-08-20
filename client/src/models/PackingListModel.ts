@@ -5,6 +5,7 @@ export default interface IPackingList {
   endDate: string;
   destination: string;
   description: string;
+  status: string;
   categories: string[];
   user: string;
 }

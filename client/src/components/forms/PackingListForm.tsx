@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import privateRoutes from '../../routes/privateRoutes';
 import { usePackingListMutations } from '../../hooks/usePackingListMutations';
 import { useEffect } from 'react';
+import { APIError } from '../../services/errors/errorTypes';
 
 export default function PackingListForm({ userId }: { userId: string }) {
   const {
@@ -18,6 +19,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
+    setError,
   } = useForm<PackingListFormFields>({
     defaultValues: packingListDefaults,
     resolver: zodResolver(packingListSchema),
@@ -34,9 +36,16 @@ export default function PackingListForm({ userId }: { userId: string }) {
       onSuccess: (data) => {
         console.log(data);
         navigate(privateRoutes.packingLists.details(data._id));
+        reset();
+      },
+      onError: (error) => {
+        if (error instanceof APIError) {
+          setError('root', { message: error.message });
+        } else {
+          setError('root', { message: 'Network error' });
+        }
       },
     });
-    reset();
   }
 
   // Hooks to dynamically update date values

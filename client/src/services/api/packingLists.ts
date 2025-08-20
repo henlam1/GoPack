@@ -7,6 +7,21 @@ export async function getPackingListsAPI() {
   console.log('Packing lists fetched: ', data);
   return data;
 }
+export async function getActivePackingListsAPI() {
+  const data = await apiRequest(apiRoutes.packingLists.getActive);
+  console.log('Packing lists (Active) fetched: ', data);
+  return data;
+}
+export async function getTrashedPackingListsAPI() {
+  const data = await apiRequest(apiRoutes.packingLists.getTrashed);
+  console.log('Packing lists (Trashed) fetched: ', data);
+  return data;
+}
+export async function getUpcomingPackingListsAPI() {
+  const data = await apiRequest(apiRoutes.packingLists.getUpcoming);
+  console.log('Packing lists (Upcoming) fetched: ', data);
+  return data;
+}
 
 export async function getPackingListAPI(id: string) {
   const data = await apiRequest(apiRoutes.packingLists.getById(id));

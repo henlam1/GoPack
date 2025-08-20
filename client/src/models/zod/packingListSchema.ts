@@ -1,15 +1,15 @@
 import { z } from 'zod';
-import { formatDate, genHexString } from '../../utils/stringHelpers';
+import { formatDate } from '../../utils/stringHelpers';
 
 export const packingListSchema = z
   .object({
-    name: z.string().min(1).max(30),
+    name: z.string().trim().min(1).max(30),
     startDate: z.string(),
     endDate: z.string(),
-    destination: z.string().max(30),
-    description: z.string().max(30),
+    destination: z.string().trim().max(30),
+    description: z.string().trim().max(30),
+    status: z.string(),
     categories: z.array(z.string()),
-    user: z.string(),
   })
   .refine(
     (data) => {
@@ -28,6 +28,6 @@ export const packingListDefaults = {
   endDate: formatDate(new Date()),
   destination: '',
   description: '',
+  status: 'active',
   categories: [],
-  user: genHexString(24),
 };

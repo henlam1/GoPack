@@ -23,6 +23,7 @@ export const getPackingLists = tryCatch(async (req, res) => {
     query.status = 'trashed';
   }
 
+  console.log(query);
   const packingLists = await PackingListService.getPackingLists(query);
   res.status(200).json(packingLists);
 });
@@ -35,7 +36,9 @@ export const getPackingListById = tryCatch(async (req, res) => {
 });
 
 export const addPackingList = tryCatch(async (req, res) => {
-  const newPackingList = await PackingListService.addPackingList(req.body);
+  const packingList = req.body;
+  packingList.user = req.user.userId;
+  const newPackingList = await PackingListService.addPackingList(packingList);
   res.status(201).json(newPackingList);
 });
 
