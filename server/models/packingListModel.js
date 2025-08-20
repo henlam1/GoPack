@@ -1,18 +1,27 @@
 import mongoose from 'mongoose';
 
 const packingListSchema = new mongoose.Schema({
-  name: { type: String },
-  startDate: { type: String },
-  endDate: { type: String },
-  destination: { type: String },
-  description: { type: String },
+  // Core Fields
+  name: { type: String, required: true, trim: true, maxLength: 30 },
+  categories: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+  ],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'User reference is required'],
+  },
+  // Trip Details
+  startDate: { type: Date },
+  endDate: { type: Date },
+  destination: { type: String, trim: true, maxLength: 30 },
+  description: { type: String, trim: true, maxLength: 150 },
+  // Life Cycle
   status: {
     type: String,
     enum: ['active', 'trashed', 'completed'],
     default: 'active',
   },
-  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
 });
 

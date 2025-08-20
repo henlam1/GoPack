@@ -37,7 +37,9 @@ export const getPackingListById = tryCatch(async (req, res) => {
 
 export const addPackingList = tryCatch(async (req, res) => {
   const packingList = req.body;
-  packingList.user = req.user.userId;
+  if (req.user) {
+    packingList.user = req.user.userId;
+  }
   const newPackingList = await PackingListService.addPackingList(packingList);
   res.status(201).json(newPackingList);
 });
