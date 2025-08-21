@@ -7,8 +7,9 @@ import { CreatePage } from '../../pageObjects/private/CreatePage';
 import { getTodayDate } from '../../../src/utils/stringHelpers';
 import { testPackingList } from '../../fixtures/packingLists';
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, context }) => {
   await resetDb(page);
+  await context.clearCookies(); // clear cookies between tests
   await registerAndLogin(page);
   const privateHomePage = new PrivateHomePage(page);
   await privateHomePage.goToCreatePage();
