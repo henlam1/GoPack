@@ -46,7 +46,7 @@ export const loginUser = tryCatch(async (req, res) => {
   const user = await UserService.getUserByUsername(req.body.username);
 
   if (user == null || typeof user.password !== 'string') {
-    throw new NotFoundError();
+    throw new NotFoundError('User not found');
   }
 
   // Verify passwords

@@ -10,7 +10,7 @@ class CategoryService {
 
   async getCategoryById(categoryId) {
     const category = await Category.findById(categoryId);
-    if (!category) throw new NotFoundError();
+    if (!category) throw new NotFoundError('Category not found');
     return category;
   }
 
@@ -24,14 +24,14 @@ class CategoryService {
     const updatedCategory = await Category.findByIdAndUpdate(categoryId, data, {
       new: true,
     });
-    if (!updatedCategory) throw new NotFoundError();
+    if (!updatedCategory) throw new NotFoundError('Category not found');
     return updatedCategory;
   }
 
   async deleteCategory(categoryId) {
     // Clear items
     const category = await Category.findById(categoryId);
-    if (!category) throw new NotFoundError();
+    if (!category) throw new NotFoundError('Category not found');
     for (const itemId of category.items) {
       await ItemService.deleteItem(itemId);
     }
@@ -52,7 +52,7 @@ class CategoryService {
       },
       { new: true },
     );
-    if (!result) throw new NotFoundError();
+    if (!result) throw new NotFoundError('Category not found');
     return result;
   }
 
@@ -64,7 +64,7 @@ class CategoryService {
       },
       { new: true },
     );
-    if (!result) throw new NotFoundError();
+    if (!result) throw new NotFoundError('Category not found');
     return result;
   }
 }

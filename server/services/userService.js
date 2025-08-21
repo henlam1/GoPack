@@ -10,7 +10,7 @@ class UserService {
 
   async getUserById(userId) {
     const user = await User.findById(userId);
-    if (!user) throw new NotFoundError();
+    if (!user) throw new NotFoundError('User not found');
     return user;
   }
 
@@ -39,20 +39,20 @@ class UserService {
     const updatedUser = await User.findByIdAndUpdate(userId, data, {
       new: true,
     });
-    if (!updatedUser) throw new NotFoundError();
+    if (!updatedUser) throw new NotFoundError('User not found');
     return updatedUser;
   }
 
   async deleteUser(userId) {
     const user = await User.findById(userId);
-    if (!user) throw new NotFoundError();
+    if (!user) throw new NotFoundError('User not found');
     for (const packingListId of user.packingLists) {
       console.log('Deleting packing list: ', packingListId);
       await packingListService.deletePackingList(packingListId);
     }
 
     const deletedUser = await User.findByIdAndDelete(userId);
-    if (!deletedUser) throw new NotFoundError();
+    if (!deletedUser) throw new NotFoundError('User not found');
     return deletedUser;
   }
 
@@ -64,7 +64,7 @@ class UserService {
       },
       { new: true },
     );
-    if (!result) throw new NotFoundError();
+    if (!result) throw new NotFoundError('User not found');
     return result;
   }
 
@@ -76,7 +76,7 @@ class UserService {
       },
       { new: true },
     );
-    if (!result) throw new NotFoundError();
+    if (!result) throw new NotFoundError('User not found');
     return result;
   }
 }

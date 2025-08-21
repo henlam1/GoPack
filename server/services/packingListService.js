@@ -10,13 +10,13 @@ class PackingListService {
 
   async getPackingListById(packingListId) {
     const packingList = await PackingList.findById(packingListId);
-    if (!packingList) throw new NotFoundError();
+    if (!packingList) throw new NotFoundError('Packing list not found');
     return packingList;
   }
 
   async addPackingList(data) {
     const newList = new PackingList(data);
-    await UserService.addPackingList(data.user, newList._id);
+    // await UserService.addPackingList(data.user, newList._id);
     return await newList.save();
   }
 
@@ -28,14 +28,14 @@ class PackingListService {
         new: true,
       },
     );
-    if (!updatedPackingList) throw new NotFoundError();
+    if (!updatedPackingList) throw new NotFoundError('Packing list not found');
     return updatedPackingList;
   }
 
   async deletePackingList(packingListId) {
     // Delete categories
     const packingList = await PackingList.findById(packingListId);
-    if (!packingList) throw new NotFoundError();
+    if (!packingList) throw new NotFoundError('Packing list not found');
     for (const categoryId of packingList.categories) {
       await CategoryService.deleteCategory(categoryId);
     }
@@ -57,7 +57,7 @@ class PackingListService {
       },
       { new: true },
     );
-    if (!result) throw new NotFoundError();
+    if (!result) throw new NotFoundError('Packing list not found');
     return result;
   }
 
@@ -69,7 +69,7 @@ class PackingListService {
       },
       { new: true },
     );
-    if (!result) throw new NotFoundError();
+    if (!result) throw new NotFoundError('Packing list not found');
     return result;
   }
 }
