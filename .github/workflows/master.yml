@@ -12,9 +12,7 @@ jobs:
     uses: ./.github/workflows/test.yml
   call-deploy-backend:
     needs: call-test
-    if: ${{ contains(join(github.event.head_commit.modified), 'server/') }}
     uses: ./.github/workflows/deploy-backend.yml
   call-deploy-frontend:
     needs: call-test
-    if: ${{ contains(join(github.event.head_commit.modified), 'client/') }}
     uses: ./.github/workflows/deploy-frontend.yml
