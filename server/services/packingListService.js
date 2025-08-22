@@ -16,7 +16,7 @@ class PackingListService {
 
   async addPackingList(data) {
     const newList = new PackingList(data);
-    // await UserService.addPackingList(data.user, newList._id);
+    await UserService.addPackingList(data.user, newList._id);
     return await newList.save();
   }
 
