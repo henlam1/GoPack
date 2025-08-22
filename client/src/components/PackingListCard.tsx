@@ -39,33 +39,44 @@ export default function PackingListCard({
   }
 
   function PackingListActions({ status }: { status: string }) {
-    return (
-      <div className="card-actions justify-end">
-        {status === 'active' && (
+    switch (status) {
+      case 'active':
+        return (
           <>
-            <button onClick={onEdit}>Edit</button>
-            <button onClick={onSoftDelete}>Trash</button>
-            <button onClick={onComplete}>Mark Complete</button>
+            <button className="btn btn-primary" onClick={onEdit}>
+              Edit
+            </button>
+            <button className="btn btn-primary" onClick={onComplete}>
+              Mark Complete
+            </button>
+            <button className="btn btn-secondary" onClick={onSoftDelete}>
+              Trash
+            </button>
           </>
-        )}
-
-        {status === 'trashed' && (
+        );
+      case 'trashed':
+        return (
           <>
-            <button onClick={onRestore}>Restore</button>
-            <button className="danger" onClick={onHardDelete}>
+            <button className="btn btn-primary" onClick={onRestore}>
+              Restore
+            </button>
+            <button className="btn btn-secondary" onClick={onHardDelete}>
               Delete Permanently
             </button>
           </>
-        )}
-
-        {status === 'completed' && (
+        );
+      case 'completed':
+        return (
           <>
-            <button onClick={onRestore}>Restore</button>
-            <button onClick={onSoftDelete}>Trash</button>
+            <button className="btn btn-primary" onClick={onRestore}>
+              Restore
+            </button>
+            <button className="btn btn-secondary" onClick={onSoftDelete}>
+              Trash
+            </button>
           </>
-        )}
-      </div>
-    );
+        );
+    }
   }
 
   return (
@@ -79,7 +90,9 @@ export default function PackingListCard({
           <p>{destination}</p>
           <p>{description}</p>
         </div>
-        <PackingListActions status={status} />
+        <div className="card-actions justify-end">
+          <PackingListActions status={status} />
+        </div>
       </div>
     </div>
   );

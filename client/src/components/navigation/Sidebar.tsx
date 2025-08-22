@@ -44,8 +44,8 @@ export default function SideBar() {
       path: privateRoutes.home,
     },
     {
-      name: 'Upcoming',
-      path: privateRoutes.packingLists.upcoming,
+      name: 'Completed',
+      path: privateRoutes.packingLists.completed,
     },
     {
       name: 'Trash',

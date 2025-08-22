@@ -14,13 +14,17 @@ export const getPackingLists = tryCatch(async (req, res) => {
     query.status = status;
   }
 
-  if (filter === 'upcoming') {
-    query.startDate = { $gte: dayjs().format('YYYY-MM-DD') };
+  if (filter === 'active') {
     query.status = 'active';
   }
 
   if (filter === 'trashed') {
     query.status = 'trashed';
+  }
+
+  if (filter === 'completed') {
+    // query.startDate = { $gte: dayjs().format('YYYY-MM-DD') };
+    query.status = 'completed';
   }
 
   console.log(query);

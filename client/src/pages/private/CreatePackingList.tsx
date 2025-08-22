@@ -11,7 +11,7 @@ import { APIError } from '../../services/errors/errorTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 
-export default function PackingListPage() {
+export default function CreatePackingListPage() {
   const methods = useForm<PackingListFormFields>({
     defaultValues: packingListDefaults,
     resolver: zodResolver(packingListSchema),
