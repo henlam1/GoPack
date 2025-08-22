@@ -48,15 +48,15 @@ test('create a new packing list', async ({ page }) => {
 
 test('read packing list details', async ({ page }) => {
   await expect(page.getByText(testPackingList.name)).toBeVisible();
-  await page.getByRole('button', { name: 'View' }).first().click();
+  await page.getByText('packingList').first().click();
   await expect(
     page.getByText(`${testPackingList.name} Packing List`),
   ).toBeVisible();
 });
 
-test('delete packing list', async ({ page }) => {
+test('trash packing list', async ({ page }) => {
   await expect(page.getByText(testPackingList.name)).toBeVisible();
-  await page.getByRole('button', { name: 'Delete' }).first().click();
+  await page.getByRole('button', { name: 'Trash' }).first().click();
   await expect(
     page.getByText(`${testPackingList.name} Packing List`),
   ).not.toBeVisible();

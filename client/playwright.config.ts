@@ -81,7 +81,7 @@ export default defineConfig({
       command: 'npm run dev',
       cwd: '.',
       port: 5173,
-      reuseExistingServer: true,
+      reuseExistingServer: false,
     },
     {
       name: 'Backend Server',
