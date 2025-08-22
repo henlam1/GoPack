@@ -25,9 +25,4 @@ export const packingListSchema = Joi.object({
       'any.required': 'Categories are required',
     }),
   status: Joi.string(),
-  user: Joi.string().hex().length(24).required().messages({
-    'string.base': 'User reference must be a string',
-    'string.hex': 'User reference must be a hex string',
-    'any.required': 'User reference is required',
-  }),
 });

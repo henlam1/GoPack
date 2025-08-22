@@ -1,52 +1,17 @@
-import { useForm } from 'react-hook-form';
-import {
-  packingListSchema,
-  PackingListFormFields,
-  packingListDefaults,
-} from '../../models/zod/packingListSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
-import privateRoutes from '../../routes/privateRoutes';
-import { usePackingListMutations } from '../../hooks/usePackingListMutations';
 import { useEffect } from 'react';
-import { APIError } from '../../services/errors/errorTypes';
+import { useFormContext } from 'react-hook-form';
 
-export default function PackingListForm({ userId }: { userId: string }) {
+interface PackingListFormProps {
+  onSubmit: () => void;
+}
+
+export default function PackingListForm({ onSubmit }: PackingListFormProps) {
   const {
     register,
     watch,
     setValue,
-    handleSubmit,
-    reset,
     formState: { errors, isSubmitting },
-    setError,
-  } = useForm<PackingListFormFields>({
-    defaultValues: packingListDefaults,
-    resolver: zodResolver(packingListSchema),
-  });
-
-  // Hooks to manage item CRUD
-  const { createPackingList } = usePackingListMutations(userId);
-  const navigate = useNavigate();
-
-  async function onSubmit(data: PackingListFormFields) {
-    const linkedData = { ...data, user: userId };
-    console.log(linkedData);
-    createPackingList.mutate(linkedData, {
-      onSuccess: (data) => {
-        console.log(data);
-        navigate(privateRoutes.packingLists.details(data._id));
-        reset();
-      },
-      onError: (error) => {
-        if (error instanceof APIError) {
-          setError('root', { message: error.message });
-        } else {
-          setError('root', { message: 'Network error' });
-        }
-      },
-    });
-  }
+  } = useFormContext();
 
   // Hooks to dynamically update date values
   const startDate = watch('startDate');
@@ -60,7 +25,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
   }, [startDate, endDate, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <label className="floating-label mb-2">
         <span>Packing List Name</span>
         <input
@@ -70,7 +35,9 @@ export default function PackingListForm({ userId }: { userId: string }) {
           className="input w-70"
         />
         {errors.name && (
-          <p className="text-error-content w-70">{errors.name.message}</p>
+          <p className="text-error-content w-70">
+            {errors.name.message as string}
+          </p>
         )}
       </label>
       <label className="floating-label mb-2">
@@ -82,7 +49,9 @@ export default function PackingListForm({ userId }: { userId: string }) {
           className="input w-70"
         />
         {errors.startDate && (
-          <p className="text-error-content w-70">{errors.startDate.message}</p>
+          <p className="text-error-content w-70">
+            {errors.startDate.message as string}
+          </p>
         )}
       </label>
       <label className="floating-label mb-2">
@@ -95,7 +64,9 @@ export default function PackingListForm({ userId }: { userId: string }) {
           className="input w-70"
         />
         {errors.endDate && (
-          <p className="text-error-content w-70">{errors.endDate.message}</p>
+          <p className="text-error-content w-70">
+            {errors.endDate.message as string}
+          </p>
         )}
       </label>
       <label className="floating-label mb-2">
@@ -108,7 +79,7 @@ export default function PackingListForm({ userId }: { userId: string }) {
         />
         {errors.destination && (
           <p className="text-error-content w-70">
-            {errors.destination.message}
+            {errors.destination.message as string}
           </p>
         )}
       </label>
@@ -122,13 +93,15 @@ export default function PackingListForm({ userId }: { userId: string }) {
         />
         {errors.description && (
           <p className="text-error-content w-70">
-            {errors.description.message}
+            {errors.description.message as string}
           </p>
         )}
       </label>
       <label className="floating-label mb-2">
         {errors.root && (
-          <p className="text-error-content w-70">{errors.root.message}</p>
+          <p className="text-error-content w-70">
+            {errors.root.message as string}
+          </p>
         )}
       </label>
       <div className="card-actions">

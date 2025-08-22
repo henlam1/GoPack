@@ -1,4 +1,4 @@
-import PackingListForm from '../../components/forms/PackingListForm';
+// import PackingListForm from '../../components/forms/PackingListForm';
 
 export default function EditPackingListPage() {
   return (
@@ -8,7 +8,7 @@ export default function EditPackingListPage() {
           <h2 className="card-title text-4xl font-bold mb-5 text-primary-content">
             Create Packing List
           </h2>
-          <PackingListForm />
+          {/* <PackingListForm /> */}
         </div>
       </div>
     </div>
