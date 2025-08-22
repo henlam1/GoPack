@@ -9,6 +9,7 @@ import RegisterPage from './pages/public/RegisterPage';
 import PrivateHomePage from './pages/private/HomePage';
 import PackingListPage from './pages/private/CreatePackingList';
 import PackingListDetailsPage from './pages/private/PackingListDetails';
+import EditPackingListPage from './pages/private/EditPackingList';
 import UpcomingPage from './pages/private/UpcomingPage';
 import TrashPage from './pages/private/TrashPage';
 import NotFound from './pages/NotFound';
@@ -35,6 +36,10 @@ export default function App() {
             <Route
               path={privateRoutes.packingLists.details(':id')}
               element={<PackingListDetailsPage />}
+            />
+            <Route
+              path={privateRoutes.packingLists.edit(':id')}
+              element={<EditPackingListPage />}
             />
             <Route
               path={privateRoutes.packingLists.upcoming}

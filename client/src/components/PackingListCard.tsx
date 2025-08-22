@@ -1,14 +1,36 @@
 import { useNavigate } from 'react-router-dom';
 import privateRoutes from '../routes/privateRoutes';
-import { deletePackingListAPI } from '../services/api/packingLists';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { formatDate } from '../utils/stringHelpers';
 
 interface CardProps {
   _id: string;
   name: string;
+  startDate: Date;
+  endDate: Date;
+  destination: string;
+  description: string;
+  status: string;
+  onEdit?: () => void;
+  onSoftDelete?: () => void;
+  onHardDelete?: () => void;
+  onRestore?: () => void;
+  onComplete?: () => void;
 }
 
-export default function PackingListCard({ _id, name }: CardProps) {
+export default function PackingListCard({
+  _id,
+  name,
+  startDate,
+  endDate,
+  destination,
+  description,
+  status,
+  onEdit,
+  onSoftDelete,
+  onHardDelete,
+  onRestore,
+  onComplete,
+}: CardProps) {
   console.log('Packing List: ', _id, name);
   const navigate = useNavigate();
 
@@ -16,42 +38,48 @@ export default function PackingListCard({ _id, name }: CardProps) {
     navigate(privateRoutes.packingLists.details(_id));
   }
 
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: deletePackingListAPI,
-    onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ['packingLists'],
-      });
-    },
-  });
+  function PackingListActions({ status }: { status: string }) {
+    return (
+      <div className="card-actions justify-end">
+        {status === 'active' && (
+          <>
+            <button onClick={onEdit}>Edit</button>
+            <button onClick={onSoftDelete}>Trash</button>
+            <button onClick={onComplete}>Mark Complete</button>
+          </>
+        )}
 
-  function handleDelete() {
-    mutate(_id);
+        {status === 'trashed' && (
+          <>
+            <button onClick={onRestore}>Restore</button>
+            <button className="danger" onClick={onHardDelete}>
+              Delete Permanently
+            </button>
+          </>
+        )}
+
+        {status === 'completed' && (
+          <>
+            <button onClick={onRestore}>Restore</button>
+            <button onClick={onSoftDelete}>Trash</button>
+          </>
+        )}
+      </div>
+    );
   }
 
   return (
-    <div className="card bg-base-100 w-96 shadow-sm basis-sm">
-      <figure>
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
-        />
-      </figure>
+    <div className="card bg-base-200 hover:bg-base-300 w-96 shadow-sm basis-sm">
       <div className="card-body">
-        <h2 className="card-title">{name}</h2>
-        <p>blah blah, we can put some random default image on top</p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary btn-sm" onClick={handleClick}>
-            View
-          </button>
-          <button
-            className="btn btn-secondary btn-sm"
-            onClick={() => handleDelete()}
-          >
-            Delete
-          </button>
+        <div className="card-info hover:cursor-pointer" onClick={handleClick}>
+          <h2 className="card-title">{name}</h2>
+          <p>
+            {formatDate(new Date(startDate))} - {formatDate(new Date(endDate))}
+          </p>
+          <p>{destination}</p>
+          <p>{description}</p>
         </div>
+        <PackingListActions status={status} />
       </div>
     </div>
   );

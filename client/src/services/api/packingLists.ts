@@ -30,7 +30,7 @@ export async function getPackingListAPI(id: string) {
 }
 
 export async function createPackingListAPI(
-  packingList: Omit<IPackingList, '_id'>,
+  packingList: Omit<IPackingList, '_id' | 'user'>,
 ) {
   const data = await apiRequest(apiRoutes.packingLists.create, {
     method: 'POST',

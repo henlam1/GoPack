@@ -1,4 +1,13 @@
-// THIS PAGE DISPLAYS TRASHED PACKING LISTS
+import PackingListContainer from '../../containers/PackingListContainer';
+
+// THIS PAGE DISPLAYS PACKING LISTS IN A ROW OF CARDS (EASY NAVIGATION)
+// CLICKING ON A CARD RE-DIRECTS YOU TO THE DETAILS PAGE
+// TODO: IMPLEMENT USER CONTEXT FOR PACKINGLIST CONTAINER TO GET PACKINGLISTIDS
 export default function TrashPage() {
-  return <div>TRASH PACKING LISTS</div>;
+  return (
+    <div className="m-4">
+      <div>TRASHED PACKING LISTS</div>;
+      <PackingListContainer />
+    </div>
+  );
 }

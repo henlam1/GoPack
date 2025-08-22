@@ -6,10 +6,7 @@ import {
   updatePackingListAPI,
 } from '../services/api/packingLists';
 
-export function usePackingListMutations(
-  userId?: string,
-  packingListId?: string,
-) {
+export function usePackingListMutations(packingListId?: string) {
   const queryClient = useQueryClient();
 
   // CRUD Mutations
@@ -17,7 +14,7 @@ export function usePackingListMutations(
     mutationFn: createPackingListAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
-        queryKey: ['user', userId],
+        queryKey: ['packingList'],
       });
     },
   });
@@ -34,7 +31,7 @@ export function usePackingListMutations(
     mutationFn: deletePackingListAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
-        queryKey: ['user', userId],
+        queryKey: ['packingList'],
       });
     },
   });

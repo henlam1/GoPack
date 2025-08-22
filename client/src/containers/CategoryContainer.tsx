@@ -10,13 +10,13 @@ import { getCategoryAPI } from '../services/api/categories';
 // TODO: Modify cached data on API calls.
 // Currently, we're invalidating queries and refetching on API calls
 
-interface CategoryCoatinerProps {
+interface CategoryContainerProps {
   categoryIds: string[];
 }
 
 export default function CategoryContainer({
   categoryIds,
-}: CategoryCoatinerProps) {
+}: CategoryContainerProps) {
   const categoryQueries = categoryIds.map((categoryId) => ({
     queryKey: ['category', categoryId],
     queryFn: () => getCategoryAPI(categoryId),

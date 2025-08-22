@@ -3,6 +3,7 @@ const privateRoutes = {
   packingLists: {
     create: '/packing-lists/new',
     details: (id: string) => `/packing-lists/${id}`,
+    edit: (id: string) => `/packing-lists/${id}/edit`,
     upcoming: '/packing-lists/upcoming',
     trash: '/packing-lists/trash',
   },
