@@ -13,6 +13,10 @@ jobs:
   call-deploy-backend:
     needs: call-test
     uses: ./.github/workflows/deploy-backend.yml
+    secrets:
+      RENDER_BACKEND_HOOK: ${{ secrets.RENDER_BACKEND_HOOK }}
   call-deploy-frontend:
     needs: call-test
     uses: ./.github/workflows/deploy-frontend.yml
+    secrets:
+      RENDER_FRONTEND_HOOK: ${{ secrets.RENDER_FRONTEND_HOOK }}
