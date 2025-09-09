@@ -16,11 +16,17 @@ ATLAS_URI=<add the mongodb intance url here>
 ```
 cd client
 npm install
-npm run dev
 ```
 #### Backend
 ```
 cd server
 npm install
+```
+#### Project Root
+```
+npm install
 npm run dev
 ```
+#### Hosting
+This app is curerntly hosted on Render
+https://gopack-client.onrender.com
