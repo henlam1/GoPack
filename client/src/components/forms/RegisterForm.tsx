@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { registerAPI } from '../../services/api/users.ts';
 import { APIError } from '../../services/errors/errorTypes.ts';
 import publicRoutes from '../../routes/publicRoutes.ts';
+import { FormInput } from './FormInput.tsx';
 
 export default function RegisterForm() {
   const {
@@ -40,57 +41,54 @@ export default function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label className="floating-label mb-2">
-        <span>Username</span>
-        <input
-          type="text"
-          placeholder="username"
-          className="input w-70"
-          {...register('username')}
-        />
-        {errors.username && (
-          <p className="text-error-content w-70">{errors.username.message}</p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        <span>Password</span>
-        <input
-          type="password"
-          placeholder="password"
-          className="input w-70"
-          {...register('password')}
-        />
-        {errors.password && (
-          <p className="text-error-content w-70">{errors.password.message}</p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        <span>Email</span>
-        <input
-          type="email"
-          placeholder="mail@site.com"
-          className="input w-70"
-          {...register('email')}
-        />
-        {errors.email && (
-          <p className="text-error-content w-70">{errors.email.message}</p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        {errors.root && (
-          <p className="text-error-content w-70">{errors.root.message}</p>
-        )}
-      </label>
-      <div className="card-actions">
-        <button
-          disabled={isSubmitting}
-          className="btn btn-accent"
-          type="submit"
-        >
-          {isSubmitting ? 'Loading...' : 'Register'}
-        </button>
+    <div className="flex min-h-screen items-center justify-center bg-base-200">
+      <div className="card w-full max-w-sm shadow-xl bg-base-100">
+        <div className="card-body">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="card p-6 bg-base-100 max-w-md mx-auto"
+          >
+            <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
+
+            <FormInput
+              label="Username"
+              placeholder="username"
+              {...register('username')}
+              error={errors.username?.message}
+            />
+
+            <FormInput
+              label="Password"
+              type="password"
+              placeholder="password"
+              {...register('password')}
+              error={errors.password?.message}
+            />
+
+            <FormInput
+              label="Email"
+              type="text"
+              placeholder="mail@site.com"
+              {...register('email')}
+              error={errors.email?.message}
+            />
+
+            {errors.root && (
+              <p className="text-error text-center mb-2">
+                {errors.root.message}
+              </p>
+            )}
+
+            <button
+              disabled={isSubmitting}
+              className="btn btn-accent"
+              type="submit"
+            >
+              {isSubmitting ? 'Loading...' : 'Register'}
+            </button>
+          </form>
+        </div>
       </div>
-    </form>
+    </div>
   );
 }

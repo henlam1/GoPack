@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import privateRoutes from '../../routes/privateRoutes';
 import { APIError } from '../../services/errors/errorTypes';
 import { useAuth } from '../../hooks/useAuth';
+import { FormInput } from './FormInput';
 
 export default function LoginForm() {
   const {
@@ -35,50 +36,51 @@ export default function LoginForm() {
     },
   });
 
-  async function onSubmit(data: LoginFormFields) {
+  const onSubmit = (data: LoginFormFields) => {
     mutate(data);
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label className="floating-label mb-2">
-        <span>Username</span>
-        <input
-          type="text"
-          placeholder="username"
-          className="input w-70"
-          {...register('username')}
-        />
-        {errors.username && (
-          <p className="text-error-content w-70">{errors.username.message}</p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        <span>Password</span>
-        <input
-          type="password"
-          placeholder="password"
-          className="input w-70"
-          {...register('password')}
-        />
-        {errors.password && (
-          <p className="text-error-content w-70">{errors.password.message}</p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        {errors.root && (
-          <p className="text-error-content w-70">{errors.root.message}</p>
-        )}
-      </label>
-      <div className="card-actions">
-        <button
-          disabled={isSubmitting}
-          className="btn btn-accent"
-          type="submit"
-        >
-          {isSubmitting ? 'Loading...' : 'Login'}
-        </button>
+    <div className="flex min-h-screen items-center justify-center bg-base-200">
+      <div className="card w-full max-w-sm shadow-xl bg-base-100">
+        <div className="card-body">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="card p-6 bg-base-100 max-w-md mx-auto"
+          >
+            <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
+
+            <FormInput
+              label="Username"
+              placeholder="username"
+              {...register('username')}
+              error={errors.username?.message}
+            />
+
+            <FormInput
+              label="Password"
+              type="password"
+              placeholder="password"
+              {...register('password')}
+              error={errors.password?.message}
+            />
+
+            {errors.root && (
+              <p className="text-error text-center mb-2">
+                {errors.root.message}
+              </p>
+            )}
+
+            <button
+              disabled={isSubmitting}
+              className="btn btn-accent"
+              type="submit"
+            >
+              {isSubmitting ? 'Loading...' : 'Login'}
+            </button>
+          </form>
+        </div>
       </div>
-    </form>
+    </div>
   );
 }
