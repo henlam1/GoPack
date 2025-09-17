@@ -1,5 +1,5 @@
 # GoPack! App
-GoPack! is a MERN stack tripl planning app that will help you create, organize, and categorize your packing lists for your next adventures!
+GoPack! is a MERN stack trip planning app that will help you create, organize, and categorize your packing lists for your next adventures!
 
 ## 🚀 Live Demo
 [Try it here](https://gopack-client.onrender.com)
