@@ -3,7 +3,7 @@ import { useState } from 'react';
 const themes = ['light', 'dark'];
 
 export default function ThemeButton() {
-  const [themeIndex, setThemeIndex] = useState(0);
+  const [themeIndex, setThemeIndex] = useState(1);
   const currentTheme = themes[themeIndex];
 
   const handleThemeChange = () => {
