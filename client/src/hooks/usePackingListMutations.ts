@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   createPackingListAPI,
   deletePackingListAPI,
-  getPackingListAPI,
   updatePackingListAPI,
 } from '../services/api/packingLists';
 
@@ -18,7 +17,7 @@ export function usePackingListMutations(packingListId?: string) {
       });
     },
   });
-  const readPackingList = useMutation({ mutationFn: getPackingListAPI });
+
   const updatePackingList = useMutation({
     mutationFn: updatePackingListAPI,
     onSuccess: () => {
@@ -27,6 +26,7 @@ export function usePackingListMutations(packingListId?: string) {
       });
     },
   });
+
   const deletePackingList = useMutation({
     mutationFn: deletePackingListAPI,
     onSuccess: () => {
@@ -38,7 +38,6 @@ export function usePackingListMutations(packingListId?: string) {
 
   return {
     createPackingList,
-    readPackingList,
     updatePackingList,
     deletePackingList,
   };

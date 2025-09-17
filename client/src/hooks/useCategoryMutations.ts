@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   createCategoryAPI,
   deleteCategoryAPI,
-  getCategoryAPI,
   updateCategoryAPI,
 } from '../services/api/categories';
 
@@ -21,7 +20,7 @@ export function useCategoryMutations(
       });
     },
   });
-  const readCategory = useMutation({ mutationFn: getCategoryAPI });
+
   const updateCategory = useMutation({
     mutationFn: updateCategoryAPI,
     onSuccess: () => {
@@ -30,6 +29,7 @@ export function useCategoryMutations(
       });
     },
   });
+
   const deleteCategory = useMutation({
     mutationFn: deleteCategoryAPI,
     onSuccess: () => {
@@ -41,7 +41,6 @@ export function useCategoryMutations(
 
   return {
     createCategory,
-    readCategory,
     updateCategory,
     deleteCategory,
   };

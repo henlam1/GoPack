@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   createItemAPI,
-  getItemAPI,
   updateItemAPI,
   deleteItemAPI,
 } from '../services/api/items';
@@ -18,9 +17,7 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
       });
     },
   });
-  const readItem = useMutation({
-    mutationFn: getItemAPI,
-  });
+
   const updateItem = useMutation({
     mutationFn: updateItemAPI,
     onSuccess: () => {
@@ -29,6 +26,7 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
       });
     },
   });
+
   const deleteItem = useMutation({
     mutationFn: deleteItemAPI,
     onSuccess: () => {
@@ -38,5 +36,5 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
     },
   });
 
-  return { createItem, readItem, updateItem, deleteItem };
+  return { createItem, updateItem, deleteItem };
 }
