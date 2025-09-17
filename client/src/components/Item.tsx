@@ -38,26 +38,43 @@ export default function Item({ _id, packed, name, quantity, category }: IItem) {
   }
 
   return (
-    <>
-      <input
-        type="text"
-        name="name"
-        placeholder="Name"
-        value={item.name}
-        onChange={handleChange}
-        className="input"
-      />
-      <input
-        type="number"
-        name="quantity"
-        placeholder="#"
-        value={item.quantity}
-        onChange={handleChange}
-        className="input"
-      />
-      <button className="btn btn-sm btn-error" onClick={() => handleDelete()}>
-        Delete
-      </button>
-    </>
+    <tr key={_id}>
+      <td>
+        <input
+          name="packed"
+          type="checkbox"
+          className="checkbox checkbox-primary"
+          checked={item.packed}
+          onChange={handleChange}
+        />
+      </td>
+      <td>
+        <input
+          name="name"
+          type="text"
+          className={
+            item.packed
+              ? 'line-through text-gray-400 input input-bordered w-full'
+              : 'input input-bordered w-full'
+          }
+          value={item.name}
+          onChange={handleChange}
+        />
+      </td>
+      <td>
+        <input
+          name="quantity"
+          type="text"
+          className="input input-bordered w-full"
+          value={item.quantity}
+          onChange={handleChange}
+        />
+      </td>
+      <td>
+        <button className="btn btn-sm btn-error" onClick={() => handleDelete()}>
+          Delete
+        </button>
+      </td>
+    </tr>
   );
 }

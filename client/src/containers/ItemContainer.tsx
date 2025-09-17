@@ -5,7 +5,7 @@ import { useQueries } from '@tanstack/react-query';
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
 // ItemContainer => Fetch Items => Render Item(props)
-// This is used in the packing list page to display each item on the accordian dropdown
+// This is used in the packing list page to display each item on the accordion dropdown
 
 // TODO: Modify cached data on API calls.
 // Currently, we're invalidating queries and refetching on API calls
@@ -34,19 +34,10 @@ export default function ItemContainer({ itemIds }: ItemContainerProps) {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4">
-      <p className="text-xl ml-2">Item</p>
-      <p className="text-xl ml-2">Qty</p>
-      <p className="text-xl">Actions</p>
-      {results.data.length > 0 &&
-        results.data.map((item: IItem) => {
-          return <Item {...item} key={item._id} />;
-        })}
-      {results.data.length == 0 && (
-        <div className="col-span-full mx-auto bg-accent text-accent-content">
-          There are no items on this list yet!
-        </div>
-      )}
-    </div>
+    <>
+      {results.data.map((item: IItem) => (
+        <Item key={item._id} {...item} />
+      ))}
+    </>
   );
 }

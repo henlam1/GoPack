@@ -30,7 +30,6 @@ export default function CreatePackingListPage() {
     };
     createPackingList.mutate(transformedData, {
       onSuccess: (data) => {
-        console.log(data);
         navigate(privateRoutes.packingLists.details(data._id));
         reset();
       },

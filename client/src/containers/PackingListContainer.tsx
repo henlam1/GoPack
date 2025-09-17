@@ -36,6 +36,7 @@ export default function PackingListContainer({
         {packingLists.map((packingList: IPackingList) => {
           return (
             <PackingListCard
+              key={packingList._id}
               {...packingList}
               onEdit={() => {
                 navigate(privateRoutes.packingLists.edit(packingList._id));

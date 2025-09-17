@@ -20,17 +20,24 @@ export default function Category({ _id, name, items, packingList }: ICategory) {
   }
 
   return (
-    <div className="card card-border border-primary shadow-sm w-96">
-      <div className="card-body">
-        <h2 className="card-title text-3xl text-primary-content">
-          {category.name}
-        </h2>
-        <ItemContainer itemIds={items as string[]} />
-        <ItemForm categoryId={_id} />
+    <div
+      key={_id}
+      className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
+    >
+      {/* Hidden checkbox controls toggle */}
+      <input type="checkbox" className="peer" />
+
+      {/* Header */}
+      <div className="collapse-title flex justify-between items-center">
+        <span>{category.name}</span>
       </div>
-      <button className="btn btn-sm btn-error" onClick={() => handleDelete()}>
-        Delete
-      </button>
+
+      {/* Content */}
+      <div className="collapse-content">
+        <ItemForm categoryId={_id}>
+          <ItemContainer itemIds={items as string[]} />
+        </ItemForm>
+      </div>
     </div>
   );
 }

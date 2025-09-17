@@ -18,7 +18,7 @@ export default function PackingListDetailsPage() {
     isError,
   } = useQuery({
     queryKey: ['packingList', id],
-    queryFn: () => getPackingListAPI(id), // Ideally getUserPackingLists or something
+    queryFn: () => getPackingListAPI(id),
   });
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
@@ -26,11 +26,7 @@ export default function PackingListDetailsPage() {
   return (
     <div className="m-4">
       <p className="text-5xl font-semibold tracking-tight sm:text-7xl mb-10">
-        <span className="font-bold text-primary-content">
-          {' '}
-          {packingList.name}{' '}
-        </span>
-        Packing List
+        <span className="font-bold">{packingList.name}</span>
       </p>
       <CategoryForm packingListId={id} />
       <CategoryContainer categoryIds={packingList.categories} />

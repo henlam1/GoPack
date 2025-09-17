@@ -10,6 +10,8 @@ export default function PackingListForm({ onSubmit }: PackingListFormProps) {
     register,
     watch,
     setValue,
+    // setError,
+    // reset,
     formState: { errors, isSubmitting },
   } = useFormContext();
 
