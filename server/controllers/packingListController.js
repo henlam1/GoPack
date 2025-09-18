@@ -1,6 +1,5 @@
 import tryCatch from '../utils/tryCatch.js';
 import PackingListService from '../services/packingListService.js';
-import dayjs from 'dayjs';
 
 export const getPackingLists = tryCatch(async (req, res) => {
   const { status, filter } = req.query;

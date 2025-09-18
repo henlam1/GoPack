@@ -1,17 +1,22 @@
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormInput } from './FormInput';
 
 interface PackingListFormProps {
   onSubmit: () => void;
+  mode?: string;
 }
 
-export default function PackingListForm({ onSubmit }: PackingListFormProps) {
+export default function PackingListForm({
+  onSubmit,
+  mode = 'creating',
+}: PackingListFormProps) {
+  const buttonText =
+    mode === 'editing' ? 'Edit Packing List' : 'Create Packing List';
   const {
     register,
     watch,
     setValue,
-    // setError,
-    // reset,
     formState: { errors, isSubmitting },
   } = useFormContext();
 
@@ -28,91 +33,54 @@ export default function PackingListForm({ onSubmit }: PackingListFormProps) {
 
   return (
     <form onSubmit={onSubmit}>
-      <label className="floating-label mb-2">
-        <span>Packing List Name</span>
-        <input
-          {...register('name')}
-          type="text"
-          placeholder="Packing List Name"
-          className="input w-70"
-        />
-        {errors.name && (
-          <p className="text-error-content w-70">
-            {errors.name.message as string}
-          </p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        <span>Start Date</span>
-        <input
-          {...register('startDate')}
-          type="date"
-          placeholder="Start Date"
-          className="input w-70"
-        />
-        {errors.startDate && (
-          <p className="text-error-content w-70">
-            {errors.startDate.message as string}
-          </p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        <span>End Date</span>
-        <input
-          {...register('endDate')}
-          type="date"
-          min={watch('startDate')}
-          placeholder="End Date"
-          className="input w-70"
-        />
-        {errors.endDate && (
-          <p className="text-error-content w-70">
-            {errors.endDate.message as string}
-          </p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        <span>Destination</span>
-        <input
-          {...register('destination')}
-          type="text"
-          placeholder="Destination"
-          className="input w-70"
-        />
-        {errors.destination && (
-          <p className="text-error-content w-70">
-            {errors.destination.message as string}
-          </p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        <span>Description</span>
-        <input
-          {...register('description')}
-          type="text"
-          placeholder="Description"
-          className="input w-70"
-        />
-        {errors.description && (
-          <p className="text-error-content w-70">
-            {errors.description.message as string}
-          </p>
-        )}
-      </label>
-      <label className="floating-label mb-2">
-        {errors.root && (
-          <p className="text-error-content w-70">
-            {errors.root.message as string}
-          </p>
-        )}
-      </label>
+      <FormInput
+        label="Packing List Name"
+        placeholder="packing list name"
+        {...register('name')}
+        error={errors.name?.message as string}
+      />
+
+      <FormInput
+        type="date"
+        label="Start Date"
+        placeholder="start date"
+        {...register('startDate')}
+        error={errors.startDate?.message as string}
+      />
+
+      <FormInput
+        type="date"
+        label="End Date"
+        placeholder="end date"
+        {...register('endDate')}
+        error={errors.endDate?.message as string}
+      />
+
+      <FormInput
+        label="Destination"
+        placeholder="destination"
+        {...register('destination')}
+        error={errors.destination?.message as string}
+      />
+
+      <FormInput
+        label="Description"
+        placeholder="description"
+        {...register('description')}
+        error={errors.description?.message as string}
+      />
+
+      {errors.root && (
+        <p className="text-error text-center mb-2">{errors.root.message}</p>
+      )}
+
       <div className="card-actions">
         <button
           disabled={isSubmitting}
           className="btn btn-accent"
           type="submit"
         >
-          {isSubmitting ? 'Loading...' : 'Create Packing List'}
+          {isSubmitting ? 'Loading...' : buttonText}
         </button>
       </div>
     </form>

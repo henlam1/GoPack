@@ -15,12 +15,11 @@ import React from 'react';
 import { formatDate } from '../../utils/stringHelpers';
 
 export default function EditPackingListPage() {
-  // Hooks to manage item CRUD
-  const { createPackingList } = usePackingListMutations();
+  const { updatePackingList } = usePackingListMutations();
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
   // 1. Fetch the packing list by ID
-  const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError } = useQuery({
     queryKey: ['packingList', id],
     queryFn: () => getPackingListAPI(id!),
@@ -45,38 +44,43 @@ export default function EditPackingListPage() {
   // 3. Once data arrives, update the form with reset()
   React.useEffect(() => {
     if (data) {
-      console.log(data);
-      const transformedData = {
+      reset({
         ...data,
         startDate: formatDate(new Date(data.startDate)),
         endDate: formatDate(new Date(data.endDate)),
-      };
-      methods.reset(transformedData);
+      });
     }
-  }, [data, methods]);
+  }, [data, reset]);
 
   if (isLoading) return <p>Loading packing list...</p>;
   if (isError) return <p>Could not load packing list.</p>;
 
-  const handleSubmit = methods.handleSubmit((data) => {
+  const handleSubmit = methods.handleSubmit((formData) => {
     const transformedData = {
-      ...data,
-      startDate: new Date(data.startDate),
-      endDate: new Date(data.endDate),
+      ...formData,
+      startDate: new Date(formData.startDate),
+      endDate: new Date(formData.endDate),
+      _id: data._id,
+      user: data.user,
     };
-    createPackingList.mutate(transformedData, {
-      onSuccess: (data) => {
-        navigate(privateRoutes.packingLists.details(data._id));
-        reset();
+    updatePackingList.mutate(
+      {
+        id: data._id,
+        update: transformedData,
       },
-      onError: (error) => {
-        if (error instanceof APIError) {
-          setError('root', { message: error.message });
-        } else {
-          setError('root', { message: 'Network error' });
-        }
+      {
+        onSuccess: () => {
+          navigate(privateRoutes.home);
+        },
+        onError: (error) => {
+          if (error instanceof APIError) {
+            setError('root', { message: error.message });
+          } else {
+            setError('root', { message: 'Network error' });
+          }
+        },
       },
-    });
+    );
   });
 
   return (
@@ -87,7 +91,7 @@ export default function EditPackingListPage() {
             Edit Packing List
           </h2>
           <FormProvider {...methods}>
-            <PackingListForm onSubmit={handleSubmit} />
+            <PackingListForm onSubmit={handleSubmit} mode="editing" />
           </FormProvider>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   createPackingListAPI,
-  deletePackingListAPI,
   updatePackingListAPI,
+  deletePackingListAPI,
 } from '../services/api/packingLists';
 
 export function usePackingListMutations(packingListId?: string) {
@@ -13,7 +13,7 @@ export function usePackingListMutations(packingListId?: string) {
     mutationFn: createPackingListAPI,
     onSuccess: () => {
       return queryClient.invalidateQueries({
-        queryKey: ['packingList'],
+        queryKey: ['packingLists'],
       });
     },
   });

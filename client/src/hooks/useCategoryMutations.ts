@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   createCategoryAPI,
-  deleteCategoryAPI,
   updateCategoryAPI,
+  deleteCategoryAPI,
 } from '../services/api/categories';
 
 export function useCategoryMutations(
