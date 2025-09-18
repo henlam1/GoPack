@@ -90,7 +90,7 @@ export default function PackingListCard({
           <p>{destination}</p>
           <p>{description}</p>
         </div>
-        <div className="card-actions justify-end">
+        <div className="card-actions mt-auto justify-end">
           <PackingListActions status={status} />
         </div>
       </div>
