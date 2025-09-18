@@ -38,6 +38,10 @@ export default function Category({ _id, name, items, packingList }: ICategory) {
           <ItemContainer itemIds={items as string[]} />
         </ItemForm>
       </div>
+
+      <button className="btn btn-sm btn-error" onClick={() => handleDelete()}>
+        Delete Category
+      </button>
     </div>
   );
 }
