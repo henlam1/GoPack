@@ -1,5 +1,8 @@
 on:
   workflow_call:
+    secrets:
+      RENDER_FRONTEND_HOOK:
+        required: true
 
 jobs:
   build:
