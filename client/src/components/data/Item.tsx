@@ -1,6 +1,6 @@
-import IItem from '../models/ItemModel';
+import IItem from '../../models/ItemModel';
 import { useState } from 'react';
-import { useItemMutations } from '../hooks/useItemMutations';
+import { useItemMutations } from '../../hooks/useItemMutations';
 
 export default function Item({ _id, packed, name, quantity, category }: IItem) {
   // The old state is retained even after updates

@@ -1,8 +1,8 @@
-import ItemContainer from '../containers/ItemContainer';
-import ICategory from '../models/CategoryModel';
-import ItemForm from './forms/ItemForm';
+import ItemContainer from '../../containers/ItemContainer';
+import ICategory from '../../models/CategoryModel';
+import ItemForm from '../forms/ItemForm';
 import { useState } from 'react';
-import { useCategoryMutations } from '../hooks/useCategoryMutations';
+import { useCategoryMutations } from '../../hooks/useCategoryMutations';
 
 export default function Category({ _id, name, items, packingList }: ICategory) {
   console.log('Category: ', name, items, packingList);

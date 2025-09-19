@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import privateRoutes from '../routes/privateRoutes';
-import { formatDate } from '../utils/stringHelpers';
+import privateRoutes from '../../routes/privateRoutes';
+import { formatDate } from '../../utils/stringHelpers';
+import Progress from '../feedback/Progress';
 
 interface CardProps {
   _id: string;
@@ -67,15 +68,16 @@ export default function PackingListCard({
     return (
       <div className="flex items-center justify-between w-full">
         {/* Progress bar placeholder */}
-        <div className="flex-1 mr-2">
-          <div className="h-2 bg-base-300 rounded-full overflow-hidden">
-            <div className="h-2 bg-primary rounded-full w-1/2" />
-          </div>
+        <div className="flex-1 mr-2 w-1/2">
+          <Progress />
         </div>
 
         {/* Ellipsis menu */}
         <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle">
+          <label
+            tabIndex={0}
+            className="btn btn-ghost btn-circle bg-gray-700 hover:bg-gray-800"
+          >
             ⋮
           </label>
           <ul
