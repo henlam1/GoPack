@@ -59,18 +59,18 @@ export const loginUser = tryCatch(async (req, res) => {
     throw new AuthError();
   }
 
-  //   create JWT tokens
+  // Create JWT tokens
   const accessToken = TokenService.generateAccessToken({
     userId: user._id,
     userEmail: user.email,
   });
   const refreshToken = TokenService.generateRefreshToken({ userId: user._id });
 
-  //   Attach HTTP cookies
+  // Attach HTTP cookies
   TokenService.setAccessToken(res, accessToken);
   TokenService.setRefreshToken(res, refreshToken);
 
-  //   return success response
+  // Return success response
   res.status(200).send({
     message: 'Login Successful',
     email: user.email,

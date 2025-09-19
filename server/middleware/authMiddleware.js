@@ -7,19 +7,21 @@ import {
 const JWT_SECRET = process.env.JWT_SECRET || 'RANDOM-TOKEN';
 
 const authenticateToken = (req, res, next) => {
-  const token = req.cookies.accessToken;
+  const accessToken = req.cookies.accessToken;
 
-  if (!token) {
+  if (!accessToken) {
     throw new MissingAccessTokenError();
   }
 
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(accessToken, JWT_SECRET, (err, decoded) => {
     if (err) {
       throw new InvalidAccessTokenError();
     }
+
+    const { userId, userEmail } = decoded;
     req.user = {
-      userId: decoded.userId,
-      userEmail: decoded.userEmail,
+      userId: userId,
+      userEmail: userEmail,
     };
     next();
   });

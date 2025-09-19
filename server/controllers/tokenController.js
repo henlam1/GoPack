@@ -1,4 +1,5 @@
 import tryCatch from '../utils/tryCatch.js';
+import UserService from '../services/userService.js';
 import TokenService from '../services/tokenService.js';
 import jwt from 'jsonwebtoken';
 import {
@@ -15,13 +16,19 @@ export const refreshToken = tryCatch(async (req, res) => {
     throw new MissingRefreshTokenError();
   }
 
-  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, user) => {
+  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, async (err, decoded) => {
     if (err) {
       throw new InvalidRefreshTokenError();
     }
 
+    // Get user info
+    const user = await UserService.getUserById(decoded.userId);
+
     // Create new access token
-    const accessToken = TokenService.generateAccessToken({ userId: user._id });
+    const accessToken = TokenService.generateAccessToken({
+      userId: user._id,
+      userEmail: user.email,
+    });
 
     // Set new access token cookie
     TokenService.setAccessToken(res, accessToken);

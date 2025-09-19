@@ -35,7 +35,7 @@ class TokenService {
       httpOnly: true,
       sameSite: this.getSameSite(),
       secure: true,
-      path: '/api/tokens/refresh', // Only sent to the endpoint that re-generates refresh tokens
+      path: '/api/tokens/refresh', // Only sent to the endpoint that re-generates access tokens
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
   }
