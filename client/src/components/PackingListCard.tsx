@@ -80,17 +80,34 @@ export default function PackingListCard({
   }
 
   return (
-    <div className="card bg-base-200 hover:bg-base-300 w-96 shadow-sm basis-sm">
-      <div className="card-body">
-        <div className="card-info hover:cursor-pointer" onClick={handleClick}>
-          <h2 className="card-title">{name}</h2>
-          <p>
-            {formatDate(new Date(startDate))} - {formatDate(new Date(endDate))}
+    <div className="card bg-base-200 hover:bg-base-300 w-full shadow-sm">
+      <div className="card-body flex flex-col">
+        <div
+          className="card-info hover:cursor-pointer space-y-2"
+          onClick={handleClick}
+        >
+          {/* Title - most important */}
+          <h2 className="card-title text-xl font-semibold">{name}</h2>
+
+          {/* Meta info - subtle secondary text */}
+          <div className="text-sm text-gray-300 space-y-1">
+            <p>
+              {formatDate(new Date(startDate))} –{' '}
+              {formatDate(new Date(endDate))}
+            </p>
+            <p className="font-medium text-gray-400">
+              {destination || 'No destination'}
+            </p>
+          </div>
+
+          {/* Description - tertiary */}
+          <p className="text-sm text-gray-500 line-clamp-2">
+            {description || 'No description'}
           </p>
-          <p>{destination}</p>
-          <p>{description}</p>
         </div>
-        <div className="card-actions mt-auto justify-end">
+
+        {/* Actions pinned at bottom */}
+        <div className="card-actions mt-auto justify-end pt-4 border-t border-gray-300/30">
           <PackingListActions status={status} />
         </div>
       </div>
