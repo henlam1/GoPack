@@ -10,11 +10,11 @@ interface CardProps {
   destination: string;
   description: string;
   status: string;
-  onEdit?: () => void;
-  onSoftDelete?: () => void;
-  onHardDelete?: () => void;
-  onRestore?: () => void;
-  onComplete?: () => void;
+  onEdit: () => void;
+  onSoftDelete: () => void;
+  onHardDelete: () => void;
+  onRestore: () => void;
+  onComplete: () => void;
 }
 
 export default function PackingListCard({
@@ -38,45 +38,68 @@ export default function PackingListCard({
     navigate(privateRoutes.packingLists.details(_id));
   }
 
+  const actionsMap: Record<
+    string,
+    {
+      label: string;
+      type?: string;
+      handler: () => void;
+      destructive?: boolean;
+    }[]
+  > = {
+    active: [
+      { label: 'Edit', handler: onEdit },
+      { label: 'Mark Complete', handler: onComplete },
+      { label: 'Trash', handler: onSoftDelete, destructive: true },
+    ],
+    trashed: [
+      { label: 'Restore', handler: onRestore },
+      { label: 'Delete Forever', handler: onHardDelete, destructive: true },
+    ],
+    completed: [
+      { label: 'Restore', handler: onRestore },
+      { label: 'Trash', handler: onSoftDelete, destructive: true },
+    ],
+  };
+
   function PackingListActions({ status }: { status: string }) {
-    switch (status) {
-      case 'active':
-        return (
-          <>
-            <button className="btn btn-primary" onClick={onEdit}>
-              Edit
-            </button>
-            <button className="btn btn-primary" onClick={onComplete}>
-              Mark Complete
-            </button>
-            <button className="btn btn-secondary" onClick={onSoftDelete}>
-              Trash
-            </button>
-          </>
-        );
-      case 'trashed':
-        return (
-          <>
-            <button className="btn btn-primary" onClick={onRestore}>
-              Restore
-            </button>
-            <button className="btn btn-secondary" onClick={onHardDelete}>
-              Delete Permanently
-            </button>
-          </>
-        );
-      case 'completed':
-        return (
-          <>
-            <button className="btn btn-primary" onClick={onRestore}>
-              Restore
-            </button>
-            <button className="btn btn-secondary" onClick={onSoftDelete}>
-              Trash
-            </button>
-          </>
-        );
-    }
+    const actions = actionsMap[status] || [];
+    return (
+      <div className="flex items-center justify-between w-full">
+        {/* Progress bar placeholder */}
+        <div className="flex-1 mr-2">
+          <div className="h-2 bg-base-300 rounded-full overflow-hidden">
+            <div className="h-2 bg-primary rounded-full w-1/2" />
+          </div>
+        </div>
+
+        {/* Ellipsis menu */}
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle">
+            ⋮
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-gray-700 rounded-box w-40"
+          >
+            {actions.map((action, i) => (
+              <li key={i}>
+                <a
+                  className={`${
+                    action.destructive
+                      ? 'text-red-400 font-semibold'
+                      : 'text-gray-100'
+                  } hover:bg-gray-500`}
+                  onClick={action.handler}
+                >
+                  {action.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
   }
 
   return (
