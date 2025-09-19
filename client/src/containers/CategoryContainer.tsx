@@ -1,5 +1,5 @@
 import { useQueries } from '@tanstack/react-query';
-import Category from '../components/Category';
+import Category from '../components/data/Category';
 import { getCategoryAPI } from '../services/api/categories';
 // import { CategoryContextProvider } from '../context/CategoryContext.js';
 

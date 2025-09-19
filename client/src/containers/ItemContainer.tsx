@@ -1,5 +1,5 @@
 import IItem from '../models/ItemModel';
-import Item from '../components/Item';
+import Item from '../components/data/Item';
 import { getItemAPI } from '../services/api/items';
 import { useQueries } from '@tanstack/react-query';
 
