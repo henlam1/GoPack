@@ -28,7 +28,7 @@ export default function QueryStateWrapper({
     }
   }, [isFetching]);
 
-  if (isFetching && showSkeleton) {
+  if (showSkeleton) {
     return (
       <div className="max-w-6xl mx-auto px-4">
         {skeleton || <p>Loading...</p>}
