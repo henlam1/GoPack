@@ -84,17 +84,8 @@ export default function EditPackingListPage() {
   });
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="card card-border bg-primary w-96 shadow-lg">
-        <div className="card-body items-center">
-          <h2 className="card-title text-4xl font-bold mb-5 text-primary-content">
-            Edit Packing List
-          </h2>
-          <FormProvider {...methods}>
-            <PackingListForm onSubmit={handleSubmit} mode="editing" />
-          </FormProvider>
-        </div>
-      </div>
-    </div>
+    <FormProvider {...methods}>
+      <PackingListForm title="Edit Packing List" onSubmit={handleSubmit} />
+    </FormProvider>
   );
 }

@@ -44,17 +44,8 @@ export default function CreatePackingListPage() {
   });
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="card card-border bg-primary w-96 shadow-lg">
-        <div className="card-body items-center">
-          <h2 className="card-title text-4xl font-bold mb-5 text-primary-content">
-            Create Packing List
-          </h2>
-          <FormProvider {...methods}>
-            <PackingListForm onSubmit={handleSubmit} />
-          </FormProvider>
-        </div>
-      </div>
-    </div>
+    <FormProvider {...methods}>
+      <PackingListForm title="Create Packing List" onSubmit={handleSubmit} />
+    </FormProvider>
   );
 }

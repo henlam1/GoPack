@@ -81,7 +81,7 @@ export default function RegisterForm() {
 
             <button
               disabled={isSubmitting}
-              className="btn btn-accent"
+              className="btn btn-accent mt-6"
               type="submit"
             >
               {isSubmitting ? 'Loading...' : 'Register'}

@@ -3,16 +3,14 @@ import { useFormContext } from 'react-hook-form';
 import { FormInput } from './FormInput';
 
 interface PackingListFormProps {
+  title: string;
   onSubmit: () => void;
-  mode?: string;
 }
 
 export default function PackingListForm({
+  title,
   onSubmit,
-  mode = 'creating',
 }: PackingListFormProps) {
-  const buttonText =
-    mode === 'editing' ? 'Edit Packing List' : 'Create Packing List';
   const {
     register,
     watch,
@@ -32,57 +30,67 @@ export default function PackingListForm({
   }, [startDate, endDate, setValue]);
 
   return (
-    <form onSubmit={onSubmit}>
-      <FormInput
-        label="Packing List Name"
-        placeholder="packing list name"
-        {...register('name')}
-        error={errors.name?.message as string}
-      />
+    <div className="flex min-h-screen items-center justify-center bg-base-300">
+      <div className="card w-full max-w-sm shadow-xl bg-base-100">
+        <div className="card-body">
+          <form
+            onSubmit={onSubmit}
+            className="card p-6 bg-base-100 max-w-md mx-auto"
+          >
+            <h2 className="text-2xl font-bold text-center mb-4">{title}</h2>
+            <FormInput
+              label="Packing List Name"
+              placeholder="packing list name"
+              {...register('name')}
+              error={errors.name?.message as string}
+            />
 
-      <FormInput
-        type="date"
-        label="Start Date"
-        placeholder="start date"
-        {...register('startDate')}
-        error={errors.startDate?.message as string}
-      />
+            <FormInput
+              type="date"
+              label="Start Date"
+              placeholder="start date"
+              {...register('startDate')}
+              error={errors.startDate?.message as string}
+            />
 
-      <FormInput
-        type="date"
-        label="End Date"
-        placeholder="end date"
-        {...register('endDate')}
-        error={errors.endDate?.message as string}
-      />
+            <FormInput
+              type="date"
+              label="End Date"
+              placeholder="end date"
+              {...register('endDate')}
+              error={errors.endDate?.message as string}
+            />
 
-      <FormInput
-        label="Destination"
-        placeholder="destination"
-        {...register('destination')}
-        error={errors.destination?.message as string}
-      />
+            <FormInput
+              label="Destination"
+              placeholder="destination"
+              {...register('destination')}
+              error={errors.destination?.message as string}
+            />
 
-      <FormInput
-        label="Description"
-        placeholder="description"
-        {...register('description')}
-        error={errors.description?.message as string}
-      />
+            <FormInput
+              label="Description"
+              placeholder="description"
+              {...register('description')}
+              error={errors.description?.message as string}
+            />
 
-      {errors.root && (
-        <p className="text-error text-center mb-2">{errors.root.message}</p>
-      )}
+            {errors.root && (
+              <p className="text-error text-center mb-2">
+                {errors.root.message}
+              </p>
+            )}
 
-      <div className="card-actions">
-        <button
-          disabled={isSubmitting}
-          className="btn btn-accent"
-          type="submit"
-        >
-          {isSubmitting ? 'Loading...' : buttonText}
-        </button>
+            <button
+              disabled={isSubmitting}
+              className="btn btn-accent mt-6"
+              type="submit"
+            >
+              {isSubmitting ? 'Loading...' : title}
+            </button>
+          </form>
+        </div>
       </div>
-    </form>
+    </div>
   );
 }

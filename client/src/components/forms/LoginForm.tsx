@@ -73,7 +73,7 @@ export default function LoginForm() {
 
             <button
               disabled={isSubmitting}
-              className="btn btn-accent"
+              className="btn btn-accent mt-6"
               type="submit"
             >
               {isSubmitting ? 'Loading...' : 'Login'}
