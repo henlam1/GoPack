@@ -3,7 +3,8 @@ import PackingListCard from '../components/data/PackingListCard';
 import IPackingList from '../models/PackingListModel';
 import { usePackingListActions } from '../hooks/usePackingListActions';
 import QueryStateWrapper from '../components/wrappers/QueryStateWrapper';
-import PLCardSkeletonGrid from '../components/feedback/skeletons/PLCardSkeletonGrid';
+import { useState } from 'react';
+import PLContainerSkeleton from '../components/feedback/skeletons/PLContainerSkeleton';
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
 // PackingListContainer => Fetch packing lists => Render PackingListItem(props)
@@ -27,18 +28,41 @@ export default function PackingListContainer({
   console.log(packingLists);
   const actions = usePackingListActions();
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const filteredPackingLists = packingLists?.filter((list) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      list.name.toLowerCase().includes(term) ||
+      list.destination.toLowerCase().includes(term) ||
+      list.description.toLowerCase().includes(term)
+    );
+  });
+
   return (
     <QueryStateWrapper
       isFetching={isFetching}
       isError={isError}
       refetch={refetch}
       isEmpty={!packingLists || packingLists.length === 0}
-      skeleton={<PLCardSkeletonGrid />}
+      skeleton={<PLContainerSkeleton />}
       emptyMessage={<p className="text-gray-500">No packing lists yet.</p>}
     >
       <div className="max-w-6xl mx-auto px-4">
+        {/* Search bar */}
+        <div className="max-w-md mx-auto mb-6">
+          <input
+            type="text"
+            placeholder="Search packing lists..."
+            className="input input-bordered w-full"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+          />
+        </div>
+        {/* Packing list grid */}
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {packingLists?.map((packingList: IPackingList) => (
+          {filteredPackingLists?.map((packingList: IPackingList) => (
             <PackingListCard
               key={packingList._id}
               {...packingList}
