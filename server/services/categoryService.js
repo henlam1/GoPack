@@ -49,6 +49,7 @@ class CategoryService {
       categoryId,
       {
         $push: { items: itemId },
+        $inc: { totalItems: 1 },
       },
       { new: true },
     );
@@ -61,6 +62,19 @@ class CategoryService {
       categoryId,
       {
         $pull: { items: itemId },
+        $dec: { totalItems: 1 },
+      },
+      { new: true },
+    );
+    if (!result) throw new NotFoundError('Category not found');
+    return result;
+  }
+
+  async updatePackedItems(categoryId, value) {
+    const result = await Category.findByIdAndUpdate(
+      categoryId,
+      {
+        $inc: { packedItems: value },
       },
       { new: true },
     );

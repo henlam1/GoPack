@@ -69,7 +69,7 @@ export default function PackingListCard({
       <div className="flex items-center justify-between w-full">
         {/* Progress bar placeholder */}
         <div className="flex-1 mr-2 w-1/2">
-          <Progress />
+          <Progress value={50} />
         </div>
 
         {/* Ellipsis menu */}

@@ -49,13 +49,7 @@ export default function ItemForm({ categoryId, children }: ItemFormProps) {
           {children}
           {/* Form Table */}
           <tr>
-            <td>
-              <FormInput
-                label=""
-                {...register('packed')}
-                error={errors.packed?.message}
-              />
-            </td>
+            <td />
             <td>
               <FormInput
                 label=""

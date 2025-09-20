@@ -14,6 +14,16 @@ const categorySchema = new mongoose.Schema({
       required: true,
     },
   ],
+  packedItems: {
+    type: Number,
+    default: 0,
+    min: 0,
+  },
+  totalItems: {
+    type: Number,
+    default: 0,
+    min: 0,
+  },
   packingList: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'PackingList',

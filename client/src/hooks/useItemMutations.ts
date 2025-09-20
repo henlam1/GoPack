@@ -21,18 +21,20 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
   const updateItem = useMutation({
     mutationFn: updateItemAPI,
     onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ['item', itemId],
-      });
+      return Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['item', itemId] }),
+        queryClient.invalidateQueries({ queryKey: ['category', categoryId] }),
+      ]);
     },
   });
 
   const deleteItem = useMutation({
     mutationFn: deleteItemAPI,
     onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ['category', categoryId],
-      });
+      return Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['item', itemId] }),
+        queryClient.invalidateQueries({ queryKey: ['category', categoryId] }),
+      ]);
     },
   });
 
