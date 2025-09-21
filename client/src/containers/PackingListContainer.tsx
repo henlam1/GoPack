@@ -70,7 +70,7 @@ export default function PackingListContainer({
               onSoftDelete={actions.onSoftDelete(packingList._id)}
               onHardDelete={actions.onHardDelete(packingList._id)}
               onRestore={actions.onRestore(packingList._id)}
-              onComplete={actions.onComplete(packingList._id)}
+              onArchive={actions.onArchive(packingList._id)}
             />
           ))}
         </div>

@@ -15,7 +15,7 @@ interface CardProps {
   onSoftDelete: () => void;
   onHardDelete: () => void;
   onRestore: () => void;
-  onComplete: () => void;
+  onArchive: () => void;
 }
 
 export default function PackingListCard({
@@ -30,7 +30,7 @@ export default function PackingListCard({
   onSoftDelete,
   onHardDelete,
   onRestore,
-  onComplete,
+  onArchive,
 }: CardProps) {
   console.log('Packing List: ', _id, name);
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ export default function PackingListCard({
   > = {
     active: [
       { label: 'Edit', handler: onEdit },
-      { label: 'Mark Complete', handler: onComplete },
+      { label: 'Archive', handler: onArchive },
       { label: 'Trash', handler: onSoftDelete, destructive: true },
     ],
     trashed: [

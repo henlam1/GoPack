@@ -13,7 +13,7 @@ export function usePackingListActions() {
     onHardDelete: (id: string) => () => deletePackingList.mutate(id),
     onRestore: (id: string) => () =>
       updatePackingList.mutate({ id, update: { status: 'active' } }),
-    onComplete: (id: string) => () =>
-      updatePackingList.mutate({ id, update: { status: 'completed' } }),
+    onArchive: (id: string) => () =>
+      updatePackingList.mutate({ id, update: { status: 'archived' } }),
   };
 }

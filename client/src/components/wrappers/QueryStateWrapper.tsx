@@ -21,6 +21,7 @@ export default function QueryStateWrapper({
 }: QueryStateWrapperProps) {
   const [showSkeleton, setShowSkeleton] = useState(true);
 
+  // Load skeleton for 500ms so it doesn't flash and ruin UX
   useEffect(() => {
     if (!isFetching) {
       const timer = setTimeout(() => setShowSkeleton(false), 500); // 500ms min

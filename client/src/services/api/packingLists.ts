@@ -20,8 +20,8 @@ export async function getTrashedPackingListsAPI() {
   return data;
 }
 
-export async function getCompletedPackingListsAPI() {
-  const data = await apiRequest(apiRoutes.packingLists.getCompleted);
+export async function getArchivedPackingListsAPI() {
+  const data = await apiRequest(apiRoutes.packingLists.getArchived);
   console.log('Packing lists (Completed) fetched: ', data);
   return data;
 }

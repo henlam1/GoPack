@@ -21,9 +21,8 @@ export const getPackingLists = tryCatch(async (req, res) => {
     query.status = 'trashed';
   }
 
-  if (filter === 'completed') {
-    // query.startDate = { $gte: dayjs().format('YYYY-MM-DD') };
-    query.status = 'completed';
+  if (filter === 'archived') {
+    query.status = 'archived';
   }
 
   console.log(query);

@@ -11,7 +11,7 @@ export const apiRoutes = {
     getAll: `${apiBaseUrl}/api/packing_lists`,
     getActive: `${apiBaseUrl}/api/packing_lists?status=active`,
     getTrashed: `${apiBaseUrl}/api/packing_lists?status=trashed`,
-    getCompleted: `${apiBaseUrl}/api/packing_lists?status=completed`,
+    getArchived: `${apiBaseUrl}/api/packing_lists?status=archived`,
     getById: (id: string) => `${apiBaseUrl}/api/packing_lists/${id}`,
     create: `${apiBaseUrl}/api/packing_lists`,
     update: (id: string) => `${apiBaseUrl}/api/packing_lists/${id}`,
