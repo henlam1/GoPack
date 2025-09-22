@@ -1,10 +1,13 @@
 import IItem from '../../models/ItemModel';
 import { useState } from 'react';
 import { useItemMutations } from '../../hooks/useItemMutations';
+import { useParams } from 'react-router-dom';
 
 export default function Item({ _id, packed, name, quantity, category }: IItem) {
-  // The old state is retained even after updates
-  console.log('Item: ', name, quantity, packed, category);
+  // URL params
+  let { packingListId } = useParams();
+  packingListId = packingListId as string;
+
   // State management
   const [item, setItem] = useState({
     name: name,
@@ -13,7 +16,11 @@ export default function Item({ _id, packed, name, quantity, category }: IItem) {
   });
 
   // Hooks to manage item CRUD
-  const { updateItem, deleteItem } = useItemMutations(category, _id);
+  const { updateItem, deleteItem } = useItemMutations(
+    packingListId,
+    category,
+    _id,
+  );
 
   // State management handler functions
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

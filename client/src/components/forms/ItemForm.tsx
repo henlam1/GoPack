@@ -7,6 +7,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useItemMutations } from '../../hooks/useItemMutations';
 import { FormInput } from './FormInput';
+import { useParams } from 'react-router-dom';
 
 interface ItemFormProps {
   categoryId: string;
@@ -14,6 +15,10 @@ interface ItemFormProps {
 }
 
 export default function ItemForm({ categoryId, children }: ItemFormProps) {
+  // URL params
+  let { packingListId } = useParams();
+  packingListId = packingListId as string;
+
   // Form submission functions
   const {
     register,
@@ -26,7 +31,7 @@ export default function ItemForm({ categoryId, children }: ItemFormProps) {
   });
 
   // Hooks to manage item CRUD
-  const { createItem } = useItemMutations(categoryId);
+  const { createItem } = useItemMutations(packingListId, categoryId);
 
   async function onSubmit(data: ItemFormFields) {
     const linkedData = { ...data, category: categoryId };

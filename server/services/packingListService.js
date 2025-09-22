@@ -72,6 +72,30 @@ class PackingListService {
     if (!result) throw new NotFoundError('Packing list not found');
     return result;
   }
+
+  async updatePackedItems(packingListId, value) {
+    const result = await PackingList.findByIdAndUpdate(
+      packingListId,
+      {
+        $inc: { packedItems: value },
+      },
+      { new: true },
+    );
+    if (!result) throw new NotFoundError('Packing list not found');
+    return result;
+  }
+
+  async updateTotalItems(packingListId, value) {
+    const result = await PackingList.findByIdAndUpdate(
+      packingListId,
+      {
+        $inc: { totalItems: value },
+      },
+      { new: true },
+    );
+    if (!result) throw new NotFoundError('Packing list not found');
+    return result;
+  }
 }
 
 export default new PackingListService();

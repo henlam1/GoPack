@@ -10,6 +10,8 @@ interface CardProps {
   endDate: Date;
   destination: string;
   description: string;
+  packedItems: number;
+  totalItems: number;
   status: string;
   onEdit: () => void;
   onSoftDelete: () => void;
@@ -25,6 +27,8 @@ export default function PackingListCard({
   endDate,
   destination,
   description,
+  packedItems,
+  totalItems,
   status,
   onEdit,
   onSoftDelete,
@@ -32,7 +36,18 @@ export default function PackingListCard({
   onRestore,
   onArchive,
 }: CardProps) {
-  console.log('Packing List: ', _id, name);
+  console.log(
+    'Packing List: ',
+    _id,
+    name,
+    startDate,
+    endDate,
+    destination,
+    description,
+    packedItems,
+    totalItems,
+    status,
+  );
   const navigate = useNavigate();
 
   function handleClick() {
@@ -69,7 +84,7 @@ export default function PackingListCard({
       <div className="flex items-center justify-between w-full">
         {/* Progress bar placeholder */}
         <div className="flex-1 mr-2 w-1/2">
-          <Progress value={50} />
+          <Progress value={(packedItems / totalItems) * 100} />
         </div>
 
         {/* Ellipsis menu */}

@@ -16,6 +16,17 @@ const packingListSchema = new mongoose.Schema({
   endDate: { type: Date },
   destination: { type: String, trim: true, maxLength: 30 },
   description: { type: String, trim: true, maxLength: 150 },
+  // List Details
+  packedItems: {
+    type: Number,
+    default: 0,
+    min: 0,
+  },
+  totalItems: {
+    type: Number,
+    default: 0,
+    min: 0,
+  },
   // Life Cycle
   status: {
     type: String,

@@ -13,7 +13,7 @@ export default function Category({
   totalItems,
   packingList,
 }: ICategory) {
-  console.log('Category: ', name, items, packingList);
+  console.log('Category: ', name, items, packedItems, totalItems, packingList);
 
   // State management
   const [category] = useState({
@@ -40,7 +40,7 @@ export default function Category({
         <span>{category.name}</span>
         {/* Progress bar placeholder */}
         <div className="flex-1 mr-2 w-1/2">
-          <Progress value={Math.ceil(packedItems / totalItems) * 100} />
+          <Progress value={(packedItems / totalItems) * 100} />
         </div>
       </div>
 

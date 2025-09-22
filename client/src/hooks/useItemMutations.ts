@@ -5,16 +5,23 @@ import {
   deleteItemAPI,
 } from '../services/api/items';
 
-export function useItemMutations(categoryId?: string, itemId?: string) {
+export function useItemMutations(
+  packingListId?: string,
+  categoryId?: string,
+  itemId?: string,
+) {
   const queryClient = useQueryClient();
 
   // CRUD Mutations
   const createItem = useMutation({
     mutationFn: createItemAPI,
     onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ['category', categoryId],
-      });
+      return Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['category', categoryId] }),
+        queryClient.invalidateQueries({
+          queryKey: ['packingList', packingListId],
+        }),
+      ]);
     },
   });
 
@@ -24,6 +31,9 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
       return Promise.all([
         queryClient.invalidateQueries({ queryKey: ['item', itemId] }),
         queryClient.invalidateQueries({ queryKey: ['category', categoryId] }),
+        queryClient.invalidateQueries({
+          queryKey: ['packingList', packingListId],
+        }),
       ]);
     },
   });
@@ -32,8 +42,10 @@ export function useItemMutations(categoryId?: string, itemId?: string) {
     mutationFn: deleteItemAPI,
     onSuccess: () => {
       return Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['item', itemId] }),
         queryClient.invalidateQueries({ queryKey: ['category', categoryId] }),
+        queryClient.invalidateQueries({
+          queryKey: ['packingList', packingListId],
+        }),
       ]);
     },
   });

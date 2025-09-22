@@ -54,6 +54,11 @@ class CategoryService {
       { new: true },
     );
     if (!result) throw new NotFoundError('Category not found');
+
+    // Update packing list total items
+    const { packingList } = result;
+    await PackingListService.updateTotalItems(packingList, 1);
+
     return result;
   }
 
@@ -62,11 +67,16 @@ class CategoryService {
       categoryId,
       {
         $pull: { items: itemId },
-        $dec: { totalItems: 1 },
+        $inc: { totalItems: -1 },
       },
       { new: true },
     );
     if (!result) throw new NotFoundError('Category not found');
+
+    // Update packing list total items
+    const { packingList } = result;
+    await PackingListService.updateTotalItems(packingList, -1);
+
     return result;
   }
 
@@ -79,6 +89,11 @@ class CategoryService {
       { new: true },
     );
     if (!result) throw new NotFoundError('Category not found');
+
+    // Update packing list values
+    const { packingList } = result;
+    await PackingListService.updatePackedItems(packingList, value);
+
     return result;
   }
 }
