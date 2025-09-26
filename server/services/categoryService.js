@@ -1,5 +1,6 @@
 import { NotFoundError } from '../middleware/errors/errorClasses.js';
 import Category from '../models/categoryModel.js';
+import Item from '../models/itemModel.js';
 import ItemService from './itemService.js';
 import PackingListService from './packingListService.js';
 
@@ -12,6 +13,10 @@ class CategoryService {
     const category = await Category.findById(categoryId);
     if (!category) throw new NotFoundError('Category not found');
     return category;
+  }
+
+  async getCategoriesByPackingList(packingListId) {
+    return await Category.find({ packingList: packingListId });
   }
 
   async addCategory(data) {
@@ -95,6 +100,20 @@ class CategoryService {
     await PackingListService.updatePackedItems(packingList, value);
 
     return result;
+  }
+
+  async markAllPacked(categoryId, packed) {
+    const result = await Item.updateMany(
+      { category: categoryId },
+      { $set: { packed } },
+    );
+
+    const changedPackedCount = packed
+      ? result.modifiedCount
+      : -result.modifiedCount;
+
+    await this.updatePackedItems(categoryId, changedPackedCount);
+    return { updatedItems: changedPackedCount };
   }
 }
 

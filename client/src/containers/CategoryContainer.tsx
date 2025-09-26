@@ -1,6 +1,11 @@
-import { useQueries } from '@tanstack/react-query';
-import Category from '../components/data/Category';
-import { getCategoryAPI } from '../services/api/categories';
+import { useQuery } from '@tanstack/react-query';
+// import Category from '../components/data/Category';
+import CategoryContainerSkeleton from '../components/feedback/skeletons/CategoryContainerSkeleton';
+import QueryStateWrapper from '../components/wrappers/QueryStateWrapper';
+import { ICategory } from '../models/CategoryModel';
+import CategoryCard from '../components/data/CategoryCard';
+import { useCategoryActions } from '../hooks/useCategoryActions';
+import { getPLCategoriesAPI } from '../services/api/packingLists';
 // import { CategoryContextProvider } from '../context/CategoryContext.js';
 
 // CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
@@ -11,36 +16,45 @@ import { getCategoryAPI } from '../services/api/categories';
 // Currently, we're invalidating queries and refetching on API calls
 
 interface CategoryContainerProps {
-  categoryIds: string[];
+  packingListId: string;
 }
 
 export default function CategoryContainer({
-  categoryIds,
+  packingListId,
 }: CategoryContainerProps) {
-  const categoryQueries = categoryIds.map((categoryId) => ({
-    queryKey: ['category', categoryId],
-    queryFn: () => getCategoryAPI(categoryId),
-  }));
-
-  const results = useQueries({
-    queries: categoryQueries,
-    combine: (results) => {
-      return {
-        data: results.map((result) => result.data),
-        pending: results.some((result) => result.isPending),
-      };
-    },
+  const {
+    data: categories,
+    isFetching,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ['categories', packingListId],
+    queryFn: () => getPLCategoriesAPI(packingListId),
   });
-
-  if (results.pending) {
-    return <div>Loading...</div>;
-  }
+  console.log(categories);
+  const actions = useCategoryActions(packingListId);
 
   return (
-    <div className="flex flex-row gap-3 flex-wrap">
-      {results.data.map((category) => {
-        return <Category key={category._id} {...category} />;
+    <QueryStateWrapper
+      isFetching={isFetching}
+      isError={isError}
+      refetch={refetch}
+      isEmpty={!categories || categories.length === 0}
+      skeleton={<CategoryContainerSkeleton />}
+      emptyMessage={<p className="text-gray-500">No categories yet.</p>}
+    >
+      {categories?.map((category: ICategory) => {
+        return (
+          <CategoryCard
+            key={category._id}
+            {...category}
+            onMarkAllPacked={actions.onMarkAllPacked(category._id, true)}
+            onMarkAllUnpacked={actions.onMarkAllPacked(category._id, false)}
+            onEdit={actions.onEdit}
+            onDelete={actions.onDelete(category._id)}
+          />
+        );
       })}
-    </div>
+    </QueryStateWrapper>
   );
 }

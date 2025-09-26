@@ -4,49 +4,39 @@ import {
   updateItemAPI,
   deleteItemAPI,
 } from '../services/api/items';
+import IItem from '../models/ItemModel';
 
-export function useItemMutations(
-  packingListId?: string,
-  categoryId?: string,
-  itemId?: string,
-) {
+export function useItemMutations(packingListId?: string, categoryId?: string) {
   const queryClient = useQueryClient();
 
   // CRUD Mutations
   const createItem = useMutation({
     mutationFn: createItemAPI,
     onSuccess: () => {
-      return Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['category', categoryId] }),
-        queryClient.invalidateQueries({
-          queryKey: ['packingList', packingListId],
-        }),
-      ]);
+      queryClient.invalidateQueries({ queryKey: ['items', categoryId] });
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
+      });
     },
   });
 
   const updateItem = useMutation({
-    mutationFn: updateItemAPI,
+    mutationFn: ({ id, update }: { id: string; update: Partial<IItem> }) =>
+      updateItemAPI(id, update),
     onSuccess: () => {
-      return Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['item', itemId] }),
-        queryClient.invalidateQueries({ queryKey: ['category', categoryId] }),
-        queryClient.invalidateQueries({
-          queryKey: ['packingList', packingListId],
-        }),
-      ]);
+      queryClient.invalidateQueries({ queryKey: ['items', categoryId] });
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
+      });
     },
   });
 
   const deleteItem = useMutation({
     mutationFn: deleteItemAPI,
     onSuccess: () => {
-      return Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['category', categoryId] }),
-        queryClient.invalidateQueries({
-          queryKey: ['packingList', packingListId],
-        }),
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
+      });
     },
   });
 

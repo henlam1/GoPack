@@ -1,5 +1,6 @@
 import tryCatch from '../utils/tryCatch.js';
 import PackingListService from '../services/packingListService.js';
+import CategoryService from '../services/categoryService.js';
 
 export const getPackingLists = tryCatch(async (req, res) => {
   const { status, filter } = req.query;
@@ -60,4 +61,11 @@ export const deletePackingList = tryCatch(async (req, res) => {
   const deletedPackingList =
     await PackingListService.deletePackingList(packingListId);
   res.status(200).json(deletedPackingList);
+});
+
+export const getPLCategories = tryCatch(async (req, res) => {
+  const { packingListId } = req.params;
+  const categories =
+    await CategoryService.getCategoriesByPackingList(packingListId);
+  res.status(200).json(categories);
 });

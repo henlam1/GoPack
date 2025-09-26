@@ -13,6 +13,10 @@ class ItemService {
     return item;
   }
 
+  async getItemsByCategory(categoryId) {
+    return await Item.find({ category: categoryId });
+  }
+
   async addItem(data) {
     const newItem = new Item(data);
     await CategoryService.addItem(data.category, newItem._id);

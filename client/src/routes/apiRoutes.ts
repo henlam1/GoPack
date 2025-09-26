@@ -16,6 +16,8 @@ export const apiRoutes = {
     create: `${apiBaseUrl}/api/packing_lists`,
     update: (id: string) => `${apiBaseUrl}/api/packing_lists/${id}`,
     delete: (id: string) => `${apiBaseUrl}/api/packing_lists/${id}`,
+    getCategories: (id: string) =>
+      `${apiBaseUrl}/api/packing_lists/${id}/categories`,
   },
   categories: {
     base: `${apiBaseUrl}/api/categories`,
@@ -24,6 +26,9 @@ export const apiRoutes = {
     create: `${apiBaseUrl}/api/categories`,
     update: (id: string) => `${apiBaseUrl}/api/categories/${id}`,
     delete: (id: string) => `${apiBaseUrl}/api/categories/${id}`,
+    markAllPacked: (id: string) =>
+      `${apiBaseUrl}/api/categories/${id}/mark-all-packed`,
+    getItems: (id: string) => `${apiBaseUrl}/api/categories/${id}/items`,
   },
   items: {
     base: `${apiBaseUrl}/api/items`,

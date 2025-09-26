@@ -23,12 +23,7 @@ export async function createItemAPI(item: Omit<IItem, '_id'>) {
   return data;
 }
 
-export async function updateItemAPI(params: {
-  id: string;
-  update: Partial<IItem>;
-}) {
-  const { id, update } = params;
-
+export async function updateItemAPI(id: string, update: Partial<IItem>) {
   const data = await apiRequest(apiRoutes.items.update(id), {
     method: 'PATCH',
     body: JSON.stringify(update),

@@ -24,7 +24,7 @@ export default function QueryStateWrapper({
   // Load skeleton for 500ms so it doesn't flash and ruin UX
   useEffect(() => {
     if (!isFetching) {
-      const timer = setTimeout(() => setShowSkeleton(false), 500); // 500ms min
+      const timer = setTimeout(() => setShowSkeleton(false), 0); // 500ms min
       return () => clearTimeout(timer);
     }
   }, [isFetching]);
@@ -55,7 +55,6 @@ export default function QueryStateWrapper({
       <div className="max-w-6xl mx-auto px-4 py-20 text-center flex flex-col items-center justify-center">
         {emptyMessage || (
           <>
-            <img src="/empty-state.svg" alt="No data" className="w-40 mb-4" />
             <p className="text-lg font-medium text-gray-500">No data found.</p>
           </>
         )}

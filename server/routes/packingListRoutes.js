@@ -5,6 +5,7 @@ import {
   addPackingList,
   updatePackingList,
   deletePackingList,
+  getPLCategories,
 } from '../controllers/packingListController.js';
 import validationMiddleware from '../middleware/validationMiddleware.js';
 import { packingListSchema } from '../validationSchemas/packingListSchema.js';
@@ -22,5 +23,6 @@ router
   .get(getPackingListById)
   .patch(updatePackingList)
   .delete(deletePackingList);
+router.route('/:packingListId/categories').get(getPLCategories);
 
 export default router;

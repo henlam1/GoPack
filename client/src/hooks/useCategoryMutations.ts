@@ -3,29 +3,29 @@ import {
   createCategoryAPI,
   updateCategoryAPI,
   deleteCategoryAPI,
+  markAllPackedAPI,
 } from '../services/api/categories';
+import { ICategory } from '../models/CategoryModel';
 
-export function useCategoryMutations(
-  packingListId?: string,
-  categoryId?: string,
-) {
+export function useCategoryMutations(packingListId: string) {
   const queryClient = useQueryClient();
 
   // CRUD Mutations
   const createCategory = useMutation({
     mutationFn: createCategoryAPI,
     onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ['packingList', packingListId],
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
       });
     },
   });
 
   const updateCategory = useMutation({
-    mutationFn: updateCategoryAPI,
+    mutationFn: ({ id, update }: { id: string; update: Partial<ICategory> }) =>
+      updateCategoryAPI(id, update),
     onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ['category', categoryId],
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
       });
     },
   });
@@ -33,8 +33,21 @@ export function useCategoryMutations(
   const deleteCategory = useMutation({
     mutationFn: deleteCategoryAPI,
     onSuccess: () => {
-      return queryClient.invalidateQueries({
-        queryKey: ['packingList', packingListId],
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
+      });
+    },
+  });
+
+  const markAllPackedMutation = useMutation({
+    mutationFn: ({ id, packed }: { id: string; packed: boolean }) =>
+      markAllPackedAPI(id, packed),
+    onSuccess: (_data, { id }) => {
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['items', id],
       });
     },
   });
@@ -43,5 +56,6 @@ export function useCategoryMutations(
     createCategory,
     updateCategory,
     deleteCategory,
+    markAllPackedMutation,
   };
 }

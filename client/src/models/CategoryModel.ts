@@ -1,4 +1,4 @@
-export default interface ICategory {
+export interface ICategory {
   _id: string;
   name: string;
   items: string[];
@@ -6,3 +6,8 @@ export default interface ICategory {
   totalItems: number;
   packingList: string;
 }
+
+export type ICategoryForm = Omit<
+  ICategory,
+  '_id' | 'packedItems' | 'totalItems'
+>;

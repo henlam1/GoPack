@@ -1,4 +1,4 @@
-export default interface IPackingList {
+export interface IPackingList {
   _id: string;
   name: string;
   categories: string[];
@@ -11,3 +11,8 @@ export default interface IPackingList {
   totalItems: number;
   status: string;
 }
+
+export type IPackingListForm = Omit<
+  IPackingList,
+  '_id' | 'user' | 'packedItems' | 'totalItems'
+>;

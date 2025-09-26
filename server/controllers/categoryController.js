@@ -1,5 +1,6 @@
 import tryCatch from '../utils/tryCatch.js';
 import CategoryService from '../services/categoryService.js';
+import ItemService from '../services/itemService.js';
 
 export const getCategories = tryCatch(async (req, res) => {
   const categories = await CategoryService.getCategories();
@@ -30,4 +31,17 @@ export const deleteCategory = tryCatch(async (req, res) => {
   const { categoryId } = req.params;
   const deletedCategory = await CategoryService.deleteCategory(categoryId);
   res.status(200).json(deletedCategory);
+});
+
+export const markAllPacked = tryCatch(async (req, res) => {
+  const { categoryId } = req.params;
+  const { packed } = req.body;
+  const update = await CategoryService.markAllPacked(categoryId, packed);
+  res.status(200).json(update);
+});
+
+export const getCategoryItems = tryCatch(async (req, res) => {
+  const { categoryId } = req.params;
+  const items = await ItemService.getItemsByCategory(categoryId);
+  res.status(200).json(items);
 });

@@ -49,6 +49,9 @@ export default function PackingListCard({
     status,
   );
   const navigate = useNavigate();
+  const progress = totalItems
+    ? Math.round((packedItems / totalItems) * 100)
+    : 0;
 
   function handleClick() {
     navigate(privateRoutes.packingLists.details(_id));
@@ -72,7 +75,7 @@ export default function PackingListCard({
       { label: 'Restore', handler: onRestore },
       { label: 'Delete Forever', handler: onHardDelete, destructive: true },
     ],
-    completed: [
+    archived: [
       { label: 'Restore', handler: onRestore },
       { label: 'Trash', handler: onSoftDelete, destructive: true },
     ],
@@ -84,20 +87,20 @@ export default function PackingListCard({
       <div className="flex items-center justify-between w-full">
         {/* Progress bar placeholder */}
         <div className="flex-1 mr-2 w-1/2">
-          <Progress value={(packedItems / totalItems) * 100} />
+          <Progress value={progress} />
         </div>
 
         {/* Ellipsis menu */}
         <div className="dropdown dropdown-end">
           <label
             tabIndex={0}
-            className="btn btn-ghost btn-circle bg-gray-700 hover:bg-gray-800"
+            className="btn btn-ghost btn-circle bg-base-300 hover:bg-base-100"
           >
             ⋮
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-gray-700 rounded-box w-40"
+            className="dropdown-content menu p-2 shadow bg-gray-500 rounded-box w-40"
           >
             {actions.map((action, i) => (
               <li key={i}>
@@ -106,7 +109,7 @@ export default function PackingListCard({
                     action.destructive
                       ? 'text-red-400 font-semibold'
                       : 'text-gray-100'
-                  } hover:bg-gray-500`}
+                  } hover:bg-gray-400`}
                   onClick={action.handler}
                 >
                   {action.label}
@@ -131,7 +134,7 @@ export default function PackingListCard({
 
           {/* Meta info - subtle secondary text */}
           <div className="text-sm text-gray-300 space-y-1">
-            <p>
+            <p className="font-medium text-gray-400">
               {formatDate(new Date(startDate))} –{' '}
               {formatDate(new Date(endDate))}
             </p>

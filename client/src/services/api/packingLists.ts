@@ -1,4 +1,4 @@
-import IPackingList from '../../models/PackingListModel';
+import { IPackingList, IPackingListForm } from '../../models/PackingListModel';
 import { apiRoutes } from '../../routes/apiRoutes';
 import apiRequest from './apiRequest';
 
@@ -32,9 +32,7 @@ export async function getPackingListAPI(id: string) {
   return data;
 }
 
-export async function createPackingListAPI(
-  packingList: Omit<IPackingList, '_id' | 'user'>,
-) {
+export async function createPackingListAPI(packingList: IPackingListForm) {
   const data = await apiRequest(apiRoutes.packingLists.create, {
     method: 'POST',
     body: JSON.stringify(packingList),
@@ -61,5 +59,11 @@ export async function deletePackingListAPI(id: string) {
     method: 'DELETE',
   });
   console.log('Packing list deleted: ', data);
+  return data;
+}
+
+export async function getPLCategoriesAPI(id: string) {
+  const data = await apiRequest(apiRoutes.packingLists.getCategories(id));
+  console.log('Packing list categories: ', data);
   return data;
 }

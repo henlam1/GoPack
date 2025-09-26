@@ -16,8 +16,8 @@ interface ItemFormProps {
 
 export default function ItemForm({ categoryId, children }: ItemFormProps) {
   // URL params
-  let { packingListId } = useParams();
-  packingListId = packingListId as string;
+  let { id } = useParams();
+  id = id as string;
 
   // Form submission functions
   const {
@@ -31,7 +31,7 @@ export default function ItemForm({ categoryId, children }: ItemFormProps) {
   });
 
   // Hooks to manage item CRUD
-  const { createItem } = useItemMutations(packingListId, categoryId);
+  const { createItem } = useItemMutations(id, categoryId);
 
   async function onSubmit(data: ItemFormFields) {
     const linkedData = { ...data, category: categoryId };

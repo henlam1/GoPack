@@ -32,22 +32,26 @@ export default function CategoryForm({
   }
 
   return (
-    <div className="mb-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="join">
-        <label className="floating-label mb-2">
-          <span>Category Name</span>
-          <input
-            {...register('name')}
-            type="text"
-            placeholder="Category Name"
-            className="input join-item"
-          />
-        </label>
-        <button className="btn btn-primary join-item">
-          {isSubmitting ? 'Loading...' : 'Add New Category'}
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md mx-auto">
+      <div className="join w-full">
+        <input
+          {...register('name')}
+          type="text"
+          placeholder="Category Name"
+          className="input input-bordered join-item w-full"
+        />
+        <button
+          type="submit"
+          className="btn btn-primary join-item whitespace-nowrap"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Loading...' : 'Add Category'}
         </button>
-      </form>
-      {errors.name && <p className="block text-error">{errors.name.message}</p>}
-    </div>
+      </div>
+
+      {errors.name && (
+        <p className="mt-2 text-error text-sm">{errors.name.message}</p>
+      )}
+    </form>
   );
 }

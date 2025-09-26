@@ -3,6 +3,7 @@ import CategoryContainer from '../../containers/CategoryContainer';
 import { useQuery } from '@tanstack/react-query';
 import { getPackingListAPI } from '../../services/api/packingLists';
 import CategoryForm from '../../components/forms/CategoryForm';
+import PLDetailsPageLayout from '../../components/layouts/PLDetailsPageLayout';
 
 // THIS PAGE DISPLAYS THE RELEVANT DETAILS OF A PACKING LIST
 // PACKING LIST NAME
@@ -24,12 +25,13 @@ export default function PackingListDetailsPage() {
   if (isError) return <div>Error...</div>;
 
   return (
-    <div className="m-4">
-      <p className="text-5xl font-semibold tracking-tight sm:text-7xl mb-10">
-        <span className="font-bold">{packingList.name}</span>
-      </p>
-      <CategoryForm packingListId={id} />
-      <CategoryContainer categoryIds={packingList.categories} />
-    </div>
+    <PLDetailsPageLayout title={packingList.name}>
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-md mx-auto mb-6">
+          <CategoryForm packingListId={id} />
+        </div>
+      </div>
+      <CategoryContainer packingListId={id} />
+    </PLDetailsPageLayout>
   );
 }

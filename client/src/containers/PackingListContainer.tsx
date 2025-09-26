@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import PackingListCard from '../components/data/PackingListCard';
-import IPackingList from '../models/PackingListModel';
+import { IPackingList } from '../models/PackingListModel';
 import { usePackingListActions } from '../hooks/usePackingListActions';
 import QueryStateWrapper from '../components/wrappers/QueryStateWrapper';
 import { useState } from 'react';
@@ -22,7 +22,7 @@ export default function PackingListContainer({
     isError,
     refetch,
   } = useQuery({
-    queryKey: ['packingList'],
+    queryKey: ['packingLists'],
     queryFn: queryFn,
   });
   console.log(packingLists);

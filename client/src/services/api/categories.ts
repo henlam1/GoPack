@@ -1,4 +1,4 @@
-import ICategory from '../../models/CategoryModel';
+import { ICategory, ICategoryForm } from '../../models/CategoryModel';
 import { apiRoutes } from '../../routes/apiRoutes';
 import apiRequest from './apiRequest';
 
@@ -14,7 +14,7 @@ export async function getCategoryAPI(id: string) {
   return data;
 }
 
-export async function createCategoryAPI(category: Omit<ICategory, '_id'>) {
+export async function createCategoryAPI(category: ICategoryForm) {
   const data = await apiRequest(apiRoutes.categories.create, {
     method: 'POST',
     body: JSON.stringify(category),
@@ -23,12 +23,10 @@ export async function createCategoryAPI(category: Omit<ICategory, '_id'>) {
   return data;
 }
 
-export async function updateCategoryAPI(params: {
-  id: string;
-  update: Partial<ICategory>;
-}) {
-  const { id, update } = params;
-
+export async function updateCategoryAPI(
+  id: string,
+  update: Partial<ICategory>,
+) {
   const data = await apiRequest(apiRoutes.categories.update(id), {
     method: 'PATCH',
     body: JSON.stringify(update),
@@ -42,5 +40,20 @@ export async function deleteCategoryAPI(id: string) {
     method: 'DELETE',
   });
   console.log('Category deleted: ', data);
+  return data;
+}
+
+export async function markAllPackedAPI(id: string, packed: boolean) {
+  const data = await apiRequest(apiRoutes.categories.markAllPacked(id), {
+    method: 'PATCH',
+    body: JSON.stringify({ packed: packed }),
+  });
+  console.log('Category updated: ', data);
+  return data;
+}
+
+export async function getCategoryItemsAPI(id: string) {
+  const data = await apiRequest(apiRoutes.categories.getItems(id));
+  console.log('Category items: ', data);
   return data;
 }
