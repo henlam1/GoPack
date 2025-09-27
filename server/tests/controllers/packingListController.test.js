@@ -1,6 +1,7 @@
 import request from 'supertest';
 import app from '../../app.js';
 import {
+  insertMockCategories,
   insertMockPackingList,
   insertMockPackingLists,
   insertMockUser,
@@ -93,5 +94,19 @@ describe('DELETE /packing_lists', () => {
     expect(deletedPackingList._id).toBe(mockId);
     const search = await request(app).get(`/api/packing_lists/${mockId}`);
     expect(search.status).toBe(404);
+  });
+});
+
+describe('GET /packing_lists/categories', () => {
+  it('should return categories of a packing list', async () => {
+    const packingList = await insertMockPackingList();
+    await insertMockCategories(undefined, {
+      packingList: packingList._id,
+    });
+    const res = await request(app).get(
+      `/api/packing_lists/${packingList._id.toString()}/categories`,
+    );
+    expect(res.body).toHaveLength(3);
+    expect(res.status).toBe(200);
   });
 });

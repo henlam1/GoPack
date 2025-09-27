@@ -14,6 +14,7 @@ export const getItemById = tryCatch(async (req, res) => {
 
 export const addItem = tryCatch(async (req, res) => {
   const newItem = await ItemService.addItem(req.body);
+  console.log(newItem);
   res.status(201).json(newItem);
 });
 

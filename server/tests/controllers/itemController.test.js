@@ -4,6 +4,7 @@ import {
   insertMockCategory,
   insertMockItem,
   insertMockItems,
+  insertMockPackingList,
 } from '../helpers/insertMockData';
 import { createMockItem, createObjectId } from '../helpers/createMockData';
 
@@ -32,7 +33,8 @@ describe('GET /items', () => {
 
 describe('POST /items', () => {
   it('should create a new item', async () => {
-    const category = await insertMockCategory();
+    const packingList = await insertMockPackingList();
+    const category = await insertMockCategory({ packingList: packingList._id });
     const mockItem = await createMockItem({
       name: 'Apple',
       quantity: 10,
@@ -77,7 +79,8 @@ describe('PATCH /items', () => {
 
 describe('DELETE /items', () => {
   it('should delete an item by id', async () => {
-    const category = await insertMockCategory();
+    const packingList = await insertMockPackingList();
+    const category = await insertMockCategory({ packingList: packingList._id });
     const mockItem = await insertMockItem({ category: category._id });
     const mockId = mockItem._id.toString();
     const res = await request(app).delete(`/api/items/${mockId}`);

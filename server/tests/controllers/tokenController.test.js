@@ -1,14 +1,18 @@
 import request from 'supertest';
 import app from '../../app.js';
-import { createMockUser } from '../helpers/createMockData';
+import { insertMockUser } from '../helpers/insertMockData';
 import TokenService from '../../services/tokenService';
 
 describe('POST /refresh', () => {
-  const user = createMockUser();
-
   it('should generate a new access token', async () => {
-    const accessToken = await TokenService.generateAccessToken(user);
-    const refreshToken = await TokenService.generateRefreshToken(user);
+    const user = await insertMockUser();
+    const accessToken = await TokenService.generateAccessToken({
+      userId: user._id,
+      userEmail: user.email,
+    });
+    const refreshToken = await TokenService.generateRefreshToken({
+      userId: user._id,
+    });
     const res = await request(app)
       .post('/api/tokens/refresh')
       .set('Cookie', [
@@ -20,7 +24,11 @@ describe('POST /refresh', () => {
   });
 
   it('should not generate a new access token with a missing refresh token', async () => {
-    const accessToken = await TokenService.generateAccessToken(user);
+    const user = await insertMockUser();
+    const accessToken = await TokenService.generateAccessToken({
+      userId: user._id,
+      userEmail: user.email,
+    });
     const res = await request(app)
       .post('/api/tokens/refresh')
       .set('Cookie', [`accessToken=${accessToken}`]);

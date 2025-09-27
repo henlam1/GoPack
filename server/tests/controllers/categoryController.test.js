@@ -4,6 +4,7 @@ import {
   insertMockCategory,
   insertMockCategories,
   insertMockPackingList,
+  insertMockItems,
 } from '../helpers/insertMockData';
 import { createMockCategory, createObjectId } from '../helpers/createMockData';
 
@@ -90,5 +91,38 @@ describe('DELETE /categories', () => {
     const mockId = createObjectId();
     const res = await request(app).delete(`/api/categories/${mockId}`);
     expect(res.status).toBe(404);
+  });
+});
+
+describe('PATCH /:categoryId/mark-all-packed', () => {
+  it('should mark all items as packed', async () => {
+    const packingList = await insertMockPackingList();
+    const category = await insertMockCategory({
+      packingList: packingList._id,
+    });
+    await insertMockItems(undefined, {
+      packed: false,
+      category: category._id,
+    });
+    const res = await request(app)
+      .patch(`/api/categories/${category._id.toString()}/mark-all-packed`)
+      .send({ packed: true });
+    expect(res.body.updatedItems).toBe(3);
+    expect(res.status).toBe(200);
+  });
+  it('should mark all items as unpacked', async () => {
+    const packingList = await insertMockPackingList();
+    const category = await insertMockCategory({
+      packingList: packingList._id,
+    });
+    await insertMockItems(5, {
+      packed: true,
+      category: category._id,
+    });
+    const res = await request(app)
+      .patch(`/api/categories/${category._id.toString()}/mark-all-packed`)
+      .send({ packed: false });
+    expect(res.body.updatedItems).toBe(-5);
+    expect(res.status).toBe(200);
   });
 });

@@ -4,6 +4,7 @@ import {
   insertMockCategories,
   insertMockItem,
   insertMockPackingList,
+  insertMockItems,
 } from '../helpers/insertMockData';
 
 describe('Category service operations', () => {
@@ -48,17 +49,59 @@ describe('Category service operations', () => {
   });
 
   it('adds an item by id', async () => {
+    // Link packing list and item
+    let packingList = await insertMockPackingList();
+    let category = await insertMockCategory({ packingList: packingList._id });
     const item = await insertMockItem();
-    let category = await insertMockCategory();
+
     category = await CategoryService.addItem(category._id, item._id);
     expect(category.items).toHaveLength(1);
     expect(category.items[0]).toStrictEqual(item._id);
   });
 
   it('removes an item by id', async () => {
+    // Link packing list and item
+    let packingList = await insertMockPackingList();
     const item = await insertMockItem();
-    let category = await insertMockCategory({ items: [item] });
+    let category = await insertMockCategory({
+      packingList: packingList._id,
+      items: [item],
+    });
+
     category = await CategoryService.removeItem(category._id, item._id);
     expect(category.items).toHaveLength(0);
+  });
+
+  it('updates the number of packed items', async () => {
+    const packingList = await insertMockPackingList();
+    const category = await insertMockCategory({
+      packingList: packingList._id,
+    });
+    await insertMockItems(undefined, {
+      packed: false,
+      category: category._id,
+    });
+
+    const res = await CategoryService.updatePackedItems(
+      category._id.toString(),
+      2,
+    );
+    expect(res.packedItems).toBe(2);
+  });
+
+  it('marks all items as packed', async () => {
+    const packingList = await insertMockPackingList();
+    const category = await insertMockCategory({
+      packingList: packingList._id,
+    });
+    await insertMockItems(5, {
+      packed: false,
+      category: category._id,
+    });
+    const res = await CategoryService.markAllPacked(
+      category._id.toString(),
+      true,
+    );
+    expect(res.updatedItems).toBe(5);
   });
 });

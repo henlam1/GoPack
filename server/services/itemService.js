@@ -45,7 +45,6 @@ class ItemService {
   async deleteItem(itemId) {
     const deletedItem = await Item.findByIdAndDelete(itemId);
     if (!deletedItem) throw new NotFoundError('Item not found');
-    console.log('deleted item: ', deletedItem);
     if (deletedItem.packed) {
       await CategoryService.updatePackedItems(deletedItem.category, -1);
     }

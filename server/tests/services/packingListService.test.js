@@ -71,4 +71,16 @@ describe('Packing list service operations', () => {
     );
     expect(packingList.categories).toHaveLength(0);
   });
+
+  it('updates packed items', async () => {
+    const packingList = await insertMockPackingList();
+    const res = await PackingListService.updatePackedItems(packingList._id, 4);
+    expect(res.packedItems).toBe(4);
+  });
+
+  it('updates total items', async () => {
+    const packingList = await insertMockPackingList();
+    const res = await PackingListService.updateTotalItems(packingList._id, 5);
+    expect(res.totalItems).toBe(5);
+  });
 });

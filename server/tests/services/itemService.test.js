@@ -3,6 +3,7 @@ import {
   insertMockCategory,
   insertMockItem,
   insertMockItems,
+  insertMockPackingList,
 } from '../helpers/insertMockData';
 
 describe('Item service operations', () => {
@@ -17,6 +18,12 @@ describe('Item service operations', () => {
     const mockItem = await insertMockItem();
     const res = await ItemService.getItemById(mockItem._id);
     expect(res._id).toEqual(mockItem._id);
+  });
+  it('gets item by category', async () => {
+    const category = await insertMockCategory();
+    await insertMockItems(4, { category: category._id });
+    const res = await ItemService.getItemsByCategory(category._id);
+    expect(res).toHaveLength(4);
   });
   it('adds a new item', async () => {
     await insertMockItem();
@@ -33,8 +40,9 @@ describe('Item service operations', () => {
     expect(updatedItem.quantity).toEqual(20);
   });
   it('deletes a item by id', async () => {
-    // Link item to a category
-    let category = await insertMockCategory();
+    // Link packing list, category, and item
+    let packingList = await insertMockPackingList();
+    let category = await insertMockCategory({ packingList: packingList._id });
     const item = await insertMockItem({ category: category._id });
     category.items.push(item._id);
 
