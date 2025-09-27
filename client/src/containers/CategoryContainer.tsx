@@ -1,19 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-// import Category from '../components/data/Category';
 import CategoryContainerSkeleton from '../components/feedback/skeletons/CategoryContainerSkeleton';
 import QueryStateWrapper from '../components/wrappers/QueryStateWrapper';
 import { ICategory } from '../models/CategoryModel';
 import CategoryCard from '../components/data/CategoryCard';
 import { useCategoryActions } from '../hooks/useCategoryActions';
 import { getPLCategoriesAPI } from '../services/api/packingLists';
-// import { CategoryContextProvider } from '../context/CategoryContext.js';
-
-// CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
-// CategoryContainer => Fetch Categories => Render Category(props)
-// This is used in the packing list page to display categories in the accordion
-
-// TODO: Modify cached data on API calls.
-// Currently, we're invalidating queries and refetching on API calls
 
 interface CategoryContainerProps {
   packingListId: string;

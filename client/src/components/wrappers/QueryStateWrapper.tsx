@@ -21,6 +21,7 @@ export default function QueryStateWrapper({
 }: QueryStateWrapperProps) {
   const [showSkeleton, setShowSkeleton] = useState(true);
 
+  // TODO: Figure out optimistic updates and get rid of this useEffect
   // Load skeleton for 500ms so it doesn't flash and ruin UX
   useEffect(() => {
     if (!isFetching) {

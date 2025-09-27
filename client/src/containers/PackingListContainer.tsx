@@ -6,10 +6,6 @@ import QueryStateWrapper from '../components/wrappers/QueryStateWrapper';
 import { useState } from 'react';
 import PLContainerSkeleton from '../components/feedback/skeletons/PLContainerSkeleton';
 
-// CONTAINERS ARE RESPONSIBLE FOR MANAGING STATE AND PASSING DATA TO CHILD COMPONENTS
-// PackingListContainer => Fetch packing lists => Render PackingListItem(props)
-// This is used in the homepage to display cards of each packing list
-
 interface PackingListContainerProps {
   queryFn: () => Promise<IPackingList[]>;
 }
