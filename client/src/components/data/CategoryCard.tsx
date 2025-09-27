@@ -40,11 +40,11 @@ export default function CategoryCard({
   }
 
   return (
-    <div className="card bg-base-100 shadow-sm">
+    <div className="card bg-base-100 shadow-sm w-7/12 mx-auto">
       {/* HEADER */}
       <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         {/* Left: name (inline edit) */}
-        <div className="flex items-center min-w-0 gap-2">
+        <div className="flex w-6/12">
           {editing ? (
             <input
               autoFocus
@@ -65,15 +65,14 @@ export default function CategoryCard({
           )}
         </div>
 
-        {/* Right: progress + actions + toggle */}
-        <div className="flex items-center gap-3">
-          {/* Desktop progress bar */}
-          <div className="hidden sm:block w-40">
-            {/* Replace with your Progress component */}
-            <Progress value={progress} />
-          </div>
+        {/* Desktop progress bar */}
+        <div className="hidden sm:block w-2/12">
+          {/* Replace with your Progress component */}
+          <Progress value={progress} />
+        </div>
 
-          {/* Actions dropdown — IMPORTANT: it must not toggle the card */}
+        {/* Actions dropdown — IMPORTANT: it must not toggle the card */}
+        <div className="w-1/12 flex justify-end">
           <div
             className="dropdown dropdown-end"
             // defensive: make sure opening the dropdown doesn't toggle the card
@@ -121,19 +120,6 @@ export default function CategoryCard({
             </svg>
           </button>
         </div>
-
-        {/* Mobile progress (below the name) */}
-        <div className="sm:hidden mt-2 w-full">
-          <div className="h-2 bg-base-300 rounded overflow-hidden">
-            <div
-              className="h-2 bg-primary rounded"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-          <div className="text-xs text-muted text-right mt-1">
-            {packedItems}/{totalItems}
-          </div>
-        </div>
       </div>
 
       {/* COLLAPSED CONTENT */}
@@ -143,12 +129,16 @@ export default function CategoryCard({
       >
         {open && (
           <div className="p-4">
-            {/* Fetch-on-open note:
-                If ItemContainer uses useQuery, you can pass `enabled={open}` so it only fetches when open.
-            */}
-            <ItemForm categoryId={_id}>
+            <div className="flex justify-between items-center border-b border-gray-700 py-2">
+              <div className="w-1/12">Packed</div>
+              <div className="w-6/12">Name</div>
+              <div className="w-2/12 px-2">Quantity</div>
+              <div className="w-1/12 flex">Actions</div>
+            </div>
+            <div className="flex flex-col">
               <ItemContainer categoryId={_id} />
-            </ItemForm>
+              <ItemForm categoryId={_id} />
+            </div>
           </div>
         )}
       </div>

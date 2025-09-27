@@ -1,4 +1,5 @@
 import IItem from '../../models/ItemModel';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 interface ItemProps {
   _id: string;
@@ -17,8 +18,11 @@ export default function Item({
   onDelete,
 }: ItemProps) {
   return (
-    <tr key={_id}>
-      <td>
+    <div
+      key={_id}
+      className="flex justify-between items-center border-b border-gray-700 py-2"
+    >
+      <div className="w-1/12">
         <input
           name="packed"
           type="checkbox"
@@ -26,8 +30,8 @@ export default function Item({
           checked={packed}
           onChange={() => onEdit(_id, { packed: !packed })()}
         />
-      </td>
-      <td>
+      </div>
+      <div className="w-6/12">
         <input
           name="name"
           type="text"
@@ -39,8 +43,8 @@ export default function Item({
           value={name}
           onChange={(e) => onEdit(_id, { name: e.target.value })()}
         />
-      </td>
-      <td>
+      </div>
+      <div className="w-2/12 px-2">
         <input
           name="quantity"
           type="text"
@@ -48,16 +52,16 @@ export default function Item({
           value={quantity}
           onChange={(e) => onEdit(_id, { quantity: +e.target.value })()}
         />
-      </td>
-      <td>
+      </div>
+      <div className="w-1/12 flex">
         <button
           type="button"
           className="btn btn-sm btn-error"
-          onClick={onDelete}
+          onClick={() => onDelete()}
         >
-          Delete
+          <TrashIcon className="w-5 h-5" />
         </button>
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 }

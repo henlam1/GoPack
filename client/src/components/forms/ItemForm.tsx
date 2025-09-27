@@ -7,13 +7,13 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useItemMutations } from '../../hooks/useItemMutations';
 import { useParams } from 'react-router-dom';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
 
 interface ItemFormProps {
   categoryId: string;
-  children: JSX.Element;
 }
 
-export default function ItemForm({ categoryId, children }: ItemFormProps) {
+export default function ItemForm({ categoryId }: ItemFormProps) {
   // URL params
   let { id } = useParams();
   id = id as string;
@@ -38,25 +38,11 @@ export default function ItemForm({ categoryId, children }: ItemFormProps) {
     reset();
   }
 
-  function TableHead() {
-    return (
-      <thead>
-        <tr>
-          <th>Packed</th>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-    );
-  }
-
-  function FormTable() {
-    return (
-      <tr>
-        {/* Empty TD for checkbox */}
-        <td />
-        <td>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex justify-between items-center border-b border-gray-700 py-2">
+        <div className="w-1/12"></div>
+        <div className="w-6/12">
           <label className="form-control floating-label mb-2">
             <span className="label-text">{'Item Name'}</span>
             <input
@@ -69,8 +55,8 @@ export default function ItemForm({ categoryId, children }: ItemFormProps) {
               <p className="text-error text-sm mt-1">{errors.name?.message}</p>
             )}
           </label>
-        </td>
-        <td>
+        </div>
+        <div className="w-2/12 px-2">
           <label className="form-control floating-label mb-2">
             <span className="label-text">{'Quantity'}</span>
             <input
@@ -85,30 +71,17 @@ export default function ItemForm({ categoryId, children }: ItemFormProps) {
               </p>
             )}
           </label>
-        </td>
-        <td>
+        </div>
+        <div className="w-1/12 flex">
           <button
             disabled={isSubmitting}
             className="btn btn-sm btn-accent"
             type="submit"
           >
-            {isSubmitting ? 'Adding...' : 'Add'}
+            <PlusCircleIcon className="w-5 h-5" />
           </button>
-        </td>
-      </tr>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <table className="table w-full">
-        <TableHead />
-        <tbody>
-          {children}
-          {/* Form Table */}
-          <FormTable />
-        </tbody>
-      </table>
+        </div>
+      </div>
     </form>
   );
 }

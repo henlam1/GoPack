@@ -35,6 +35,9 @@ export function useItemMutations(packingListId?: string, categoryId?: string) {
     mutationFn: deleteItemAPI,
     onSuccess: () => {
       queryClient.invalidateQueries({
+        queryKey: ['items', categoryId],
+      });
+      queryClient.invalidateQueries({
         queryKey: ['categories', packingListId],
       });
     },
