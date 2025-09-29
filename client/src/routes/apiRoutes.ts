@@ -7,17 +7,17 @@ const apiBaseUrl = isVite
 
 export const apiRoutes = {
   packingLists: {
-    base: `${apiBaseUrl}/api/packing_lists`,
-    getAll: `${apiBaseUrl}/api/packing_lists`,
-    getActive: `${apiBaseUrl}/api/packing_lists?status=active`,
-    getTrashed: `${apiBaseUrl}/api/packing_lists?status=trashed`,
-    getArchived: `${apiBaseUrl}/api/packing_lists?status=archived`,
-    getById: (id: string) => `${apiBaseUrl}/api/packing_lists/${id}`,
-    create: `${apiBaseUrl}/api/packing_lists`,
-    update: (id: string) => `${apiBaseUrl}/api/packing_lists/${id}`,
-    delete: (id: string) => `${apiBaseUrl}/api/packing_lists/${id}`,
+    base: `${apiBaseUrl}/api/packing-lists`,
+    getAll: `${apiBaseUrl}/api/packing-lists`,
+    getActive: `${apiBaseUrl}/api/packing-lists?status=active`,
+    getTrashed: `${apiBaseUrl}/api/packing-lists?status=trashed`,
+    getArchived: `${apiBaseUrl}/api/packing-lists?status=archived`,
+    getById: (id: string) => `${apiBaseUrl}/api/packing-lists/${id}`,
+    create: `${apiBaseUrl}/api/packing-lists`,
+    update: (id: string) => `${apiBaseUrl}/api/packing-lists/${id}`,
+    delete: (id: string) => `${apiBaseUrl}/api/packing-lists/${id}`,
     getCategories: (id: string) =>
-      `${apiBaseUrl}/api/packing_lists/${id}/categories`,
+      `${apiBaseUrl}/api/packing-lists/${id}/categories`,
   },
   categories: {
     base: `${apiBaseUrl}/api/categories`,

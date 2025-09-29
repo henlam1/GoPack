@@ -35,7 +35,7 @@ test('create a new packing list', async ({ page }) => {
   const [response] = await Promise.all([
     page.waitForResponse(
       (res) =>
-        res.url().includes('/api/packing_lists') &&
+        res.url().includes('/api/packing-lists') &&
         res.request().method() === 'POST',
     ),
     createPage.submit(),

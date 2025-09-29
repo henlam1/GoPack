@@ -12,12 +12,12 @@ const ENABLE_AUTH = process.env.ENABLE_AUTH === 'true';
 
 // Conditional middleware
 if (ENABLE_AUTH) {
-  router.use('/packing_lists', authenticateToken, packingListRoutes);
+  router.use('/packing-lists', authenticateToken, packingListRoutes);
   router.use('/categories', authenticateToken, categoryRoutes);
   router.use('/items', authenticateToken, itemRoutes);
   // router.use('/users', authenticateToken, privateUserRoutes);
 } else {
-  router.use('/packing_lists', packingListRoutes);
+  router.use('/packing-lists', packingListRoutes);
   router.use('/categories', categoryRoutes);
   router.use('/items', itemRoutes);
   // router.use('/users', privateUserRoutes);

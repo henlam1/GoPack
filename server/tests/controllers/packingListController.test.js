@@ -13,10 +13,10 @@ import {
 import { ObjectId } from 'mongodb';
 import { addPackingList } from '../../controllers/packingListController.js';
 
-describe('GET /packing_lists', () => {
-  it('should return all packing_lists', async () => {
+describe('GET /packing-lists', () => {
+  it('should return all packing-lists', async () => {
     await insertMockPackingLists();
-    const res = await request(app).get('/api/packing_lists');
+    const res = await request(app).get('/api/packing-lists');
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(3);
   });
@@ -25,7 +25,7 @@ describe('GET /packing_lists', () => {
       name: 'Europe Trip',
     });
     const mockId = mockPackingList._id.toString();
-    const res = await request(app).get(`/api/packing_lists/${mockId}`);
+    const res = await request(app).get(`/api/packing-lists/${mockId}`);
     const resPackingList = res.body;
     expect(res.status).toBe(200);
     expect(resPackingList._id).toBe(mockId);
@@ -33,12 +33,12 @@ describe('GET /packing_lists', () => {
   });
   it('should return not found error', async () => {
     const mockId = createObjectId();
-    const res = await request(app).get(`/api/packing_lists/${mockId}`);
+    const res = await request(app).get(`/api/packing-lists/${mockId}`);
     expect(res.status).toBe(404);
   });
 });
 
-describe('POST /packing_lists', () => {
+describe('POST /packing-lists', () => {
   it('should create a new packing list', async () => {
     const mockUser = await insertMockUser();
     const mockPackingList = {
@@ -62,49 +62,49 @@ describe('POST /packing_lists', () => {
   it('should create a validation error', async () => {
     const mockPackingList = await createMockPackingList({ name: '' });
     const res = await request(app)
-      .post('/api/packing_lists')
+      .post('/api/packing-lists')
       .send(mockPackingList);
     expect(res.status).toBe(400);
   });
 });
 
-describe('PATCH /packing_lists', () => {
+describe('PATCH /packing-lists', () => {
   it('should update an packing list by id', async () => {
     const mockPackingList = await insertMockPackingList();
     const mockId = mockPackingList._id.toString();
     const res = await request(app)
-      .patch(`/api/packing_lists/${mockId}`)
-      .send({ name: 'Updated packing_lists' });
+      .patch(`/api/packing-lists/${mockId}`)
+      .send({ name: 'Updated packing-lists' });
     const updatedPackingList = res.body;
     expect(res.status).toBe(200);
     expect(updatedPackingList._id).toBe(mockId);
-    expect(updatedPackingList.name).toBe('Updated packing_lists');
+    expect(updatedPackingList.name).toBe('Updated packing-lists');
   });
 });
 
-describe('DELETE /packing_lists', () => {
+describe('DELETE /packing-lists', () => {
   it('should delete an packing list by id', async () => {
     const mockUser = await insertMockUser();
     const mockPackingList = await insertMockPackingList({ user: mockUser._id });
     const mockId = mockPackingList._id.toString();
     mockUser.packingLists.push(new ObjectId(mockId));
-    const res = await request(app).delete(`/api/packing_lists/${mockId}`);
+    const res = await request(app).delete(`/api/packing-lists/${mockId}`);
     const deletedPackingList = res.body;
     expect(res.status).toBe(200);
     expect(deletedPackingList._id).toBe(mockId);
-    const search = await request(app).get(`/api/packing_lists/${mockId}`);
+    const search = await request(app).get(`/api/packing-lists/${mockId}`);
     expect(search.status).toBe(404);
   });
 });
 
-describe('GET /packing_lists/categories', () => {
+describe('GET /packing-lists/categories', () => {
   it('should return categories of a packing list', async () => {
     const packingList = await insertMockPackingList();
     await insertMockCategories(undefined, {
       packingList: packingList._id,
     });
     const res = await request(app).get(
-      `/api/packing_lists/${packingList._id.toString()}/categories`,
+      `/api/packing-lists/${packingList._id.toString()}/categories`,
     );
     expect(res.body).toHaveLength(3);
     expect(res.status).toBe(200);
