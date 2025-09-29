@@ -1,21 +1,21 @@
 import { Page } from '@playwright/test';
 
-export class PrivateHomePage {
+export class TrashPage {
   constructor(private page: Page) {}
 
-  /** Navigate to the private home page */
+  /** Navigate to the trashed page */
   async goto() {
+    await this.page.goto('/packing-lists/trash');
+  }
+
+  /** Navigate to the private home page */
+  async goToPrivateHomePage() {
     await this.page.goto('/home');
   }
 
   /** Navigate to the packing list creation page */
   async goToCreatePage() {
     await this.page.getByRole('link', { name: 'Add Packing List' }).click();
-  }
-
-  /** Navigate to the archived packing lists page */
-  async goToArchivedPage() {
-    await this.page.getByRole('link', { name: 'Archived' }).click();
   }
 
   /** Navigate to the trashed packing lists page */

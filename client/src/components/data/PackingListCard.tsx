@@ -91,7 +91,7 @@ export default function PackingListCard({
         </div>
 
         {/* Ellipsis menu */}
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end" data-testid="pl-ellipsis-toggle">
           <label
             tabIndex={0}
             className="btn btn-ghost btn-circle bg-base-300 hover:bg-base-100"
@@ -101,6 +101,7 @@ export default function PackingListCard({
           <ul
             tabIndex={0}
             className="dropdown-content menu p-2 shadow bg-gray-500 rounded-box w-40"
+            data-testid="ellipsis-menu"
           >
             {actions.map((action, i) => (
               <li key={i}>
@@ -110,6 +111,7 @@ export default function PackingListCard({
                       ? 'text-red-400 font-semibold'
                       : 'text-gray-100'
                   } hover:bg-gray-400`}
+                  data-testid={`pl-ellipsis-menu-item-${action.label}`}
                   onClick={action.handler}
                 >
                   {action.label}

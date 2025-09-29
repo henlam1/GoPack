@@ -8,11 +8,11 @@ export class PackingListDetailsPage {
    * @return {void}
    */
   async fillForm(name: string) {
-    await this.page.getByLabel('Category Name').fill(name);
+    await this.page.getByPlaceholder('Category Name').fill(name);
   }
 
   /** Submit the form */
   async submit() {
-    await this.page.getByRole('button', { name: 'Add New Category' }).click();
+    await this.page.getByRole('button', { name: 'Add Category' }).click();
   }
 }
