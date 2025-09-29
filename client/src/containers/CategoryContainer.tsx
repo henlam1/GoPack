@@ -34,18 +34,20 @@ export default function CategoryContainer({
       skeleton={<CategoryContainerSkeleton />}
       emptyMessage={<p className="text-gray-500">No categories yet.</p>}
     >
-      {categories?.map((category: ICategory) => {
-        return (
-          <CategoryCard
-            key={category._id}
-            {...category}
-            onMarkAllPacked={actions.onMarkAllPacked(category._id, true)}
-            onMarkAllUnpacked={actions.onMarkAllPacked(category._id, false)}
-            onEdit={actions.onEdit(category._id)}
-            onDelete={actions.onDelete(category._id)}
-          />
-        );
-      })}
+      <div className="flex flex-col gap-4">
+        {categories?.map((category: ICategory) => {
+          return (
+            <CategoryCard
+              key={category._id}
+              {...category}
+              onMarkAllPacked={actions.onMarkAllPacked(category._id, true)}
+              onMarkAllUnpacked={actions.onMarkAllPacked(category._id, false)}
+              onEdit={actions.onEdit(category._id)}
+              onDelete={actions.onDelete(category._id)}
+            />
+          );
+        })}
+      </div>
     </QueryStateWrapper>
   );
 }

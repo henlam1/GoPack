@@ -43,9 +43,9 @@ export default function CategoryCard({
   }
 
   return (
-    <div className="card bg-base-100 shadow-sm w-7/12 mx-auto">
+    <div className="card bg-base-200 shadow-sm w-full mx-auto">
       {/* HEADER */}
-      <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-base-200 mb-4">
+      <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         {/* Left: name (inline edit) */}
         <div className="flex w-5/12">
           {editing ? (
@@ -137,10 +137,10 @@ export default function CategoryCard({
         className={`overflow-hidden transition-[max-height] duration-200 ${open ? 'max-h-[1000px]' : 'max-h-0'}`}
       >
         {open && (
-          <div className="p-4">
+          <div className="p-4 bg-base-100">
             <div className="flex flex-col">
-              <ItemContainer categoryId={_id} />
               <ItemForm categoryId={_id} />
+              <ItemContainer categoryId={_id} />
             </div>
           </div>
         )}

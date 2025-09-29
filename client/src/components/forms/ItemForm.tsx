@@ -40,7 +40,7 @@ export default function ItemForm({ categoryId }: ItemFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex justify-between items-center border-b border-gray-700 py-2">
+      <div className="flex justify-between items-center py-2">
         <div className="w-1/12"></div>
         <div className="w-5/12">
           <label className="form-control floating-label">
