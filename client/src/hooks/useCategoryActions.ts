@@ -6,7 +6,7 @@ export function useCategoryActions(packingListId: string) {
     useCategoryMutations(packingListId);
 
   return {
-    onEdit: (id: string, update: Partial<ICategory>) => () =>
+    onEdit: (id: string) => (update: Partial<ICategory>) =>
       updateCategory.mutate({ id, update }),
     onDelete: (id: string) => () => deleteCategory.mutate(id),
     onMarkAllPacked: (id: string, packed: boolean) => () =>

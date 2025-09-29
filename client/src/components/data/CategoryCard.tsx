@@ -13,7 +13,7 @@ interface Props {
   // handlers...
   onMarkAllPacked: () => void;
   onMarkAllUnpacked: () => void;
-  onEdit: (id: string, update: Partial<ICategory>) => void;
+  onEdit: (update: Partial<ICategory>) => void;
   onDelete: () => void;
 }
 
@@ -36,8 +36,10 @@ export default function CategoryCard({
     : 0;
 
   function saveName() {
-    if (draft.trim() && draft !== name) onEdit(_id, { name: draft.trim() });
+    const trimmedDraft = draft.trim();
+    if (trimmedDraft && draft !== name) onEdit({ name: trimmedDraft });
     setEditing(false);
+    setDraft(trimmedDraft);
   }
 
   return (

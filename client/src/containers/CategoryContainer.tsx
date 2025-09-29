@@ -41,7 +41,7 @@ export default function CategoryContainer({
             {...category}
             onMarkAllPacked={actions.onMarkAllPacked(category._id, true)}
             onMarkAllUnpacked={actions.onMarkAllPacked(category._id, false)}
-            onEdit={actions.onEdit}
+            onEdit={actions.onEdit(category._id)}
             onDelete={actions.onDelete(category._id)}
           />
         );
