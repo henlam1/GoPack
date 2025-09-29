@@ -3,6 +3,7 @@ import ItemContainer from '../../containers/ItemContainer';
 import ItemForm from '../forms/ItemForm';
 import Progress from '../feedback/Progress';
 import { ICategory } from '../../models/CategoryModel';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
 interface Props {
   _id: string;
@@ -42,9 +43,9 @@ export default function CategoryCard({
   return (
     <div className="card bg-base-100 shadow-sm w-7/12 mx-auto">
       {/* HEADER */}
-      <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-base-200 mb-4">
         {/* Left: name (inline edit) */}
-        <div className="flex w-6/12">
+        <div className="flex w-5/12">
           {editing ? (
             <input
               autoFocus
@@ -55,30 +56,36 @@ export default function CategoryCard({
               className="input input-sm input-bordered w-full max-w-xs"
             />
           ) : (
-            <h3
-              className="font-medium text-lg truncate cursor-text"
-              title={name}
-              onDoubleClick={() => setEditing(true)}
-            >
-              {name}
-            </h3>
+            <div className="flex items-center gap-2 w-full">
+              <h3
+                className="font-medium text-lg break-words line-clamp-3 cursor-text max-w-10/12"
+                title={name}
+                onDoubleClick={() => setEditing(true)}
+              >
+                {name}
+              </h3>
+              <PencilSquareIcon
+                className="cursor-pointer w-5 h-5"
+                onClick={() => setEditing(true)}
+              />
+            </div>
           )}
         </div>
 
         {/* Desktop progress bar */}
-        <div className="hidden sm:block w-2/12">
+        <div className="hidden sm:block w-4/12">
           {/* Replace with your Progress component */}
           <Progress value={progress} />
         </div>
 
         {/* Actions dropdown — IMPORTANT: it must not toggle the card */}
-        <div className="w-1/12 flex justify-end">
+        <div className="w-2/12 flex justify-end">
           <div
             className="dropdown dropdown-end"
             // defensive: make sure opening the dropdown doesn't toggle the card
             onClick={(e) => e.stopPropagation()}
           >
-            <label tabIndex={0} className="btn btn-ghost btn-sm">
+            <label tabIndex={0} className="btn btn-square btn-ghost btn-sm">
               ⋮
             </label>
             <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-44">
@@ -101,7 +108,7 @@ export default function CategoryCard({
             aria-expanded={open}
             aria-controls={`cat-${_id}-content`}
             onClick={() => setOpen((o) => !o)}
-            className="btn btn-ghost btn-sm"
+            className="btn btn-square btn-ghost btn-sm"
             title={open ? 'Collapse' : 'Expand'}
           >
             {/* chevron svg rotating */}
@@ -129,12 +136,6 @@ export default function CategoryCard({
       >
         {open && (
           <div className="p-4">
-            <div className="flex justify-between items-center border-b border-gray-700 py-2">
-              <div className="w-1/12">Packed</div>
-              <div className="w-6/12">Name</div>
-              <div className="w-2/12 px-2">Quantity</div>
-              <div className="w-1/12 flex">Actions</div>
-            </div>
             <div className="flex flex-col">
               <ItemContainer categoryId={_id} />
               <ItemForm categoryId={_id} />

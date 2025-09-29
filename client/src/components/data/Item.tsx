@@ -22,7 +22,7 @@ export default function Item({
       key={_id}
       className="flex justify-between items-center border-b border-gray-700 py-2"
     >
-      <div className="w-1/12">
+      <div className="w-1/12 flex justify-center">
         <input
           name="packed"
           type="checkbox"
@@ -31,7 +31,7 @@ export default function Item({
           onChange={() => onEdit(_id, { packed: !packed })()}
         />
       </div>
-      <div className="w-6/12">
+      <div className="w-5/12">
         <input
           name="name"
           type="text"
@@ -44,7 +44,7 @@ export default function Item({
           onChange={(e) => onEdit(_id, { name: e.target.value })()}
         />
       </div>
-      <div className="w-2/12 px-2">
+      <div className="w-1/12">
         <input
           name="quantity"
           type="text"
@@ -53,10 +53,10 @@ export default function Item({
           onChange={(e) => onEdit(_id, { quantity: +e.target.value })()}
         />
       </div>
-      <div className="w-1/12 flex">
+      <div className="w-1/12">
         <button
           type="button"
-          className="btn btn-sm btn-error"
+          className="btn btn-square btn-sm btn-error"
           onClick={() => onDelete()}
         >
           <TrashIcon className="w-5 h-5" />

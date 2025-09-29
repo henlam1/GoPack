@@ -42,8 +42,8 @@ export default function ItemForm({ categoryId }: ItemFormProps) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-between items-center border-b border-gray-700 py-2">
         <div className="w-1/12"></div>
-        <div className="w-6/12">
-          <label className="form-control floating-label mb-2">
+        <div className="w-5/12">
+          <label className="form-control floating-label">
             <span className="label-text">{'Item Name'}</span>
             <input
               type={'text'}
@@ -56,8 +56,8 @@ export default function ItemForm({ categoryId }: ItemFormProps) {
             )}
           </label>
         </div>
-        <div className="w-2/12 px-2">
-          <label className="form-control floating-label mb-2">
+        <div className="w-1/12">
+          <label className="form-control floating-label">
             <span className="label-text">{'Quantity'}</span>
             <input
               type={'number'}
@@ -72,10 +72,10 @@ export default function ItemForm({ categoryId }: ItemFormProps) {
             )}
           </label>
         </div>
-        <div className="w-1/12 flex">
+        <div className="w-1/12">
           <button
             disabled={isSubmitting}
-            className="btn btn-sm btn-accent"
+            className="btn btn-square btn-sm btn-accent"
             type="submit"
           >
             <PlusCircleIcon className="w-5 h-5" />
