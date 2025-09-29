@@ -19,9 +19,15 @@ export default function QueryStateWrapper({
   skeleton,
   children,
 }: QueryStateWrapperProps) {
-  const [showSkeleton, setShowSkeleton] = useState(true);
-
-  // TODO: Figure out optimistic updates and get rid of this useEffect
+  // TODO: Fix how we invalidate queries. Currently we fetch every time on page load
+  /**
+   * refetchOnMount: false,        // don't auto refetch just because it mounted
+   * refetchOnWindowFocus: false,  // don't auto refetch when tab changes
+   * refetchOnReconnect: false,    // don't refetch on network reconnect
+   * keepPreviousData: true,       // keep cached data visible while refetching
+   * cacheTime: 1000 * 60 * 60,    // keep data in cache for 1 hour (or longer)
+   */
+  const [showSkeleton, setShowSkeleton] = useState(true); // isFetching && isEmpty
   // Load skeleton for 500ms so it doesn't flash and ruin UX
   useEffect(() => {
     if (!isFetching) {
