@@ -18,10 +18,7 @@ export default function Item({
   onDelete,
 }: ItemProps) {
   return (
-    <div
-      key={_id}
-      className="flex justify-between items-center border-b border-gray-700 py-2"
-    >
+    <div key={_id} className="flex justify-between items-center py-2">
       <div className="w-1/12 flex justify-center">
         <input
           name="packed"
@@ -44,7 +41,7 @@ export default function Item({
           onChange={(e) => onEdit(_id, { name: e.target.value })()}
         />
       </div>
-      <div className="w-1/12">
+      <div className="w-2/12">
         <input
           name="quantity"
           type="text"

@@ -56,7 +56,7 @@ export default function ItemForm({ categoryId }: ItemFormProps) {
             )}
           </label>
         </div>
-        <div className="w-1/12">
+        <div className="w-2/12">
           <label className="form-control floating-label">
             <span className="label-text">{'Quantity'}</span>
             <input
