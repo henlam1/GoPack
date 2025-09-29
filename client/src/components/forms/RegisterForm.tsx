@@ -41,12 +41,12 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-base-200">
+    <div className="flex min-h-screen items-center justify-center bg-base-200 p-4">
       <div className="card w-full max-w-sm shadow-xl bg-base-100">
-        <div className="card-body">
+        <div className="card-body p-4">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="card p-6 bg-base-100 max-w-md mx-auto"
+            className="flex flex-col gap-6"
           >
             <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
 
@@ -81,7 +81,7 @@ export default function RegisterForm() {
 
             <button
               disabled={isSubmitting}
-              className="btn btn-accent mt-6"
+              className="btn btn-accent"
               type="submit"
             >
               {isSubmitting ? 'Loading...' : 'Register'}

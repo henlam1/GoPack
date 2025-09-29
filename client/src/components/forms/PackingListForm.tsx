@@ -1,15 +1,18 @@
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormInput } from './FormInput';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface PackingListFormProps {
   title: string;
   onSubmit: () => void;
+  onCancel: () => void;
 }
 
 export default function PackingListForm({
   title,
   onSubmit,
+  onCancel,
 }: PackingListFormProps) {
   const {
     register,
@@ -30,13 +33,15 @@ export default function PackingListForm({
   }, [startDate, endDate, setValue]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-base-300">
+    <div className="flex min-h-screen items-center justify-center bg-base-300 p-4">
       <div className="card w-full max-w-sm shadow-xl bg-base-100">
-        <div className="card-body">
-          <form
-            onSubmit={onSubmit}
-            className="card p-6 bg-base-100 max-w-md mx-auto"
-          >
+        <div className="card-body p-4">
+          <form onSubmit={onSubmit} className="flex flex-col gap-6">
+            <div className="flex justify-end">
+              <button className="btn btn-circle" onClick={onCancel}>
+                <XMarkIcon className="w-5 h-5" />
+              </button>
+            </div>
             <h2 className="text-2xl font-bold text-center mb-4">{title}</h2>
             <FormInput
               label="Packing List Name"

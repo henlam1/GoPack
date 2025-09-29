@@ -10,7 +10,7 @@ type InputProps = {
 export const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ label, type = 'text', placeholder, error, ...props }, ref) => {
     return (
-      <label className="form-control floating-label w-70 mb-2">
+      <label className="form-control floating-label w-full">
         <span className="label-text">{label}</span>
         <input
           type={type}

@@ -41,14 +41,14 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-base-200">
+    <div className="flex min-h-screen items-center justify-center bg-base-200 p-4">
       <div className="card w-full max-w-sm shadow-xl bg-base-100">
-        <div className="card-body">
+        <div className="card-body p-4">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="card p-6 bg-base-100 max-w-md mx-auto"
+            className="flex flex-col gap-6"
           >
-            <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
+            <h2 className="text-2xl font-bold text-center">Login</h2>
 
             <FormInput
               label="Username"
@@ -66,14 +66,12 @@ export default function LoginForm() {
             />
 
             {errors.root && (
-              <p className="text-error text-center mb-2">
-                {errors.root.message}
-              </p>
+              <p className="text-error text-center">{errors.root.message}</p>
             )}
 
             <button
               disabled={isSubmitting}
-              className="btn btn-accent mt-6"
+              className="btn btn-accent w-full"
               type="submit"
             >
               {isSubmitting ? 'Loading...' : 'Login'}

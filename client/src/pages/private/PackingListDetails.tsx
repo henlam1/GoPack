@@ -26,7 +26,7 @@ export default function PackingListDetailsPage() {
   return (
     <PLDetailsPageLayout title={packingList.name}>
       <div className="flex flex-col w-8/12 mx-auto p-4 bg-base-300">
-        <div className="flex justify-between mb-4">
+        <div className="flex justify-between mb-8">
           <div className="w-7/12">
             <CategoryForm packingListId={id} />
           </div>

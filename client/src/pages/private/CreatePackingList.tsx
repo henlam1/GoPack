@@ -43,9 +43,18 @@ export default function CreatePackingListPage() {
     });
   });
 
+  const handleCancel = () => {
+    navigate(privateRoutes.home);
+    reset();
+  };
+
   return (
     <FormProvider {...methods}>
-      <PackingListForm title="Create Packing List" onSubmit={handleSubmit} />
+      <PackingListForm
+        title="Create Packing List"
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+      />
     </FormProvider>
   );
 }
