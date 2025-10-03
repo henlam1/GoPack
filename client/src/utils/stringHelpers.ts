@@ -18,3 +18,16 @@ export function formatDate(date: Date) {
 export function getTodayDate(): string {
   return new Date().toISOString().split('T')[0];
 }
+
+export function ISODateDifference(ISOstartDate: string, ISOendDate: string) {
+  const startDate = new Date(ISOstartDate);
+  const endDate = new Date(ISOendDate);
+
+  // Difference in milliseconds
+  const diffMs = endDate.getTime() - startDate.getTime();
+
+  // Convert to days
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  return diffDays + 1;
+}

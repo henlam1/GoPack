@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormInput } from './FormInput';
+import { FormInput } from '../inputs/FormInput';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface PackingListFormProps {

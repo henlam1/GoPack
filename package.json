@@ -3,11 +3,9 @@
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    
     "test:unit": "cd server && npm run test",
     "test:e2e": "cd client && npm run test",
     "test": "npm run test:unit && npm run test:e2e",
-
     "prepare": "husky",
     "check:precommit": "lint-staged",
     "lint:client": "npx eslint client --config client/eslint.config.js --ext .js,.ts,.jsx,.tsx",

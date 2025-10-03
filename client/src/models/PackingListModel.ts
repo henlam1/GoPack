@@ -3,8 +3,8 @@ export interface IPackingList {
   name: string;
   categories: string[];
   user: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   destination: string;
   description: string;
   packedItems: number;

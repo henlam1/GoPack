@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { registerAPI } from '../../services/api/users.ts';
 import { APIError } from '../../services/errors/errorTypes.ts';
 import publicRoutes from '../../routes/publicRoutes.ts';
-import { FormInput } from './FormInput.tsx';
+import { FormInput } from '../inputs/FormInput.tsx';
 
 export default function RegisterForm() {
   const {

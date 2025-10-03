@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import privateRoutes from '../../routes/privateRoutes';
 import { APIError } from '../../services/errors/errorTypes';
 import { useAuth } from '../../hooks/useAuth';
-import { FormInput } from './FormInput';
+import { FormInput } from '../inputs/FormInput';
 
 export default function LoginForm() {
   const {
