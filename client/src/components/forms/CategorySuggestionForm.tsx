@@ -12,6 +12,7 @@ import { ISODateDifference } from '../../utils/stringHelpers';
 import { DropdownSelect } from '../inputs/DropdownSelect';
 import { TextAreaInput, FormInput } from '../inputs/FormInput';
 import { IPackingList } from '../../models/PackingListModel';
+import { SuggestedItem } from '../../models/ItemModel';
 
 const presetCategories = [
   'Essentials',
@@ -32,7 +33,7 @@ interface CategorySuggestionFormProps {
   setMoreOptionsChecked: React.Dispatch<React.SetStateAction<boolean>>;
   setStep: React.Dispatch<React.SetStateAction<'form' | 'loading' | 'results'>>;
   setSuggestions: React.Dispatch<
-    React.SetStateAction<Record<string, string[]>>
+    React.SetStateAction<Record<string, SuggestedItem[]>>
   >;
 }
 

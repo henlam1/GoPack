@@ -1,4 +1,4 @@
-import IItem from '../../models/ItemModel';
+import { IItem } from '../../models/ItemModel';
 import { apiRoutes } from '../../routes/apiRoutes';
 import apiRequest from './apiRequest';
 

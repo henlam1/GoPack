@@ -1,4 +1,4 @@
-import IItem from '../models/ItemModel';
+import { IItem } from '../models/ItemModel';
 import Item from '../components/data/Item';
 import { getCategoryItemsAPI } from '../services/api/categories';
 import { useQuery } from '@tanstack/react-query';

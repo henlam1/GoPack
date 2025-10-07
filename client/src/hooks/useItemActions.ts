@@ -1,4 +1,4 @@
-import IItem from '../models/ItemModel';
+import { IItem } from '../models/ItemModel';
 import { useItemMutations } from './useItemMutations';
 
 export function useItemActions(packingListId: string, categoryId: string) {

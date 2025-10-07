@@ -4,7 +4,7 @@ import {
   updateItemAPI,
   deleteItemAPI,
 } from '../services/api/items';
-import IItem from '../models/ItemModel';
+import { IItem } from '../models/ItemModel';
 
 export function useItemMutations(packingListId?: string, categoryId?: string) {
   const queryClient = useQueryClient();

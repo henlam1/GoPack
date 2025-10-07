@@ -3,19 +3,17 @@ const prompts = {
     const { description, destination, duration, categories } = data;
     return `
 You are a packing assistant AI.
-Based on the following trip description, return ONLY a JSON object mapping categories to item lists.
-Do not include any extra text, explanation, or markdown formatting.
+Generate a JSON object mapping packing categories to suggested items for a trip.
+The JSON should be of type:
+Record<string, { name: string, quantity: number, note?: string }[]>
 
-Trip Description: "${description}"
-Destination: "${destination}"
-Duration: ${duration} days
-Additional Categories (If Relevant): ${categories.join(', ')}
+Inputs:
+- Trip Description: "${description}"
+- Destination: "${destination}"
+- Duration: ${duration} days
+- Additional Categories (If Relevant): ${categories.join(', ')}
 
-Expected JSON format:
-{
-  "Category Name": ["item1", "item2", "item3"],
-  "Another Category": ["item1", "item2"]
-}
+Be concise and practical. Don't include any explanations or text outside the JSON."
     `;
   },
 };

@@ -1,4 +1,4 @@
-import IItem from '../../models/ItemModel';
+import { IItem } from '../../models/ItemModel';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
 interface ItemProps {

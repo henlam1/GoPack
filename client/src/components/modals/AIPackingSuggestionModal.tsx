@@ -5,6 +5,7 @@ import CategorySuggestionForm from '../forms/CategorySuggestionForm';
 import { AISuggestionsView } from '../data/AISuggestionsView';
 import CloseButton from '../buttons/CloseButton';
 import BackButton from '../buttons/BackButton';
+import { SuggestedItem } from '../../models/ItemModel';
 
 interface Props {
   isOpen: boolean;
@@ -17,9 +18,11 @@ export default function AIPackingSuggestionsModal({
   onClose,
   packingList,
 }: Props) {
-  const [step, setStep] = useState<'form' | 'loading' | 'results'>('form');
+  const [step, setStep] = useState<'form' | 'loading' | 'results'>('results');
   const [moreOptionsChecked, setMoreOptionsChecked] = useState(false);
-  const [suggestions, setSuggestions] = useState<Record<string, string[]>>({});
+  const [suggestions, setSuggestions] = useState<
+    Record<string, SuggestedItem[]>
+  >({});
 
   // Form reset functions
   function handleClose() {
@@ -44,7 +47,7 @@ export default function AIPackingSuggestionsModal({
 
   return (
     <dialog id="ai_suggestions_modal" className="modal" open={isOpen}>
-      <div className="modal-box max-w-2xl w-full max-h-[85vh] h-[500px] flex flex-col">
+      <div className="modal-box max-w-2xl w-full max-h-[85vh] h-[500px] flex flex-col overflow-y-auto">
         {/* Modal Actions */}
         <div
           className={`flex justify-${stepActionsMap[step].length === 1 ? 'end' : 'between'}`}
@@ -55,6 +58,7 @@ export default function AIPackingSuggestionsModal({
         {/* Title */}
         <h3 className="font-bold text-xl my-4">AI Packing Suggestions</h3>
 
+        {/* Modal Content */}
         {step === 'form' && (
           <CategorySuggestionForm
             packingList={packingList}
@@ -65,7 +69,12 @@ export default function AIPackingSuggestionsModal({
           />
         )}
         {step === 'loading' && <Loading />}
-        {step === 'results' && <AISuggestionsView suggestions={suggestions} />}
+        {step === 'results' && (
+          <AISuggestionsView
+            suggestions={suggestions}
+            setSuggestions={setSuggestions}
+          />
+        )}
       </div>
     </dialog>
   );
