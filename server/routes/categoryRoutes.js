@@ -7,6 +7,7 @@ import {
   deleteCategory,
   markAllPacked,
   getCategoryItems,
+  suggestCategories,
 } from '../controllers/categoryController.js';
 import validationMiddleware from '../middleware/validationMiddleware.js';
 import { categorySchema } from '../validationSchemas/categorySchema.js';
@@ -18,6 +19,7 @@ router
   .route('/')
   .get(getCategories)
   .post(validationMiddleware(categorySchema), addCategory);
+router.route('/suggest').post(suggestCategories);
 router
   .route('/:categoryId')
   .all(validObjectId('categoryId'))

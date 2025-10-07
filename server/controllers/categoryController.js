@@ -45,3 +45,8 @@ export const getCategoryItems = tryCatch(async (req, res) => {
   const items = await ItemService.getItemsByCategory(categoryId);
   res.status(200).json(items);
 });
+
+export const suggestCategories = tryCatch(async (req, res) => {
+  const suggestions = await CategoryService.suggestCategories(req.body);
+  res.status(200).json(suggestions);
+});

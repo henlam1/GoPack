@@ -29,6 +29,7 @@ export const apiRoutes = {
     markAllPacked: (id: string) =>
       `${apiBaseUrl}/api/categories/${id}/mark-all-packed`,
     getItems: (id: string) => `${apiBaseUrl}/api/categories/${id}/items`,
+    suggest: `${apiBaseUrl}/api/categories/suggest`,
   },
   items: {
     base: `${apiBaseUrl}/api/items`,

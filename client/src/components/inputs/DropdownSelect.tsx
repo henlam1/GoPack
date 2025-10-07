@@ -5,15 +5,20 @@ import { Badge } from '../data/Badge';
 interface DropdownSelectProps {
   label: string;
   options: string[];
+  value?: string[];
+  onChange?: (value: string[]) => void;
+  error?: string;
   top?: boolean;
 }
 
 export const DropdownSelect: React.FC<DropdownSelectProps> = ({
   label,
   options,
+  value = [],
+  onChange = () => {},
+  error,
   top = false,
 }) => {
-  const [selected, setSelected] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,14 +27,14 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
     o.toLowerCase().includes(query.toLowerCase()),
   );
 
-  const availableOptions = filtered.filter((opt) => !selected.includes(opt));
+  const availableOptions = filtered.filter((opt) => !value.includes(opt));
 
   const handleSelect = (opt: string) => {
-    setSelected([...selected, opt]);
+    onChange([...value, opt]);
   };
 
   const handleRemove = (opt: string) => {
-    setSelected(selected.filter((s) => s !== opt));
+    onChange(value.filter((v) => v !== opt));
   };
 
   // Close if clicked outside the container
@@ -97,16 +102,17 @@ export const DropdownSelect: React.FC<DropdownSelectProps> = ({
         </ul>
       )}
       <div className="flex justify-center w-full">
-        {selected.length === 0 ? (
-          <p className="p-2 text-gray-500">No activities yet.</p>
+        {value.length === 0 ? (
+          <p className="p-2 text-gray-500">{`No ${label} selected yet`}</p>
         ) : (
           <div className="flex flex-row justify-center flex-wrap gap-4 p-4">
-            {selected.map((option) => (
-              <Badge label={option} onRemove={() => handleRemove(option)} />
+            {value.map((value) => (
+              <Badge label={value} onRemove={() => handleRemove(value)} />
             ))}
           </div>
         )}
       </div>
+      {error && <p className="text-error text-sm mt-1">{error}</p>}
     </div>
   );
 };

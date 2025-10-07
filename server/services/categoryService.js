@@ -1,6 +1,8 @@
 import { NotFoundError } from '../middleware/errors/errorClasses.js';
 import Category from '../models/categoryModel.js';
 import Item from '../models/itemModel.js';
+import promptBuilder from '../utils/promptBuilder.js';
+import { createAIService, generateSuggestions } from './aiService.js';
 import ItemService from './itemService.js';
 import PackingListService from './packingListService.js';
 
@@ -114,6 +116,13 @@ class CategoryService {
 
     await this.updatePackedItems(categoryId, changedPackedCount);
     return { updatedItems: changedPackedCount };
+  }
+
+  async suggestCategories(data) {
+    const prompt = promptBuilder.suggestCategories(data);
+    const ai = createAIService();
+    const suggestions = await generateSuggestions(ai, prompt);
+    return suggestions;
   }
 }
 
