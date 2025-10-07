@@ -9,7 +9,11 @@ export default function PrivateWrapper() {
     `hydrationStatus: ${hydrationStatus}, isAuthenticated: ${isAuthenticated}`,
   );
   if (hydrationStatus === 'idle' || hydrationStatus === 'hydrating')
-    return <Loading />;
+    return (
+      <div className="w-screen h-screen">
+        <Loading />
+      </div>
+    );
   if (hydrationStatus === 'disabled' || !isAuthenticated)
     return <Navigate to="/login" />;
   return <PrivateLayout />;
