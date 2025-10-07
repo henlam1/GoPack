@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import {
   AISuggestionFormFields,
@@ -29,6 +28,8 @@ const presetCategories = [
 
 interface CategorySuggestionFormProps {
   packingList: IPackingList;
+  moreOptionsChecked: boolean;
+  setMoreOptionsChecked: React.Dispatch<React.SetStateAction<boolean>>;
   setStep: React.Dispatch<React.SetStateAction<'form' | 'loading' | 'results'>>;
   setSuggestions: React.Dispatch<
     React.SetStateAction<Record<string, string[]>>
@@ -37,6 +38,8 @@ interface CategorySuggestionFormProps {
 
 export default function CategorySuggestionForm({
   packingList,
+  moreOptionsChecked,
+  setMoreOptionsChecked,
   setStep,
   setSuggestions,
 }: CategorySuggestionFormProps) {
@@ -54,8 +57,6 @@ export default function CategorySuggestionForm({
     ),
     resolver: zodResolver(AISuggestionSchema),
   });
-
-  const [isChecked, setIsChecked] = useState(false);
 
   const { mutate } = useMutation({
     mutationFn: suggestCategoriesAPI,
@@ -76,12 +77,12 @@ export default function CategorySuggestionForm({
   async function onSubmit(data: AISuggestionFormFields) {
     setStep('loading');
     reset();
-    setIsChecked(false);
+    setMoreOptionsChecked(false);
     mutate(data);
   }
 
   const handleToggleChecked = () => {
-    setIsChecked(!isChecked);
+    setMoreOptionsChecked(!moreOptionsChecked);
   };
 
   function PageOne() {
@@ -145,7 +146,7 @@ export default function CategorySuggestionForm({
         className="flex-1 flex flex-col gap-6 pr-1"
       >
         {/* Pages */}
-        {!isChecked ? <PageOne /> : <PageTwo />}
+        {!moreOptionsChecked ? <PageOne /> : <PageTwo />}
 
         {/* Error */}
         {errors.root && (
@@ -159,7 +160,7 @@ export default function CategorySuggestionForm({
           <input
             type="checkbox"
             className="toggle"
-            checked={isChecked}
+            checked={moreOptionsChecked}
             onChange={handleToggleChecked}
           />
         </div>

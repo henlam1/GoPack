@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Loading from '../feedback/Loading';
 import CategorySuggestionForm from '../forms/CategorySuggestionForm';
 import { AISuggestionsView } from '../data/AISuggestionsView';
+import CloseButton from '../buttons/CloseButton';
+import BackButton from '../buttons/BackButton';
 
 interface Props {
   isOpen: boolean;
@@ -16,37 +18,48 @@ export default function AIPackingSuggestionsModal({
   packingList,
 }: Props) {
   const [step, setStep] = useState<'form' | 'loading' | 'results'>('form');
-  const [suggestions, setSuggestions] = useState<Record<string, string[]>>({
-    Suggestions: ['None'],
-  });
+  const [moreOptionsChecked, setMoreOptionsChecked] = useState(false);
+  const [suggestions, setSuggestions] = useState<Record<string, string[]>>({});
 
   // Form reset functions
   function handleClose() {
     onClose();
-    resetModal();
+    setTimeout(resetModal, 200); // Reset form after it fades
   }
 
   function resetModal() {
     setStep('form');
-    setSuggestions({ Suggestions: ['None'] });
+    setMoreOptionsChecked(false);
+    setSuggestions({});
   }
+
+  const stepActionsMap = {
+    form: [<CloseButton onClick={handleClose} />],
+    loading: [<CloseButton onClick={handleClose} />],
+    results: [
+      <BackButton onClick={resetModal} />,
+      <CloseButton onClick={handleClose} />,
+    ],
+  };
 
   return (
     <dialog id="ai_suggestions_modal" className="modal" open={isOpen}>
       <div className="modal-box max-w-2xl w-full max-h-[85vh] h-[500px] flex flex-col">
-        {/* Close Button */}
-        <div className="flex justify-end">
-          <button className="btn btn-sm btn-circle" onClick={handleClose}>
-            <XMarkIcon className="w-5 h-5" />
-          </button>
+        {/* Modal Actions */}
+        <div
+          className={`flex justify-${stepActionsMap[step].length === 1 ? 'end' : 'between'}`}
+        >
+          {stepActionsMap[step].map((button) => button)}
         </div>
 
         {/* Title */}
-        <h3 className="font-bold text-xl mb-4">AI Packing Suggestions</h3>
+        <h3 className="font-bold text-xl my-4">AI Packing Suggestions</h3>
 
         {step === 'form' && (
           <CategorySuggestionForm
             packingList={packingList}
+            moreOptionsChecked={moreOptionsChecked}
+            setMoreOptionsChecked={setMoreOptionsChecked}
             setStep={setStep}
             setSuggestions={setSuggestions}
           />
