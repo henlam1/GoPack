@@ -139,6 +139,12 @@ export default function CategoryCard({
         {open && (
           <div className="p-4 bg-base-100">
             <div className="flex flex-col">
+              <div key={_id} className="flex justify-between items-center py-2">
+                <div className="w-1/12 flex justify-center"></div>
+                <div className="w-5/12">Name</div>
+                <div className="w-2/12">Quantity</div>
+                <div className="w-1/12"></div>
+              </div>
               <ItemForm categoryId={_id} />
               <ItemContainer categoryId={_id} />
             </div>

@@ -7,6 +7,7 @@ import PLDetailsPageLayout from '../../components/layouts/PLDetailsPageLayout';
 import AIPackingSuggestionsModal from '../../components/modals/AIPackingSuggestionModal';
 import { useState } from 'react';
 import { SparklesIcon } from '@heroicons/react/24/outline';
+import { SuggestionProvider } from '../../context/SuggestionProvider';
 
 export default function PackingListDetailsPage() {
   let { id } = useParams();
@@ -38,11 +39,13 @@ export default function PackingListDetailsPage() {
             <SparklesIcon className="w-5 h-5 z-10" />
             AI Suggestions
           </button>
-          <AIPackingSuggestionsModal
-            isOpen={open}
-            onClose={() => setOpen(false)}
-            packingList={packingList}
-          />
+          <SuggestionProvider>
+            <AIPackingSuggestionsModal
+              isOpen={open}
+              onClose={() => setOpen(false)}
+              packingList={packingList}
+            />
+          </SuggestionProvider>
         </div>
         <CategoryContainer packingListId={id} />
       </div>

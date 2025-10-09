@@ -5,7 +5,7 @@ import CategorySuggestionForm from '../forms/CategorySuggestionForm';
 import { AISuggestionsView } from '../data/AISuggestionsView';
 import CloseButton from '../buttons/CloseButton';
 import BackButton from '../buttons/BackButton';
-import { SuggestedItem } from '../../models/ItemModel';
+import { useSuggestionContext } from '../../hooks/useSuggestion';
 
 interface Props {
   isOpen: boolean;
@@ -20,9 +20,7 @@ export default function AIPackingSuggestionsModal({
 }: Props) {
   const [step, setStep] = useState<'form' | 'loading' | 'results'>('results');
   const [moreOptionsChecked, setMoreOptionsChecked] = useState(false);
-  const [suggestions, setSuggestions] = useState<
-    Record<string, SuggestedItem[]>
-  >({});
+  const { setSuggestions } = useSuggestionContext();
 
   // Form reset functions
   function handleClose() {
@@ -65,16 +63,10 @@ export default function AIPackingSuggestionsModal({
             moreOptionsChecked={moreOptionsChecked}
             setMoreOptionsChecked={setMoreOptionsChecked}
             setStep={setStep}
-            setSuggestions={setSuggestions}
           />
         )}
         {step === 'loading' && <Loading />}
-        {step === 'results' && (
-          <AISuggestionsView
-            suggestions={suggestions}
-            setSuggestions={setSuggestions}
-          />
-        )}
+        {step === 'results' && <AISuggestionsView />}
       </div>
     </dialog>
   );

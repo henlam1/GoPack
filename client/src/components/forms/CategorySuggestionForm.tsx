@@ -12,7 +12,7 @@ import { ISODateDifference } from '../../utils/stringHelpers';
 import { DropdownSelect } from '../inputs/DropdownSelect';
 import { TextAreaInput, FormInput } from '../inputs/FormInput';
 import { IPackingList } from '../../models/PackingListModel';
-import { SuggestedItem } from '../../models/ItemModel';
+import { useSuggestionContext } from '../../hooks/useSuggestion';
 
 const presetCategories = [
   'Essentials',
@@ -32,9 +32,6 @@ interface CategorySuggestionFormProps {
   moreOptionsChecked: boolean;
   setMoreOptionsChecked: React.Dispatch<React.SetStateAction<boolean>>;
   setStep: React.Dispatch<React.SetStateAction<'form' | 'loading' | 'results'>>;
-  setSuggestions: React.Dispatch<
-    React.SetStateAction<Record<string, SuggestedItem[]>>
-  >;
 }
 
 export default function CategorySuggestionForm({
@@ -42,7 +39,6 @@ export default function CategorySuggestionForm({
   moreOptionsChecked,
   setMoreOptionsChecked,
   setStep,
-  setSuggestions,
 }: CategorySuggestionFormProps) {
   const {
     register,
@@ -58,6 +54,7 @@ export default function CategorySuggestionForm({
     ),
     resolver: zodResolver(AISuggestionSchema),
   });
+  const { setSuggestions } = useSuggestionContext();
 
   const { mutate } = useMutation({
     mutationFn: suggestCategoriesAPI,

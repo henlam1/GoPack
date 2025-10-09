@@ -7,7 +7,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useItemMutations } from '../../hooks/useItemMutations';
 import { useParams } from 'react-router-dom';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 interface ItemFormProps {
   categoryId: string;
@@ -47,7 +47,7 @@ export default function ItemForm({ categoryId }: ItemFormProps) {
             <span className="label-text">{'Item Name'}</span>
             <input
               type={'text'}
-              placeholder={'item name'}
+              placeholder={'Add Item'}
               className="input input-bordered w-full"
               {...register('name')}
             />
@@ -78,7 +78,7 @@ export default function ItemForm({ categoryId }: ItemFormProps) {
             className="btn btn-square btn-sm btn-accent"
             type="submit"
           >
-            <PlusCircleIcon className="w-5 h-5" />
+            <PlusIcon className="w-5 h-5" />
           </button>
         </div>
       </div>
