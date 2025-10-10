@@ -58,8 +58,6 @@ export default function EditPackingListPage() {
   const handleSubmit = methods.handleSubmit((formData) => {
     const transformedData = {
       ...formData,
-      startDate: new Date(formData.startDate),
-      endDate: new Date(formData.endDate),
       _id: data._id,
       user: data.user,
     };
@@ -83,9 +81,18 @@ export default function EditPackingListPage() {
     );
   });
 
+  const handleCancel = () => {
+    methods.reset();
+    navigate(privateRoutes.home);
+  };
+
   return (
     <FormProvider {...methods}>
-      <PackingListForm title="Edit Packing List" onSubmit={handleSubmit} />
+      <PackingListForm
+        title="Edit Packing List"
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+      />
     </FormProvider>
   );
 }

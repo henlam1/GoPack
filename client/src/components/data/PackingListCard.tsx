@@ -6,8 +6,8 @@ import Progress from '../feedback/Progress';
 interface CardProps {
   _id: string;
   name: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   destination: string;
   description: string;
   packedItems: number;

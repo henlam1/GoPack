@@ -8,6 +8,7 @@ import AIPackingSuggestionsModal from '../../components/modals/AIPackingSuggesti
 import { useState } from 'react';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import { SuggestionProvider } from '../../context/SuggestionProvider';
+import Loading from '../../components/feedback/Loading';
 
 export default function PackingListDetailsPage() {
   let { id } = useParams();
@@ -21,7 +22,7 @@ export default function PackingListDetailsPage() {
     queryKey: ['packingList', id],
     queryFn: () => getPackingListAPI(id),
   });
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <Loading />;
   if (isError) return <div>Error...</div>;
 
   return (

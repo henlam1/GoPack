@@ -25,8 +25,6 @@ export default function CreatePackingListPage() {
   const handleSubmit = methods.handleSubmit((data) => {
     const transformedData = {
       ...data,
-      startDate: new Date(data.startDate),
-      endDate: new Date(data.endDate),
     };
     createPackingList.mutate(transformedData, {
       onSuccess: (data) => {
