@@ -61,6 +61,18 @@ class PackingListService {
     return result;
   }
 
+  async addCategories(packingListId, categoryIds) {
+    const result = await PackingList.findByIdAndUpdate(
+      packingListId,
+      {
+        $push: { categories: { $each: categoryIds } },
+      },
+      { new: true },
+    );
+    if (!result) throw new NotFoundError('Packing list not found');
+    return result;
+  }
+
   async removeCategory(packingListId, categoryId) {
     const result = await PackingList.findByIdAndUpdate(
       packingListId,

@@ -64,6 +64,7 @@ export default function CategorySuggestionForm({
       setStep('results');
     },
     onError: (error) => {
+      console.log(error);
       if (error instanceof APIError) {
         setError('root', { message: 'API Error' });
       } else {
@@ -72,7 +73,7 @@ export default function CategorySuggestionForm({
     },
   });
 
-  async function onSubmit(data: AISuggestionFormFields) {
+  function onSubmit(data: AISuggestionFormFields) {
     setStep('loading');
     reset();
     setMoreOptionsChecked(false);
@@ -88,7 +89,7 @@ export default function CategorySuggestionForm({
       <>
         <TextAreaInput
           label="Description"
-          placeholder="Describe your trip details. E.g. '10 days in Japan, sightseeing and hiking'"
+          placeholder="Describe your trip goals or context E.g. 'Hiking and sightseeing'"
           {...register('description')}
           error={errors.description?.message}
           maxLength={300}
@@ -105,7 +106,7 @@ export default function CategorySuggestionForm({
           />
 
           <FormInput
-            label="Duration"
+            label="Duration (days)"
             type="number"
             placeholder="duration"
             min={'1'}

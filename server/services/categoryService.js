@@ -69,6 +69,24 @@ class CategoryService {
     return result;
   }
 
+  async addItems(categoryId, itemIds) {
+    const result = await Category.findByIdAndUpdate(
+      categoryId,
+      {
+        $push: { items: { $each: itemIds } },
+        $inc: { totalItems: itemIds.length },
+      },
+      { new: true },
+    );
+    if (!result) throw new NotFoundError('Category not found');
+
+    // Update packing list total items
+    const { packingList } = result;
+    await PackingListService.updateTotalItems(packingList, itemIds.length);
+
+    return result;
+  }
+
   async removeItem(categoryId, itemId) {
     const result = await Category.findByIdAndUpdate(
       categoryId,
@@ -123,6 +141,35 @@ class CategoryService {
     const ai = createAIService();
     const suggestions = await generateSuggestions(ai, prompt);
     return suggestions;
+  }
+
+  async commitCategories(data) {
+    const { packingListId, suggestions } = data;
+    const newCategories = [];
+
+    for (const [categoryName, items] of Object.entries(suggestions)) {
+      // Create one category at a time
+      const newCategory = await Category.create({
+        name: categoryName,
+        packingList: packingListId,
+      });
+      newCategories.push(newCategory);
+
+      // Create items per category in bulk
+      const newItems = await Item.insertMany(
+        items.map((i) => ({ ...i, packed: false, category: newCategory._id })),
+      );
+
+      // Add all the items to our category
+      const itemIds = newItems.map((item) => item._id);
+      await this.addItems(newCategory._id, itemIds);
+    }
+
+    // Add the new categories to our packing list
+    const categoryIds = newCategories.map((category) => category._id);
+    await PackingListService.addCategories(packingListId, categoryIds);
+
+    return newCategories;
   }
 }
 

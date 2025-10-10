@@ -1,4 +1,5 @@
 import { ICategory, ICategoryForm } from '../../models/CategoryModel';
+import { SuggestedItem } from '../../models/ItemModel';
 import { AISuggestionFormFields } from '../../models/zod/AISuggestionSchema';
 import { apiRoutes } from '../../routes/apiRoutes';
 import apiRequest from './apiRequest';
@@ -65,5 +66,20 @@ export async function suggestCategoriesAPI(form: AISuggestionFormFields) {
     body: JSON.stringify(form),
   });
   console.log('Suggested categories: ', data);
+  return data;
+}
+
+export async function commitCategoriesAPI(
+  packingListId: string,
+  suggestions: Record<string, SuggestedItem[]>,
+) {
+  const data = await apiRequest(apiRoutes.categories.commit, {
+    method: 'POST',
+    body: JSON.stringify({
+      packingListId: packingListId,
+      suggestions: suggestions,
+    }),
+  });
+  console.log('Committed categories: ', data);
   return data;
 }

@@ -18,7 +18,7 @@ export default function AIPackingSuggestionsModal({
   onClose,
   packingList,
 }: Props) {
-  const [step, setStep] = useState<'form' | 'loading' | 'results'>('results');
+  const [step, setStep] = useState<'form' | 'loading' | 'results'>('form');
   const [moreOptionsChecked, setMoreOptionsChecked] = useState(false);
   const { setSuggestions } = useSuggestionContext();
 
@@ -66,7 +66,7 @@ export default function AIPackingSuggestionsModal({
           />
         )}
         {step === 'loading' && <Loading />}
-        {step === 'results' && <AISuggestionsView />}
+        {step === 'results' && <AISuggestionsView handleClose={handleClose} />}
       </div>
     </dialog>
   );

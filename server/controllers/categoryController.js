@@ -50,3 +50,8 @@ export const suggestCategories = tryCatch(async (req, res) => {
   const suggestions = await CategoryService.suggestCategories(req.body);
   res.status(200).json(suggestions);
 });
+
+export const commitCategories = tryCatch(async (req, res) => {
+  const committedCategories = await CategoryService.commitCategories(req.body);
+  res.status(201).json(committedCategories);
+});

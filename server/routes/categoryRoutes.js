@@ -8,6 +8,7 @@ import {
   markAllPacked,
   getCategoryItems,
   suggestCategories,
+  commitCategories,
 } from '../controllers/categoryController.js';
 import validationMiddleware from '../middleware/validationMiddleware.js';
 import { categorySchema } from '../validationSchemas/categorySchema.js';
@@ -20,6 +21,7 @@ router
   .get(getCategories)
   .post(validationMiddleware(categorySchema), addCategory);
 router.route('/suggest').post(suggestCategories);
+router.route('/commit').post(commitCategories);
 router
   .route('/:categoryId')
   .all(validObjectId('categoryId'))
