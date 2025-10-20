@@ -17,17 +17,26 @@ export default function ConfirmModal({
     <dialog
       className="modal"
       role="dialog"
-      id="confirm_delete_PL_modal"
+      id="confirm_modal"
+      data-testid="confirm-modal"
       open={isOpen}
     >
       <div className="modal-box">
         <h3 className="text-lg font-bold">{title}</h3>
         <p className="py-4">{message}</p>
         <div className="modal-action flex">
-          <button className="btn btn-accent" onClick={() => onClose()}>
+          <button
+            className="btn btn-accent"
+            data-testid="confirm-modal-close"
+            onClick={() => onClose()}
+          >
             Close
           </button>
-          <button className="btn btn-secondary" onClick={() => onConfirm()}>
+          <button
+            className="btn btn-secondary"
+            data-testid="confirm-modal-confirm"
+            onClick={() => onConfirm()}
+          >
             Confirm
           </button>
         </div>

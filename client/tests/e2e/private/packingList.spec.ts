@@ -112,5 +112,6 @@ test('permanently delete packing list', async ({ page }) => {
   await expect(page.getByText(testPackingList.name)).toBeVisible();
   await page.getByTestId('pl-ellipsis-toggle').click();
   await page.getByTestId('pl-ellipsis-menu-item-Delete Forever').click();
+  await page.getByTestId('confirm-modal-confirm').click();
   await expect(page.getByText(`${testPackingList.name}`)).not.toBeVisible();
 });
