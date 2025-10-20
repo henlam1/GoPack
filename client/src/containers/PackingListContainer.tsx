@@ -5,6 +5,7 @@ import { usePackingListActions } from '../hooks/usePackingListActions';
 import QueryStateWrapper from '../components/wrappers/QueryStateWrapper';
 import { useState } from 'react';
 import PLContainerSkeleton from '../components/feedback/skeletons/PLContainerSkeleton';
+import ConfirmModal from '../components/modals/ConfirmModal';
 
 interface PackingListContainerProps {
   queryFn: () => Promise<IPackingList[]>;
@@ -24,6 +25,7 @@ export default function PackingListContainer({
   console.log(packingLists);
   const actions = usePackingListActions();
 
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const filteredPackingLists = packingLists?.filter((list) => {
     const term = searchTerm.toLowerCase();
@@ -33,6 +35,20 @@ export default function PackingListContainer({
       list.description.toLowerCase().includes(term)
     );
   });
+
+  const confirmHardDelete = (id: string) => {
+    setPendingDeleteId(id);
+  };
+
+  const handleConfirm = () => {
+    if (!pendingDeleteId) return;
+    actions.onHardDelete(pendingDeleteId)();
+    setPendingDeleteId(null);
+  };
+
+  const handleCancel = () => {
+    setPendingDeleteId(null);
+  };
 
   return (
     <QueryStateWrapper
@@ -64,11 +80,18 @@ export default function PackingListContainer({
               {...packingList}
               onEdit={actions.onEdit(packingList._id)}
               onSoftDelete={actions.onSoftDelete(packingList._id)}
-              onHardDelete={actions.onHardDelete(packingList._id)}
+              onHardDelete={() => confirmHardDelete(packingList._id)}
               onRestore={actions.onRestore(packingList._id)}
               onArchive={actions.onArchive(packingList._id)}
             />
           ))}
+          <ConfirmModal
+            isOpen={!!pendingDeleteId} // !! casts possible null to false
+            onClose={handleCancel}
+            onConfirm={handleConfirm}
+            title="Delete Packing List?"
+            message="This packing list will be deleted forever!"
+          />
         </div>
       </div>
     </QueryStateWrapper>

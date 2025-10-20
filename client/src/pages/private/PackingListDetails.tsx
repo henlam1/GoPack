@@ -13,7 +13,7 @@ import Loading from '../../components/feedback/Loading';
 export default function PackingListDetailsPage() {
   let { id } = useParams();
   id = id as string;
-  const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const {
     data: packingList,
     isPending,
@@ -34,15 +34,15 @@ export default function PackingListDetailsPage() {
           </div>
           <button
             className="btn bg-gradient-to-r from-purple-500 to-cyan-500 w-4/12"
-            onClick={() => setOpen(true)}
+            onClick={() => setModalOpen(true)}
           >
             <SparklesIcon className="w-5 h-5 z-10" />
             AI Suggestions
           </button>
           <SuggestionProvider>
             <AIPackingSuggestionsModal
-              isOpen={open}
-              onClose={() => setOpen(false)}
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
               packingList={packingList}
             />
           </SuggestionProvider>

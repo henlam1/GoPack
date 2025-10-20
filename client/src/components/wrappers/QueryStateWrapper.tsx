@@ -27,14 +27,18 @@ export default function QueryStateWrapper({
    * keepPreviousData: true,       // keep cached data visible while refetching
    * cacheTime: 1000 * 60 * 60,    // keep data in cache for 1 hour (or longer)
    */
-  const [showSkeleton, setShowSkeleton] = useState(true); // isFetching && isEmpty
+  const [showSkeleton, setShowSkeleton] = useState(isFetching && isEmpty);
   // Load skeleton for 500ms so it doesn't flash and ruin UX
   useEffect(() => {
-    if (!isFetching) {
-      const timer = setTimeout(() => setShowSkeleton(false), 0); // 500ms min
+    // Show skeleton if we're fetching without cached data
+    if (isFetching && isEmpty) {
+      setShowSkeleton(true);
+      // We're not fetching or there's cached data, show the skeleton for 500ms
+    } else {
+      const timer = setTimeout(() => setShowSkeleton(false), 500); // 500ms min
       return () => clearTimeout(timer);
     }
-  }, [isFetching]);
+  }, [isFetching, isEmpty]);
 
   if (showSkeleton) {
     return (
