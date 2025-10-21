@@ -1,10 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import CategoryContainerSkeleton from '../components/feedback/skeletons/CategoryContainerSkeleton';
-import QueryStateWrapper from '../components/wrappers/QueryStateWrapper';
-import { ICategory } from '../models/CategoryModel';
-import CategoryCard from '../components/data/CategoryCard';
-import { useCategoryActions } from '../hooks/useCategoryActions';
-import { getPLCategoriesAPI } from '../services/api/packingLists';
+import SortableCategories from '../components/sortable/SortableCategories';
+import { CategoryProvider } from '../context/CategoryProvider';
 
 interface CategoryContainerProps {
   packingListId: string;
@@ -13,41 +8,9 @@ interface CategoryContainerProps {
 export default function CategoryContainer({
   packingListId,
 }: CategoryContainerProps) {
-  const {
-    data: categories,
-    isFetching,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: ['categories', packingListId],
-    queryFn: () => getPLCategoriesAPI(packingListId),
-  });
-  console.log(categories);
-  const actions = useCategoryActions(packingListId);
-
   return (
-    <QueryStateWrapper
-      isFetching={isFetching}
-      isError={isError}
-      refetch={refetch}
-      isEmpty={!categories || categories.length === 0}
-      skeleton={<CategoryContainerSkeleton />}
-      emptyMessage={<p className="text-gray-500">No categories yet.</p>}
-    >
-      <div className="flex flex-col gap-4">
-        {categories?.map((category: ICategory) => {
-          return (
-            <CategoryCard
-              key={category._id}
-              {...category}
-              onMarkAllPacked={actions.onMarkAllPacked(category._id, true)}
-              onMarkAllUnpacked={actions.onMarkAllPacked(category._id, false)}
-              onEdit={actions.onEdit(category._id)}
-              onDelete={actions.onDelete(category._id)}
-            />
-          );
-        })}
-      </div>
-    </QueryStateWrapper>
+    <CategoryProvider packingListId={packingListId}>
+      <SortableCategories />
+    </CategoryProvider>
   );
 }
