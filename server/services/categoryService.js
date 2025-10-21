@@ -18,7 +18,16 @@ class CategoryService {
   }
 
   async getCategoriesByPackingList(packingListId) {
-    return await Category.find({ packingList: packingListId });
+    const packingList =
+      await PackingListService.getPackingListById(packingListId);
+    const categoryIds = packingList.categories;
+    const categories = await Category.find({ _id: { $in: categoryIds } });
+
+    // Return categories in the exact order of IDs
+    const orderedCategories = categoryIds.map((id) =>
+      categories.find((c) => c._id.toString() === id.toString()),
+    );
+    return orderedCategories;
   }
 
   async addCategory(data) {

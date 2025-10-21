@@ -16,9 +16,15 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
+import { usePackingListActions } from '../../hooks/usePackingListActions';
+import { useParams } from 'react-router-dom';
 
 export default function SortableCategories() {
+  const { id } = useParams();
+  const packingListId = id as string;
+
   const { categories, setCategories } = useCategory();
+  const { onReorderCategories } = usePackingListActions();
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -35,8 +41,11 @@ export default function SortableCategories() {
         const oldIndex = prev.findIndex((c) => c._id === active.id);
         const newIndex = prev.findIndex((c) => c._id === over.id);
         if (oldIndex === -1 || newIndex === -1) return prev;
+        const reordered = arrayMove(prev, oldIndex, newIndex);
 
-        return arrayMove(prev, oldIndex, newIndex);
+        const newOrder = reordered.map((c) => c._id);
+        onReorderCategories(packingListId, newOrder)();
+        return reordered;
       });
     }
   }
@@ -52,7 +61,9 @@ export default function SortableCategories() {
         strategy={verticalListSortingStrategy}
       >
         {categories?.map((category: ICategory) => {
-          return <SortableCategoryCard category={category} />;
+          return (
+            <SortableCategoryCard key={category._id} category={category} />
+          );
         })}
       </SortableContext>
     </DndContext>

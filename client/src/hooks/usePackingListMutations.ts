@@ -4,8 +4,11 @@ import {
   updatePackingListAPI,
   deletePackingListAPI,
 } from '../services/api/packingLists';
+import { useParams } from 'react-router-dom';
 
 export function usePackingListMutations() {
+  const { id } = useParams();
+  const packingListId = id as string;
   const queryClient = useQueryClient();
 
   // CRUD Mutations
@@ -36,9 +39,22 @@ export function usePackingListMutations() {
     },
   });
 
+  const reorderCategories = useMutation({
+    mutationFn: updatePackingListAPI,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['packingList', packingListId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
+      });
+    },
+  });
+
   return {
     createPackingList,
     updatePackingList,
     deletePackingList,
+    reorderCategories,
   };
 }

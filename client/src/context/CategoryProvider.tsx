@@ -7,13 +7,14 @@ import { ICategory } from '../models/CategoryModel';
 import CategoryContainerSkeleton from '../components/feedback/skeletons/CategoryContainerSkeleton';
 import QueryStateWrapper from '../components/wrappers/QueryStateWrapper';
 
+interface CategoryProviderProps {
+  packingListId: string;
+  children: ReactNode;
+}
 export function CategoryProvider({
   packingListId,
   children,
-}: {
-  packingListId: string;
-  children: ReactNode;
-}) {
+}: CategoryProviderProps) {
   const {
     data: categories,
     isFetching,
@@ -24,9 +25,7 @@ export function CategoryProvider({
     queryFn: () => getPLCategoriesAPI(packingListId),
   });
 
-  const [localCategories, setCategories] = useState<ICategory[]>(
-    categories ?? [],
-  );
+  const [localCategories, setCategories] = useState<ICategory[]>([]);
   const actions = useCategoryActions(packingListId);
   console.log(categories);
 
@@ -34,6 +33,7 @@ export function CategoryProvider({
     if (categories) {
       setCategories(categories);
     }
+    console.log(categories);
   }, [categories]);
 
   return (

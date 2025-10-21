@@ -4,7 +4,8 @@ import { usePackingListMutations } from './usePackingListMutations';
 
 export function usePackingListActions() {
   const navigate = useNavigate();
-  const { updatePackingList, deletePackingList } = usePackingListMutations();
+  const { updatePackingList, deletePackingList, reorderCategories } =
+    usePackingListMutations();
 
   return {
     onEdit: (id: string) => () => navigate(privateRoutes.packingLists.edit(id)),
@@ -15,5 +16,7 @@ export function usePackingListActions() {
       updatePackingList.mutate({ id, update: { status: 'active' } }),
     onArchive: (id: string) => () =>
       updatePackingList.mutate({ id, update: { status: 'archived' } }),
+    onReorderCategories: (id: string, newOrder: string[]) => () =>
+      reorderCategories.mutate({ id, update: { categories: newOrder } }),
   };
 }
