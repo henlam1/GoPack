@@ -1,4 +1,3 @@
-import { IPackingList } from '../../models/PackingListModel';
 import { useState } from 'react';
 import Loading from '../feedback/Loading';
 import CategorySuggestionForm from '../forms/CategorySuggestionForm';
@@ -10,14 +9,9 @@ import { useSuggestionContext } from '../../hooks/useSuggestion';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  packingList: IPackingList;
 }
 
-export default function AIPackingSuggestionsModal({
-  isOpen,
-  onClose,
-  packingList,
-}: Props) {
+export default function AIPackingSuggestionsModal({ isOpen, onClose }: Props) {
   const [step, setStep] = useState<'form' | 'loading' | 'results'>('form');
   const [moreOptionsChecked, setMoreOptionsChecked] = useState(false);
   const { setSuggestions } = useSuggestionContext();
@@ -59,7 +53,6 @@ export default function AIPackingSuggestionsModal({
         {/* Modal Content */}
         {step === 'form' && (
           <CategorySuggestionForm
-            packingList={packingList}
             moreOptionsChecked={moreOptionsChecked}
             setMoreOptionsChecked={setMoreOptionsChecked}
             setStep={setStep}

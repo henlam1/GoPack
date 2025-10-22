@@ -6,12 +6,9 @@ import {
 } from '../../models/zod/categorySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCategoryMutations } from '../../hooks/useCategoryMutations';
+import { usePackingList } from '../../hooks/usePackingList';
 
-export default function CategoryForm({
-  packingListId,
-}: {
-  packingListId: string;
-}) {
+export default function CategoryForm() {
   const {
     register,
     handleSubmit,
@@ -21,6 +18,9 @@ export default function CategoryForm({
     defaultValues: categoryDefaults,
     resolver: zodResolver(categorySchema),
   });
+
+  const { packingList } = usePackingList();
+  const packingListId = packingList._id;
 
   // Hooks to manage item CRUD
   const { createCategory } = useCategoryMutations(packingListId);

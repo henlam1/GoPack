@@ -11,8 +11,8 @@ import { APIError } from '../../services/errors/errorTypes';
 import { ISODateDifference } from '../../utils/stringHelpers';
 import { DropdownSelect } from '../inputs/DropdownSelect';
 import { TextAreaInput, FormInput } from '../inputs/FormInput';
-import { IPackingList } from '../../models/PackingListModel';
 import { useSuggestionContext } from '../../hooks/useSuggestion';
+import { usePackingList } from '../../hooks/usePackingList';
 
 const presetCategories = [
   'Essentials',
@@ -28,18 +28,17 @@ const presetCategories = [
 ];
 
 interface CategorySuggestionFormProps {
-  packingList: IPackingList;
   moreOptionsChecked: boolean;
   setMoreOptionsChecked: React.Dispatch<React.SetStateAction<boolean>>;
   setStep: React.Dispatch<React.SetStateAction<'form' | 'loading' | 'results'>>;
 }
 
 export default function CategorySuggestionForm({
-  packingList,
   moreOptionsChecked,
   setMoreOptionsChecked,
   setStep,
 }: CategorySuggestionFormProps) {
+  const { packingList } = usePackingList();
   const {
     register,
     handleSubmit,
