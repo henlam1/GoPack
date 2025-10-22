@@ -60,11 +60,13 @@ export default function SortableCategories() {
         items={categories ? categories.map((cat) => cat._id) : []}
         strategy={verticalListSortingStrategy}
       >
-        {categories?.map((category: ICategory) => {
-          return (
-            <SortableCategoryCard key={category._id} category={category} />
-          );
-        })}
+        <div className="flex flex-col gap-4">
+          {categories?.map((category: ICategory) => {
+            return (
+              <SortableCategoryCard key={category._id} category={category} />
+            );
+          })}
+        </div>
       </SortableContext>
     </DndContext>
   );
