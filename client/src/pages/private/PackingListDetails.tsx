@@ -13,7 +13,7 @@ export default function PackingListDetailsPage() {
   return (
     <PackingListProvider>
       <PLDetailsPageLayout>
-        <div className="flex flex-col w-8/12 mx-auto p-4 bg-base-300 rounded-2xl">
+        <div className="flex flex-col w-8/12 mx-auto p-4 rounded-2xl">
           <div className="flex justify-between mb-10">
             <div className="w-7/12">
               <CategoryForm />

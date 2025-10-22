@@ -59,9 +59,11 @@ export default function SortableItems() {
         items={items ? items.map((item) => item._id) : []}
         strategy={verticalListSortingStrategy}
       >
-        {items?.map((item: IItem) => {
-          return <SortableItem key={item._id} item={item} />;
-        })}
+        <div className="bg-base-100 rounded-2xl">
+          {items?.map((item: IItem) => {
+            return <SortableItem key={item._id} item={item} />;
+          })}
+        </div>
       </SortableContext>
     </DndContext>
   );

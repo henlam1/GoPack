@@ -53,6 +53,7 @@ export default function CategoryCard({
           className="w-1/12 flex justify-center items-center"
           {...dragHandleProps}
         >
+          {/* Grip icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-8 h-8 text-gray-500 cursor-grab active:cursor-grabbing"
@@ -161,16 +162,16 @@ export default function CategoryCard({
         className={`overflow-hidden transition-[max-height] duration-200 ${open ? 'max-h-[1000px]' : 'max-h-0'}`}
       >
         {open && (
-          <div className="p-4 bg-base-100">
-            <div className="flex flex-col">
-              <div key={_id} className="flex justify-between items-center py-2">
+          <div className="p-4 bg-base-200">
+            <div className="flex flex-col gap-4">
+              {/* <div key={_id} className="flex justify-between items-center py-2">
                 <div className="w-1/12 flex justify-center"></div>
                 <div className="w-5/12">Name</div>
                 <div className="w-2/12">Quantity</div>
                 <div className="w-1/12"></div>
-              </div>
-              <ItemForm categoryId={_id} />
+              </div> */}
               <ItemContainer categoryId={_id} />
+              <ItemForm categoryId={_id} />
             </div>
           </div>
         )}
