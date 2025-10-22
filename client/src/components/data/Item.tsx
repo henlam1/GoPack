@@ -18,7 +18,10 @@ export default function Item({
   onDelete,
 }: ItemProps) {
   return (
-    <div key={_id} className="flex justify-between items-center py-2">
+    <div
+      key={_id}
+      className="flex justify-between items-center py-2 cursor-grab active:cursor-grabbing"
+    >
       <div className="w-1/12 flex justify-center">
         <input
           name="packed"

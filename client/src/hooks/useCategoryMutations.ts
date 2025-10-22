@@ -52,10 +52,21 @@ export function useCategoryMutations(packingListId: string) {
     },
   });
 
+  const reorderItems = useMutation({
+    mutationFn: ({ id, update }: { id: string; update: Partial<ICategory> }) =>
+      updateCategoryAPI(id, update),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['categories', packingListId],
+      });
+    },
+  });
+
   return {
     createCategory,
     updateCategory,
     deleteCategory,
     markAllPackedMutation,
+    reorderItems,
   };
 }

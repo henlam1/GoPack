@@ -68,7 +68,7 @@ export default function CategoryCard({
             />
           </svg>
         </div>
-        <div className="w-11/12 flex justify-center items-center">
+        <div className="w-10/12 flex justify-between items-center">
           {/* Category name (inline edit) */}
           <div className="flex w-5/12">
             {editing ? (

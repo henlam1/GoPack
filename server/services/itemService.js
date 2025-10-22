@@ -14,7 +14,16 @@ class ItemService {
   }
 
   async getItemsByCategory(categoryId) {
-    return await Item.find({ category: categoryId });
+    // return await Item.find({ category: categoryId });
+    const category = await CategoryService.getCategoryById(categoryId);
+    const itemIds = category.items;
+    const items = await Item.find({ _id: { $in: itemIds } });
+
+    // Return items in the exact order of IDs
+    const orderedItems = itemIds.map((id) =>
+      items.find((i) => i._id.toString() === id.toString()),
+    );
+    return orderedItems;
   }
 
   async addItem(data) {
