@@ -27,13 +27,11 @@ export function CategoryProvider({
 
   const [localCategories, setCategories] = useState<ICategory[]>([]);
   const actions = useCategoryActions(packingListId);
-  console.log(categories);
 
   useEffect(() => {
     if (categories) {
       setCategories(categories);
     }
-    console.log(categories);
   }, [categories]);
 
   return (
