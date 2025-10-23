@@ -41,46 +41,51 @@ export default function ItemForm({ categoryId }: ItemFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-between items-center py-2">
-        <div className="w-1/12"></div>
-        <div className="w-5/12">
-          <label className="form-control floating-label">
-            <span className="label-text">{'Item Name'}</span>
-            <input
-              type={'text'}
-              placeholder={'Add Item'}
-              className="input input-bordered w-full"
-              {...register('name')}
-            />
-            {errors && (
-              <p className="text-error text-sm mt-1">{errors.name?.message}</p>
-            )}
-          </label>
+        <div className="w-1/12" />
+        <div className="w-9/12 flex justify-between">
+          <div className="w-1/12">
+            <button
+              disabled={isSubmitting}
+              className="btn btn-square btn-sm btn-accent"
+              type="submit"
+            >
+              <PlusIcon className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="w-6/12">
+            <label className="form-control floating-label">
+              <span className="label-text">{'Item Name'}</span>
+              <input
+                type={'text'}
+                placeholder={'Add Item'}
+                className="input input-bordered w-full"
+                {...register('name')}
+              />
+              {errors && (
+                <p className="text-error text-sm mt-1">
+                  {errors.name?.message}
+                </p>
+              )}
+            </label>
+          </div>
+          <div className="w-2/12">
+            <label className="form-control floating-label">
+              <span className="label-text">{'Quantity'}</span>
+              <input
+                type={'number'}
+                placeholder={'quantity'}
+                className="input input-bordered w-full"
+                {...register('quantity')}
+              />
+              {errors && (
+                <p className="text-error text-sm mt-1">
+                  {errors.quantity?.message}
+                </p>
+              )}
+            </label>
+          </div>
         </div>
-        <div className="w-2/12">
-          <label className="form-control floating-label">
-            <span className="label-text">{'Quantity'}</span>
-            <input
-              type={'number'}
-              placeholder={'quantity'}
-              className="input input-bordered w-full"
-              {...register('quantity')}
-            />
-            {errors && (
-              <p className="text-error text-sm mt-1">
-                {errors.quantity?.message}
-              </p>
-            )}
-          </label>
-        </div>
-        <div className="w-1/12">
-          <button
-            disabled={isSubmitting}
-            className="btn btn-square btn-sm btn-accent"
-            type="submit"
-          >
-            <PlusIcon className="w-5 h-5" />
-          </button>
-        </div>
+        <div className="w-1/12" />
       </div>
     </form>
   );

@@ -21,12 +21,13 @@ export default function SortableItem({ item }: SortableCategoryCardProps) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style} {...attributes}>
       <Item
         key={item._id}
         {...item}
         onEdit={actions.onEdit}
         onDelete={actions.onDelete(item._id)}
+        dragHandleProps={listeners}
       />
     </div>
   );

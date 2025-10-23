@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSuggestionContext } from '../../hooks/useSuggestion';
 import { commitCategoriesAPI } from '../../services/api/categories';
 import CategorySuggestion from './CategorySuggestion';
-import { useParams } from 'react-router-dom';
 import { SuggestedItem } from '../../models/ItemModel';
+import { usePackingList } from '../../hooks/usePackingList';
 
 export function AISuggestionsView({
   handleClose,
@@ -12,26 +12,19 @@ export function AISuggestionsView({
 }) {
   const { suggestions, setSuggestions } = useSuggestionContext();
   // Get packingListId from URL params
-  // TODO: PACKING LIST CONTEXT, CATEGORY CONTEXT
-  let { id } = useParams();
-  id = id as string;
+  const { packingList } = usePackingList();
 
   // Query client
   const queryClient = useQueryClient();
 
   // Submitting the suggestions
   const { mutate, isPending } = useMutation({
-    mutationFn: ({
-      packingListId,
-      suggestions,
-    }: {
-      packingListId: string;
-      suggestions: Record<string, SuggestedItem[]>;
-    }) => commitCategoriesAPI(packingListId, suggestions),
+    mutationFn: (suggestions: Record<string, SuggestedItem[]>) =>
+      commitCategoriesAPI(packingList._id, suggestions),
     onSuccess: (data) => {
       console.log('Suggest category mutation successful', data);
       queryClient.invalidateQueries({
-        queryKey: ['categories', id],
+        queryKey: ['categories', packingList._id],
       });
     },
     onError: (error) => {
@@ -52,7 +45,7 @@ export function AISuggestionsView({
         <button
           disabled={isPending}
           className="btn btn-accent w-full"
-          onClick={() => mutate({ packingListId: id, suggestions })}
+          onClick={() => mutate(suggestions)}
         >
           {isPending ? 'Adding...' : 'Add Suggestions'}
         </button>

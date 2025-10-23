@@ -3,7 +3,10 @@ import ItemContainer from '../../containers/ItemContainer';
 import ItemForm from '../forms/ItemForm';
 import Progress from '../feedback/Progress';
 import { ICategory } from '../../models/CategoryModel';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import {
+  EllipsisVerticalIcon,
+  PencilSquareIcon,
+} from '@heroicons/react/24/outline';
 
 interface Props {
   _id: string;
@@ -46,7 +49,7 @@ export default function CategoryCard({
 
   return (
     <div className="card bg-base-200 shadow-sm w-full mx-auto">
-      {/* HEADER */}
+      {/* Row 1 */}
       <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         {/* Drag handle area */}
         <div
@@ -69,7 +72,7 @@ export default function CategoryCard({
             />
           </svg>
         </div>
-        <div className="w-10/12 flex justify-between items-center">
+        <div className="w-9/12 flex justify-between items-center">
           {/* Category name (inline edit) */}
           <div className="flex w-5/12">
             {editing ? (
@@ -97,61 +100,68 @@ export default function CategoryCard({
               </div>
             )}
           </div>
+        </div>
+        <div className="w-1/12 flex justify-center items-center">
+          {/* Toggle button (only this toggles open/close) */}
+          <button
+            aria-expanded={open}
+            aria-controls={`cat-${_id}-content`}
+            onClick={() => setOpen((o) => !o)}
+            className="btn btn-square btn-ghost btn-sm"
+            title={open ? 'Collapse' : 'Expand'}
+          >
+            {/* chevron svg rotating */}
+            <svg
+              className={`w-5 h-5 transition-transform ${open ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
 
+      {/* Row 2 */}
+      <div className="px-4 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div className="w-1/12 flex justify-center items-center" />
+        <div className="w-9/12 flex justify-between items-center">
           {/* Desktop progress bar */}
-          <div className="hidden sm:block w-4/12">
+          <div className="hidden sm:block w-full">
             {/* Replace with your Progress component */}
             <Progress value={progress} />
           </div>
+        </div>
 
-          {/* Actions dropdown — IMPORTANT: it must not toggle the card */}
-          <div className="w-2/12 flex justify-end">
-            <div
-              className="dropdown dropdown-end"
-              // defensive: make sure opening the dropdown doesn't toggle the card
-              onClick={(e) => e.stopPropagation()}
-            >
-              <label tabIndex={0} className="btn btn-square btn-ghost btn-sm">
-                ⋮
-              </label>
-              <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-44">
-                <li>
-                  <button onClick={onMarkAllPacked}>Mark all packed</button>
-                </li>
-                <li>
-                  <button onClick={onMarkAllUnpacked}>Mark all unpacked</button>
-                </li>
-                <li>
-                  <button className="text-error" onClick={onDelete}>
-                    Delete category
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Toggle button (only this toggles open/close) */}
-            <button
-              aria-expanded={open}
-              aria-controls={`cat-${_id}-content`}
-              onClick={() => setOpen((o) => !o)}
-              className="btn btn-square btn-ghost btn-sm"
-              title={open ? 'Collapse' : 'Expand'}
-            >
-              {/* chevron svg rotating */}
-              <svg
-                className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+        {/* Actions dropdown — IMPORTANT: it must not toggle the card */}
+        <div className="w-1/12 flex justify-center items-center">
+          <div
+            className="dropdown dropdown-top dropdown-end"
+            // defensive: make sure opening the dropdown doesn't toggle the card
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="btn btn-square btn-ghost btn-sm">
+              <EllipsisVerticalIcon className="w-5 h-5" />
             </button>
+            <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-44">
+              <li>
+                <button onClick={onMarkAllPacked}>Mark all packed</button>
+              </li>
+              <li>
+                <button onClick={onMarkAllUnpacked}>Mark all unpacked</button>
+              </li>
+              <li>
+                <button className="text-error" onClick={onDelete}>
+                  Delete category
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
