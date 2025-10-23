@@ -1,5 +1,4 @@
 import { GoogleGenAI } from '@google/genai';
-import parseGeminiResponse from '../utils/parseGeminiResponse.js';
 
 export const createAIService = () => {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -12,7 +11,8 @@ export const generateSuggestions = async (ai, prompt) => {
     model: 'gemini-2.5-flash',
     contents: prompt,
   });
-  const raw = response.text;
-  const JSON = parseGeminiResponse(raw);
-  return JSON;
+  let text = response.text;
+  text = text.replace(/```json|```/g, ''); // cleanup
+  const json = JSON.parse(text);
+  return json;
 };
