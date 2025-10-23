@@ -3,7 +3,10 @@ GoPack! is a MERN stack trip planning app that will help you create, organize, a
 
 ## 🚀 Live Demo
 [Try it here](https://gopack-client.onrender.com)
-https://github.com/user-attachments/assets/eb8faf16-3a52-4e3b-b54d-47f43f10cb8d
+
+## 📺 Video Demo
+[GoPack GIF](https://github.com/user-attachments/assets/4c11dee1-b86d-401b-b6e8-3f90c2b3090e)
+[Long Form Video](https://github.com/user-attachments/assets/eb8faf16-3a52-4e3b-b54d-47f43f10cb8d)
 
 ## ✨ Features
 - AI generated suggestions (Tailored to each trip)
