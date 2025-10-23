@@ -11,7 +11,17 @@ import {
 
 export const insertMockItem = async (overrides = {}) => {
   const item = createMockItem(overrides);
-  return await Item.insertOne(item);
+  const insertedItem = await Item.insertOne(item);
+
+  // If items belong to a category, push them to category.items
+  if (overrides.category) {
+    await Category.updateOne(
+      { _id: overrides.category },
+      { $push: { items: insertedItem._id } },
+    );
+  }
+
+  return insertedItem;
 };
 
 export const insertMockItems = async (count = 3, overrides = {}) => {
@@ -19,12 +29,32 @@ export const insertMockItems = async (count = 3, overrides = {}) => {
   for (let i = 0; i < count; i++) {
     items.push(createMockItem({ name: `Item ${i + 1}`, ...overrides }));
   }
-  return await Item.insertMany(items);
+  const insertedItems = await Item.insertMany(items);
+
+  // If items belong to a category, push them to category.items
+  if (overrides.category) {
+    await Category.updateOne(
+      { _id: overrides.category },
+      { $push: { items: { $each: insertedItems.map((i) => i._id) } } },
+    );
+  }
+
+  return insertedItems;
 };
 
 export const insertMockCategory = async (overrides = {}) => {
   const category = createMockCategory(overrides);
-  return await Category.insertOne(category);
+  const insertedCategory = await Category.insertOne(category);
+
+  // If items belong to a packing list, push them to packingList.categories
+  if (overrides.packingList) {
+    await PackingList.updateOne(
+      { _id: overrides.packingList },
+      { $push: { categories: insertedCategory._id } },
+    );
+  }
+
+  return insertedCategory;
 };
 
 export const insertMockCategories = async (count = 3, overrides = {}) => {
@@ -34,7 +64,19 @@ export const insertMockCategories = async (count = 3, overrides = {}) => {
       createMockCategory({ name: `Category ${i + 1}`, ...overrides }),
     );
   }
-  return await Category.insertMany(categories);
+  const insertedCategories = await Category.insertMany(categories);
+
+  // If items belong to a packing list, push them to packingList.categories
+  if (overrides.packingList) {
+    await PackingList.updateOne(
+      { _id: overrides.packingList },
+      {
+        $push: { categories: { $each: insertedCategories.map((c) => c._id) } },
+      },
+    );
+  }
+
+  return insertedCategories;
 };
 
 export const insertMockPackingList = async (overrides = {}) => {
