@@ -3,6 +3,7 @@ GoPack! is a MERN stack trip planning app that will help you create, organize, a
 
 ## 🚀 Live Demo
 [Try it here](https://gopack-client.onrender.com)
+https://github.com/user-attachments/assets/eb8faf16-3a52-4e3b-b54d-47f43f10cb8d
 
 ## ✨ Features
 - AI generated suggestions (Tailored to each trip)
@@ -17,9 +18,6 @@ React, Node.js, Express, MongoDB, React Query, Jest, Playwright, GitHub Actions
 ## 📸 Screenshots
 <img width="907" height="419" alt="PublicHome" src="https://github.com/user-attachments/assets/ab78f88a-4bb4-4055-8166-26803f861478" />
 <img width="905" height="424" alt="PrivateHome" src="https://github.com/user-attachments/assets/299e8c30-6a88-4a3c-9976-73f5ee682017" />
-
-
-
 
 ## 🏃 Getting Started
 ### Local Setup
