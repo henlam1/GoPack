@@ -5,7 +5,7 @@ GoPack! is a MERN stack trip planning app that will help you create, organize, a
 [Try it here](https://gopack-client.onrender.com)
 
 ## 📺 Video Demo
-<video src="https://github.com/user-attachments/assets/eb8faf16-3a52-4e3b-b54d-47f43f10cb8d" width="900" height="420"/>
+(<video width="900" height="420" alt="VideoDemo" src="https://github.com/user-attachments/assets/eb8faf16-3a52-4e3b-b54d-47f43f10cb8d" />)
 
 ## ✨ Features
 - AI generated suggestions (Tailored to each trip)
@@ -18,8 +18,9 @@ GoPack! is a MERN stack trip planning app that will help you create, organize, a
 React, Node.js, Express, MongoDB, React Query, Jest, Playwright, GitHub Actions
 
 ## 📸 Screenshots
-<img width="907" height="419" alt="PublicHome" src="https://github.com/user-attachments/assets/ab78f88a-4bb4-4055-8166-26803f861478" />
-<img width="905" height="424" alt="PrivateHome" src="https://github.com/user-attachments/assets/299e8c30-6a88-4a3c-9976-73f5ee682017" />
+<img width="900" height="420" alt="PublicHome" src="https://github.com/user-attachments/assets/ab78f88a-4bb4-4055-8166-26803f861478" />
+<img width="900" height="420" alt="PrivateHome" src="https://github.com/user-attachments/assets/299e8c30-6a88-4a3c-9976-73f5ee682017" />
+<img width="900" height="420" alt="DetailsPage" src="https://github.com/user-attachments/assets/b01fdaa5-7c7c-4188-9f6e-376e25526cd9" />
 
 ## 🏃 Getting Started
 ### Local Setup
