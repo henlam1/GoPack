@@ -1,3 +1,4 @@
+// app.js
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -12,42 +13,48 @@ const { isProd, isDev, isTest } = getEnv();
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS
+// Configure allowed origins via env (comma-separated) or fallback per env
+const envOrigins =
+  process.env.ALLOWED_ORIGINS ||
+  (isProd ? 'https://gopack-client.onrender.com' : 'http://localhost:5173');
+
+const allowedOrigins = envOrigins.split(',').map((s) => s.trim());
+
 app.use(
   cors({
-    origin: isProd
-      ? ['https://gopack-client.onrender.com']
-      : ['http://localhost:5173'], // Can be an array
-    credentials: true, // Critical for cookies
+    origin: (origin, callback) => {
+      // allow tools like curl or server-to-server (no origin)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin))
+        return callback(null, true);
+      return callback(new Error('CORS blocked by policy'), false);
+    },
+    credentials: true,
     methods: ['GET', 'PATCH', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 );
 
-// Environment-specific logic
+// Environment-specific logging / settings
 if (isProd) {
   app.use((req, res, next) => {
     console.log(`PROD MODE: ${req.method} ${req.url}`);
     next();
   });
-  app.set('trust proxy', 1); // Trust the first hop in production server
-}
-
-if (isDev) {
+  app.set('trust proxy', 1);
+} else if (isDev) {
   app.use((req, res, next) => {
     console.log(`DEV MODE: ${req.method} ${req.url}`);
     next();
   });
-}
-
-if (isTest) {
+} else if (isTest) {
   app.use((req, res, next) => {
-    console.log(`TEST MODE: ${req.method} ${req.url}`);
+    // minimal noisy logs in tests
     next();
   });
 }
 
-// Routes
+// Routes and error handler
 app.use('/api', routes);
 app.use(errorHandler);
 

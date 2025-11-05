@@ -16,10 +16,17 @@ if (isTest) {
   await connectDB();
 }
 
-// start the Express server
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+// Start server only if not running in Lambda environment
+const isLambda = Boolean(
+  process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT,
+);
+if (!isLambda) {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(
+      `Server listening on port ${PORT} (env=${process.env.NODE_ENV || 'development'})`,
+    );
+  });
+}
 
 export default app;

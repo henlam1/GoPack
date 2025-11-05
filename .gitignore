@@ -25,3 +25,6 @@ dist-ssr
 
 # API keys
 .env
+
+# Artifacts
+lambda-deploy.zip
