@@ -16,7 +16,10 @@ app.use(cookieParser());
 // Configure allowed origins via env (comma-separated) or fallback per env
 const envOrigins =
   process.env.ALLOWED_ORIGINS ||
-  (isProd ? 'https://gopack-client.onrender.com' : 'http://localhost:5173');
+  // (isProd ? 'https://gopack-client.onrender.com' : 'http://localhost:5173');
+  (isProd
+    ? 'http://gopack-frontend.s3-website-us-east-1.amazonaws.com/'
+    : 'http://localhost:5173');
 
 const allowedOrigins = envOrigins.split(',').map((s) => s.trim());
 
