@@ -13,15 +13,11 @@ const { isProd, isDev, isTest } = getEnv();
 app.use(express.json());
 app.use(cookieParser());
 
-// Configure allowed origins via env (comma-separated) or fallback per env
-const envOrigins =
-  process.env.ALLOWED_ORIGINS ||
-  // (isProd ? 'https://gopack-client.onrender.com' : 'http://localhost:5173');
-  (isProd
-    ? 'http://gopack-frontend.s3-website-us-east-1.amazonaws.com/'
-    : 'http://localhost:5173');
-
-const allowedOrigins = envOrigins.split(',').map((s) => s.trim());
+// Configure allowed origins
+const allowedOrigins = [
+  'http://gopack-frontend.s3-website-us-east-1.amazonaws.com',
+  'http://localhost:5173',
+];
 
 app.use(
   cors({
@@ -37,6 +33,18 @@ app.use(
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 );
+
+// Ensure Express responds to preflight
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header(
+    'Access-Control-Allow-Methods',
+    'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+  );
+  return res.sendStatus(204);
+});
 
 // Environment-specific logging / settings
 if (isProd) {
