@@ -7,13 +7,16 @@ import { startMemoryDb } from './test-utils/memoryDb.js';
 
 const { isTest } = getEnv();
 
-// Connect to DB
-if (isTest) {
-  // Mongo memory db
-  await startMemoryDb();
-} else {
-  // Connect to Mongo Atlas
-  await connectDB();
+// Connect to MongoDB if we're not testing
+try {
+  if (isTest) {
+    await startMemoryDb();
+  } else {
+    await connectDB();
+  }
+} catch (err) {
+  console.error('DB connection failed:', err);
+  throw err; // ensure Lambda still fails, now logs show in CloudWatch
 }
 
 // Start server only if not running in Lambda environment
