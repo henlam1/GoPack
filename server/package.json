@@ -14,9 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@codegenie/serverless-express": "^4.17.0",
     "@google/genai": "^1.22.0",
-    "@vendia/serverless-express": "^4.12.6",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "cross-env": "^10.0.0",

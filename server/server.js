@@ -12,7 +12,9 @@ try {
   if (isTest) {
     await startMemoryDb();
   } else {
+    console.log('connecting to mongodb');
     await connectDB();
+    console.log('connected to mongodb');
   }
 } catch (err) {
   console.error('DB connection failed:', err);

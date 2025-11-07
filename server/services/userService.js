@@ -1,6 +1,6 @@
 import { NotFoundError } from '../middleware/errors/errorClasses.js';
 import User from '../models/userModel.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import packingListService from './packingListService.js';
 
 class UserService {

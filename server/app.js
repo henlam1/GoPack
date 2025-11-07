@@ -19,32 +19,42 @@ const allowedOrigins = [
   'http://localhost:5173',
 ];
 
+// Strip deployment basePath
+// strip a deployment basePath added by API Gateway (e.g. /gopack-backend)
+app.use((req, res, next) => {
+  const prefix = '/gopack-backend';
+  if (req.url.startsWith(prefix)) {
+    req.url = req.url.slice(prefix.length) || '/';
+  }
+  return next();
+});
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      // allow tools like curl or server-to-server (no origin)
+      // allow non-browser tools / same-origin where origin is undefined
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin))
-        return callback(null, true);
-      return callback(new Error('CORS blocked by policy'), false);
+      if (allowedOrigins.includes(origin)) return callback(null, origin);
+      return callback(new Error('Not allowed by CORS'), false);
     },
     credentials: true,
-    methods: ['GET', 'PATCH', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'PATCH', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 );
 
-// Ensure Express responds to preflight
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header(
-    'Access-Control-Allow-Methods',
-    'GET,POST,PUT,PATCH,DELETE,OPTIONS',
-  );
-  return res.sendStatus(204);
-});
+// Debug options
+// app.options('*', (req, res) => {
+//   console.log('OPTIONS origin:', req.headers.origin);
+//   res.header('Access-Control-Allow-Origin', req.headers.origin || '');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+//   return res.sendStatus(204);
+// });
+
+// use built-in handler for OPTIONS
+app.options('*', cors());
 
 // Environment-specific logging / settings
 if (isProd) {

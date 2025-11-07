@@ -1,5 +1,11 @@
 // lambda.js
-import serverlessExpress from '@vendia/serverless-express';
-import app from './app.js';
+import serverlessExpress from '@codegenie/serverless-express';
+import { app, ensureDBConnection } from './lambdaServer.js';
 
-export const handler = serverlessExpress({ app });
+export const handler = async (event, context) => {
+  // Ensure DB connection before handling request
+  await ensureDBConnection();
+
+  // Handle the request via serverlessExpress
+  return serverlessExpress({ app })(event, context);
+};
